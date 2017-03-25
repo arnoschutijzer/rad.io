@@ -2,8 +2,9 @@
   "name": "rad.io-backend",
   "version": "0.0.1",
   "description": "websockets + react radio",
-  "main": "src/server.js",
+  "main": "./src/server.js",
   "scripts": {
+    "start": "node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
