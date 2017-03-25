@@ -1,0 +1,47 @@
+{
+  "name": "rad.io-frontend",
+  "version": "0.0.1",
+  "description": "websockets + react radio",
+  "main": "index.js",
+  "scripts": {
+    "bundle": "webpack --config webpack.config.js --bail --progress",
+    "dev": "npm run clean:dist && export NODE_ENV=development && webpack-dev-server --config webpack.config.js --progress",
+    "prod": "npm run clean:dist && export NODE_ENV=production && npm run bundle",
+    "clean:dist": "rm -rf dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arnoschutijzer/rad.io.git"
+  },
+  "author": "Arno Schutijzer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arnoschutijzer/rad.io/issues"
+  },
+  "homepage": "https://github.com/arnoschutijzer/rad.io#readme",
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-router-dom": "^4.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.24.0",
+    "babel-loader": "^6.4.1",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.0",
+    "babel-preset-react": "^6.23.0",
+    "browser-sync": "^2.18.8",
+    "browser-sync-webpack-plugin": "^1.1.4",
+    "css-loader": "^0.27.3",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.28.0",
+    "node-sass": "^4.5.0",
+    "path": "^0.12.7",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.0",
+    "webpack": "^2.2.1",
+    "webpack-dashboard": "^0.3.0",
+    "webpack-dev-server": "^2.4.2"
+  }
+}

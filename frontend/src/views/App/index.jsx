@@ -5,7 +5,7 @@ import {
   Link
 } from 'react-router-dom';
 
-import { Home } from './';
+import { Home } from '../';
 
 export default class App extends Component {
 

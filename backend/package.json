@@ -1,13 +1,16 @@
 {
-  "name": "rad.io",
+  "name": "rad.io-backend",
+  "version": "0.0.1",
+  "description": "websockets + react radio",
+  "main": "src/server.js",
   "scripts": {
-    "install": "cd frontend && yarn && cd ../backend && yarn"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/arnoschutijzer/rad.io.git"
   },
-  "author": "",
+  "author": "Arno Schutijzer",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/arnoschutijzer/rad.io/issues"
