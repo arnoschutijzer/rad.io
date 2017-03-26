@@ -2,6 +2,7 @@ const SRC = './src';
 const path = require('path');
 // Import build plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
 const env = process.env;
