@@ -1,0 +1,11 @@
+@import '../../styles/vars';
+
+.navbar {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+  position: fixed;
+  background-color: $default-bg-color;
+  padding: 20px;
+}

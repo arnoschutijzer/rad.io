@@ -30,6 +30,24 @@ let defaultConfig = {
         }
       }]
     }, {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+            'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+            {
+              loader: 'image-webpack-loader',
+              query: {
+                imagemin: {
+                  bypassOnDebug: true,
+                  optimizationLevel: 1,
+                  interlaced: false
+                }
+              }
+            }
+        ]
+    }, {
+      test: /\.(eot|woff|woff2|ttf|otf|svg)$/,
+      loader: 'url-loader?limit=30000&name=[name]-[hash].[ext]',
+    }, {
       test: /\.scss$/,
       exclude: /node_modules/,
       use: [{
@@ -49,6 +67,10 @@ let defaultConfig = {
   },
 
   resolve: {
+    alias: {
+      assets: path.join(__dirname, SRC, 'assets'),
+      root: path.join(__dirname, SRC)
+    },
     extensions: [".js", ".jsx"]
   }
 };

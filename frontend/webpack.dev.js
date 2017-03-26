@@ -11,6 +11,7 @@ const dashboard = new Dashboard({
 // Import build plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncWebpackPlugin = require('browser-sync-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -31,6 +32,10 @@ module.exports = {
       port: PORT,
       proxy: 'http://localhost:8080'
     }),
+    new CopyWebpackPlugin([ {
+      from: path.join(__dirname, SRC, '/assets/fonts'),
+      to: path.join(__dirname, DIST, '/assets/fonts')
+    }]),
     new DashboardPlugin(dashboard.setData)
   ]
 };

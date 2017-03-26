@@ -4,15 +4,15 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-
 import { Home } from '../';
+import './style.scss';
 
 export default class App extends Component {
 
   render() {
     return (
       <Router>
-        <div>
+        <div className="app">
           <div className="navbar">
             <Link to="/">Home</Link>
             <Link to="/about">About</Link>
