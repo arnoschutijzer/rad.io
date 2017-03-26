@@ -1,5 +1,4 @@
 const express = require('express');
-const pkg = require('../package.json');
 const server = express();
 const port = '8080';
 
