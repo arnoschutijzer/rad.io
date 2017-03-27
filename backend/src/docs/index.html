@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RAD.IO API docs</title>
+    <style>
+    html, body {
+      font-family: "Monaco", "Consolas", "Courier New";
+      max-height: 100%;
+      max-width: 100%;
+    }
+
+    h2 {
+      font-size: 2.2em;
+    }
+
+    h3 {
+      font-size: 1.8em;
+    }
+
+    .header {
+      height: 50%;
+      width: 100%;
+
+      display: flex;
+      justify-content: center;
+    }
+    .header-text {
+      padding-top: 20vh;
+      font-size: 2.5em;
+    }
+    .body {
+      padding-top: 10vh;
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-bottom: 100vh;
+    }
+
+    .func {
+      background-color: #E1F5FE;
+      padding-left: 10px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      margin-top: 40px;
+    }
+
+    .endpoint {
+      padding-bottom: 40px;
+      padding-top: 40px;
+      padding-left: 40px;
+      border-bottom: 1px solid black;
+    }
+    .method {
+      color: green;
+    }
+    .method-body {
+      white-space: pre;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <div class="header-text">
+        <h1>rad.io api docs</h1>
+      </div>
+    </div>
+    <div class="body">
+      <div>
+        <div class="func">
+          <h2 id="authenticating" href="authenticating"># authenticating</h2>
+
+          <div class="endpoint">
+            <h3>/register</h3>
+            <p class="method">POST (json/application)</p>
+            <div class="specs">
+              <p class="method-body">
+{
+  "username": "a_username",
+  "email": "an_em@il.com",
+  "password": "a_password"
+}
+              </p>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div class="returns">
+              200: all good
+              <p class="method-body">{
+  "success": true,
+  "message": "Registered!"
+}<p>
+            </div>
+            <div class="returns">
+              409: conflict
+              <p class="method-body">{
+  "success": false,
+  "message": "This e-mail is already registered!"
+}</p>
+            </div>
+          </div>
+
+
+
+          <div class="endpoint">
+            <h3>/login</h3>
+            <p class="method">POST (json/application)</p>
+            <div class="specs">
+              <p class="method-body">
+{
+  "email": "an_em@il.com",
+  "password": "a_password"
+}
+              </p>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div class="returns">
+              200: all good
+              <p class="method-body">{
+  "success": true,
+  "token": "JWT {token}",
+  "user": {
+    "_id": "{id}",
+    "email": "an_em@il.com",
+    "__v": 0
+  }
+}<p>
+            </div>
+            <div class="returns">
+              401: unauthorized
+              <p class="method-body">{
+  "success": false,
+  "message": "Incorrect username/password."
+}</p>
+            </div>
+          </div>
+
+
+
+          <div class="endpoint">
+            <h3>/checkToken</h3>
+            <p class="method">POST (json/application)</p>
+            <div class="specs">
+              <p class="method-body">
+HEADERS: { Authorization: "JWT {token}" }
+              </p>
+            </div>
+            <br />
+            <br />
+            <br />
+
+            <div class="returns">
+              200: all good
+              <p class="method-body">{
+  "success": true
+}<p>
+            </div>
+            <div class="returns">
+              401: unauthorized
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="func" id="links">
+          <h2># Links</h2>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
