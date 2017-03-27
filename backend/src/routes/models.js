@@ -1,5 +1,4 @@
-const express = require('express');
-const modelRouter = express.Router();
+const modelRouter = require('express').Router();
 
 const userModel = require('../models/user').schema.obj;
 const linkModel = require('../models/link').schema.obj;
