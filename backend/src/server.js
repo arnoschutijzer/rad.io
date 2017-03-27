@@ -14,7 +14,6 @@ server.use(bodyparser.urlencoded({ extended: false }));
 server.use(cors());
 server.use(routes.util);
 server.use(routes.auth);
-server.use(routes.models);
 server.use(routes.docs);
 
 auth(passport);
