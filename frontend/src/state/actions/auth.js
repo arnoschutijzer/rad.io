@@ -1,14 +1,7 @@
-import { LOGIN } from '../constants/auth';
-import { BASE } from '../../config/config';
+export const LOGIN = 'LOGIN';
+export const LOGIN_REQUEST = 'LOGIN/REQUEST';
+export const LOGIN_RESPONSE = 'LOGIN/RESPONSE';
 
-export const login = (email, password) => ({
-  type: LOGIN,
-  api: {
-    url: BASE + '/login',
-    method: 'POST',
-    data: {
-      email,
-      password
-    }
-  }
-});
+export const REGISTER = 'REGISTER';
+export const REGISTER_REQUEST = 'REGISTER_FETCH';
+export const REGISTER_RESPONSE = 'REGISTER_RESPONSE';

@@ -1,7 +1,7 @@
 import {
   LOGIN_REQUEST, LOGIN_RESPONSE,
   REGISTER_REQUEST
-} from '../constants/auth';
+} from '../actions/auth';
 
 const initialState = {
   loading: false
