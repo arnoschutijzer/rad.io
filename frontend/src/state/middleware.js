@@ -1,5 +1,6 @@
 // Kudos to A.B. for this code. :+1:
 import { isObject } from 'underscore';
+import request from 'axios';
 
 // TODO(arno): use a different library than native fetch API, it's not as great as it looks
 // Error handling can be done a lot better
@@ -9,20 +10,11 @@ const apiMiddleware = store => next => action => {
   }
 
   dispatch('REQUEST', {request: action.api});
-  return fetch(action.api.url, action.api.options)
+  request(action.api)
     .then(response => {
-      // Check if the response is ok, fetch won't reject in case of 4xx/5xx
-      if (response.ok) {
-        response.json().then(res => {
-          dispatch('RESPONSE', {response: res});
-        });
-      } else {
-        response.json().then(res => {
-          dispatch('RESPONSE', {error: res});
-        });
-      }
+      dispatch('RESPONSE', {payload: response.data});
     }).catch(error => {
-      // Couldn't get a response from the backend...
+      dispatch('ERROR', {error: error.response.data});
     });
 
   function dispatch(subtype = '', opts = {}) {

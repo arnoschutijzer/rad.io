@@ -1,46 +1,27 @@
 import React, { Component } from 'react';
 import {
   HashRouter as Router,
+  NavLink,
+  Redirect,
   Route,
-  Link
+  Switch
 } from 'react-router-dom';
 import { Home, Auth } from '../';
 import './style.scss';
 
 export default class App extends Component {
-
   render() {
-    const Links = [];
-    const Routes = [];
-
-    if (this.props.state.auth.auth === true) {
-      Links.push((<Link to='/' key='homeLink'>Home</Link>));
-      Links.push((<p key='logged'>Logged in</p>));
-
-      Routes.push((<Route exact path='/' component={ Home } key='homePath'/>));
-      Routes.push((<Route path='/about' component={ Auth } key='aboutPath'/>));
-    } else {
-      Links.push((<Link to='/' key='homeLink'>Home</Link>));
-      Links.push((<Link to='/about' key='aboutLink'>Authenticate</Link>));
-
-      Routes.push((<Route exact path='/' component={ Home } key='homePath'/>));
-      Routes.push((<Route path='/about' component={ Auth } key='aboutPath'/>));
-    }
-
-    const Navbar = (
-      <div className='navbar'>
-        { Links }
-      </div>
-    );
+    // authenticated?
+    const {Navbar, View} =
+      this.props.auth.token ?
+        buildRouting(this.props.auth.user) : defaultRouting();
 
     const App = (
       <Router>
         <div className='app'>
           { Navbar }
 
-          <div className='view'>
-            { Routes }
-          </div>
+          { View }
 
           { this.props.children }
         </div>
@@ -49,4 +30,52 @@ export default class App extends Component {
 
     return App;
   }
+}
+
+/** Helper functions **/
+function buildRouting(user) {
+  const Navbar = (
+    <div className='navbar'>
+      <NavLink exact to='/'>Home</NavLink>
+      <NavLink exact to='/radio'>Radio</NavLink>
+      <NavLink exact to='/account'>Account</NavLink>
+    </div>
+  );
+
+  const View = (
+    <div className='view'>
+      <Switch>
+        <Route exact path='/' component={ Home } />
+        <Route exact path='/radio' />
+        <Route exact path='/account' />
+        <Route render={ () => (<Redirect to='/'/>) } />
+      </Switch>
+    </div>
+  );
+
+  return {Navbar, View};
+}
+
+function defaultRouting() {
+  const Navbar = (
+    <div className='navbar'>
+      <NavLink exact to='/'>Home</NavLink>
+      <NavLink exact to='/auth'>Authenticate</NavLink>
+    </div>
+  );
+
+  const View = (
+    <div className='view'>
+      <Switch>
+        <Route exact path='/' component={ Home } />
+        <Route exact path='/auth' component={ Auth } />
+        <Route render={ () => (<Redirect to='/'/>) } />
+      </Switch>
+    </div>
+  );
+
+  return {Navbar, View};
+}
+
+function isAuthed(auth) {
 }

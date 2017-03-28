@@ -1,15 +1,24 @@
 @import '../../styles/vars';
 
 .navbar {
+  max-height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-around;
 
   position: fixed;
   background-color: $default-bg-color;
-  padding: 20px;
+
+  &> a {
+    padding: 25px;
+  }
 }
 
 .view {
-  padding-top: 60px;
+  padding-top: 70px;
+}
+
+a.active {
+  font-weight: bold;
+  border-bottom: $accent-color solid 5px;
 }

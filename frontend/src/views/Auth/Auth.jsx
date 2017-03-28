@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Auth extends Component {
   login() {
-    this.props.login('em@il.me', 'password');
+    this.props.login('test@test.be', 'test');
   }
 
   render() {
