@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import App from './App';
 import { login } from '../../state/actions/auth';
+import Auth from './Auth';
 
 const mapStateToProps = (state) => {
   return {
-    state: state
+    state
   };
 };
 
@@ -15,4 +15,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(App);
+)(Auth);

@@ -1,0 +1,7 @@
+export const LOGIN = 'LOGIN';
+export const LOGIN_REQUEST = 'LOGIN/REQUEST';
+export const LOGIN_RESPONSE = 'LOGIN/RESPONSE';
+
+export const REGISTER = 'REGISTER';
+export const REGISTER_REQUEST = 'REGISTER_FETCH';
+export const REGISTER_RESPONSE = 'REGISTER_RESPONSE';
