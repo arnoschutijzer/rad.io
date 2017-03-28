@@ -76,6 +76,3 @@ function defaultRouting() {
 
   return {Navbar, View};
 }
-
-function isAuthed(auth) {
-}
