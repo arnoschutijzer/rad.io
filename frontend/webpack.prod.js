@@ -1,4 +1,5 @@
 const SRC = './src';
+const DIST = './dist';
 const path = require('path');
 // Import build plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -23,7 +24,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       mangle: true
     }),
-    new CopyWebpackPlugin([ {
+    new CopyWebpackPlugin([{
       from: path.join(__dirname, SRC, '/assets/fonts'),
       to: path.join(__dirname, DIST, '/assets/fonts')
     }])
