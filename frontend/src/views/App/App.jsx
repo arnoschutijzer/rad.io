@@ -11,10 +11,9 @@ import './style.scss';
 
 export default class App extends Component {
   render() {
-    // authenticated?
     const {Navbar, View} =
       this.props.auth.token ?
-        buildRouting(this.props.auth.user) : defaultRouting();
+        authenticatedRouting() : defaultRouting();
 
     const App = (
       <Router>
@@ -33,7 +32,7 @@ export default class App extends Component {
 }
 
 /** Helper functions **/
-function buildRouting(user) {
+function authenticatedRouting() {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/'>Home</NavLink>
