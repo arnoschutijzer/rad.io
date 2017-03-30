@@ -1,20 +1,23 @@
 // Kudos to A.B. for this code. :+1:
 import { isObject } from 'underscore';
 import request from 'axios';
+import { UNAUTHORIZED } from '../actions/auth';
 
-// TODO(arno): use a different library than native fetch API, it's not as great as it looks
-// Error handling can be done a lot better
 const apiMiddleware = store => next => action => {
   if (!isObject(action.api)) {
     return next(action);
   }
 
   dispatch('REQUEST', {request: action.api});
-  request(action.api)
+  return request(action.api)
     .then(response => {
       dispatch('RESPONSE', {payload: response.data});
     }).catch(error => {
-      dispatch('ERROR', {error: error.response.data});
+      console.log(error.response);
+      if (error.response.status === 401) {
+        dispatchUnauthorized();
+      }
+      dispatch('ERROR', {error: error.response});
     });
 
   function dispatch(subtype = '', opts = {}) {
@@ -24,6 +27,12 @@ const apiMiddleware = store => next => action => {
       type: `${type}/${subtype}`,
       api: null
     }, opts));
+  }
+
+  function dispatchUnauthorized() {
+    store.dispatch({
+      type: UNAUTHORIZED
+    });
   }
 };
 

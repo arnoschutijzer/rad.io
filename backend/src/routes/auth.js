@@ -1,14 +1,14 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const authRouter = require('express').Router();
-const db = require('../models/user');
+const User = require('../models/user');
 const settings = require('../config/settings');
 
 authRouter.post('/register', (req, res) => {
   if (!req.body.email || !req.body.password) {
-    res.status(409).json({ success: false, message: 'ENOCRED' });
+    res.status(409).json({success: false, message: 'ENOCRED'});
   } else {
-    const user = new db({
+    const user = new User({
       username: req.body.username,
       email: req.body.email,
       password: req.body.password
@@ -16,17 +16,18 @@ authRouter.post('/register', (req, res) => {
 
     user.save((err, user) => {
       if (err) {
-        return res.status(409)
-          .json({ success: false, message: 'This e-mail is already registered!' });
+        return res.status(409).json(
+          {success: false, message: 'This e-mail is already registered!'}
+        );
       }
 
-      res.json({ success: true, message: 'Registered!' });
+      res.json({success: true, message: 'Registered!'});
     });
   }
 });
 
 authRouter.post('/login', (req, res) => {
-  db.findOne({
+  User.findOne({
     email: req.body.email
   }, (err, user) => {
 
@@ -35,11 +36,11 @@ authRouter.post('/login', (req, res) => {
     }
 
     if (!user) {
-      res.status(404).json({ success: false, message: 'No user found.' });
+      res.status(404).json({success: false, message: 'No user found.'});
     } else {
       user.comparePassword(req.body.password, (err, valid) => {
         if (err) {
-          res.status(401).json({ success: false, message: err });
+          res.status(401).json({success: false, message: err});
         }
 
         if (valid) {
@@ -48,16 +49,24 @@ authRouter.post('/login', (req, res) => {
           });
 
           res.status(200)
-            .json({ success: true, token: 'JWT ' + token, user });
+            .json({success: true, token: 'JWT ' + token, user});
         }
       });
     }
   });
 });
 
-authRouter.post('/checkToken', passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.status(200).json({ success: true });
+authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
+ (req, res) => {
+  User.findOne({
+    _id: req.user._id
+  }, (err, user) => {
+
+    if (err) {
+      res.status(409).json({success: false, message: err});
+    }
+    res.status(200).json({success: true, user});
   });
+});
 
 module.exports = authRouter;

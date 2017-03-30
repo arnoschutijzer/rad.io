@@ -1,8 +1,14 @@
 import { createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
-import middleware from './middleware';
+import { apiMiddleware } from './middleware';
+import { hydrateAuthState } from './actionCreators/auth';
 import reducers from './reducers';
+
+const token = localStorage.getItem('rad.io-token');
 
 export const store = createStore(
   reducers,
-  applyMiddleware(createLogger(), middleware));
+  {auth: {token}},
+  applyMiddleware(createLogger(), apiMiddleware));
+
+store.dispatch(hydrateAuthState(token));
