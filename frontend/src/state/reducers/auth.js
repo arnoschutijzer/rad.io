@@ -33,7 +33,6 @@ export default (state = initialState, action) => {
   }
 
   if (action.type === CHECK_TOKEN_ERROR || action.type === UNAUTHORIZED) {
-    console.log('hi');
     localStorage.setItem('rad.io-token', undefined);
     return initialState;
   }
