@@ -1,14 +1,26 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { createLogger } from 'redux-logger';
+import persistState from 'redux-localstorage';
+import thunk from 'redux-thunk';
 import { apiMiddleware } from './middleware';
-import { hydrateAuthState } from './actionCreators/auth';
+import { validateToken } from './actionCreators/auth';
 import reducers from './reducers';
 
-const token = localStorage.getItem('rad.io-token');
+const enhancer = compose(
+  applyMiddleware(
+    apiMiddleware,
+    thunk,
+    createLogger()
+  ),
+  persistState('auth', {
+    key: 'rad.io-state-auth'
+  })
+);
 
 export const store = createStore(
   reducers,
-  {auth: {token}},
-  applyMiddleware(createLogger(), apiMiddleware));
+  enhancer
+);
 
-store.dispatch(hydrateAuthState(token));
+// We instantly validate the token.
+store.dispatch(validateToken());

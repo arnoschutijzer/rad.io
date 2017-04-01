@@ -1,7 +1,7 @@
 import {
   LOGIN_REQUEST, LOGIN_RESPONSE,
   REGISTER_REQUEST,
-  CHECK_TOKEN_RESPONSE, CHECK_TOKEN_ERROR,
+  FETCH_PROFILE_RESPONSE, FETCH_PROFILE_ERROR,
   UNAUTHORIZED
 } from '../actions/auth';
 
@@ -15,11 +15,10 @@ export default (state = initialState, action) => {
     return Object.assign({}, state, {loading: true});
   }
 
-  if (action.type === LOGIN_RESPONSE || action.type === CHECK_TOKEN_RESPONSE) {
-    const token = action.payload.token || action.alwaysPass.token;
+  if (action.type === LOGIN_RESPONSE ||
+      action.type === FETCH_PROFILE_RESPONSE) {
+    const token = action.payload.token || action.token;
     const payload = action.payload;
-
-    localStorage.setItem('rad.io-token', token);
 
     return Object.assign({}, state, {
       loading: false,
@@ -32,8 +31,7 @@ export default (state = initialState, action) => {
     // do something
   }
 
-  if (action.type === CHECK_TOKEN_ERROR || action.type === UNAUTHORIZED) {
-    localStorage.setItem('rad.io-token', undefined);
+  if (action.type === FETCH_PROFILE_ERROR || action.type === UNAUTHORIZED) {
     return initialState;
   }
 

@@ -13,7 +13,7 @@ const apiMiddleware = store => next => action => {
     .then(response => {
       dispatch('RESPONSE', {payload: response.data});
     }).catch(error => {
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401 || !error.response) {
         dispatchUnauthorized();
       } else {
         dispatch('ERROR', {error: error.response});
