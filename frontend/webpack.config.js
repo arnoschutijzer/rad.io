@@ -12,7 +12,7 @@ let defaultConfig = {
   entry: ['babel-polyfill', path.join(__dirname, SRC, 'index.jsx')],
 
   output: {
-    filename: "[name].[chunkhash].js",
+    filename: '[name].[chunkhash].js',
     path: path.join(__dirname, DIST)
   },
 
@@ -71,7 +71,7 @@ let defaultConfig = {
       assets: path.join(__dirname, SRC, 'assets'),
       root: path.join(__dirname, SRC)
     },
-    extensions: [".js", ".jsx"]
+    extensions: ['.js', '.jsx']
   }
 };
 

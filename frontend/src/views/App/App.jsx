@@ -6,7 +6,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { Home, Auth } from '../';
+import { Home, Auth, Account } from '../';
 import './style.scss';
 
 export default class App extends Component {
@@ -42,14 +42,12 @@ function authenticatedRouting() {
   );
 
   const View = (
-    <div className='view'>
-      <Switch>
-        <Route exact path='/' component={ Home } />
-        <Route exact path='/radio' />
-        <Route exact path='/account' />
-        <Route render={ () => (<Redirect to='/'/>) } />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path='/' component={ Home } />
+      <Route exact path='/radio' />
+      <Route path='/account' component={ Account } />
+      <Route render={ () => (<Redirect to='/'/>) } />
+    </Switch>
   );
 
   return {Navbar, View};
@@ -64,13 +62,11 @@ function defaultRouting() {
   );
 
   const View = (
-    <div className='view'>
-      <Switch>
-        <Route exact path='/' component={ Home } />
-        <Route exact path='/auth' component={ Auth } />
-        <Route render={ () => (<Redirect to='/'/>) } />
-      </Switch>
-    </div>
+    <Switch>
+      <Route exact path='/' component={ Home } />
+      <Route exact path='/auth' component={ Auth } />
+      <Route render={ () => (<Redirect to='/'/>) } />
+    </Switch>
   );
 
   return {Navbar, View};

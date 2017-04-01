@@ -1,5 +1,5 @@
 import {
-  LOGIN_REQUEST, LOGIN_RESPONSE,
+  LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT,
   REGISTER_REQUEST,
   FETCH_PROFILE_RESPONSE, FETCH_PROFILE_ERROR,
   UNAUTHORIZED
@@ -31,7 +31,9 @@ export default (state = initialState, action) => {
     // do something
   }
 
-  if (action.type === FETCH_PROFILE_ERROR || action.type === UNAUTHORIZED) {
+  if (action.type === FETCH_PROFILE_ERROR ||
+      action.type === UNAUTHORIZED ||
+      action.type === LOGOUT) {
     return initialState;
   }
 

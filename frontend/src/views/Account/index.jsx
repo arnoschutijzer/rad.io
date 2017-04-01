@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-import { login } from '../../state/actionCreators/auth';
-import Auth from './Auth';
+import { logout } from '../../state/actionCreators/auth';
+import Account from './Account';
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    auth: state.auth
+  };
 };
 
 const mapDispatchToProps = {
-  login
+  logout
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Auth);
+)(Account);

@@ -1,5 +1,5 @@
 import {
-  LOGIN,
+  LOGIN, LOGOUT,
   FETCH_PROFILE
 } from '../actions/auth';
 import { BASE } from '../../config/config';
@@ -14,6 +14,10 @@ export const login = (email, password) => ({
       password
     }
   }
+});
+
+export const logout = () => ({
+  type: LOGOUT
 });
 
 export const validateToken = () => {

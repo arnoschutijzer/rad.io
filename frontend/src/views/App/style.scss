@@ -7,15 +7,14 @@
   justify-content: space-around;
 
   position: fixed;
+  top: 0;
   background-color: $default-bg-color;
+
+  z-index: 1;
 
   &> a {
     padding: 25px;
   }
-}
-
-.view {
-  padding-top: 70px;
 }
 
 a.active {

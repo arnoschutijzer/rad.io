@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const LOGIN_REQUEST = 'LOGIN/REQUEST';
 export const LOGIN_RESPONSE = 'LOGIN/RESPONSE';
+export const LOGOUT = 'LOGOUT';
 
 export const REGISTER = 'REGISTER';
 export const REGISTER_REQUEST = 'REGISTER/REQUEST';

@@ -1,0 +1,27 @@
+@import '../../styles/vars';
+
+.login, .register {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  justify-content: space-around;
+}
+
+.register {
+  .form {
+    height: 60%;
+    margin-top: 20vh;
+  }
+}
+
+.form {
+  margin-top: 30vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2em;
+  text-align: center;
+
+  height: 40%;
+  justify-content: space-around;
+}

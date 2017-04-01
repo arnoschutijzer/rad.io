@@ -4,6 +4,10 @@ html, body {
   font-family: "Fira-regular";
 }
 
+* {
+  font-family: "Fira-regular";
+}
+
 #app, .app {
   height: 100%;
   width: 100%;
@@ -12,6 +16,52 @@ html, body {
 a {
   text-decoration: none;
   color: $accent-color;
+  cursor: pointer;
+
+  &.link {
+    text-decoration: none;
+    color: $inactive-accent-color;
+
+    &:hover {
+      color: $active-accent-color;
+    }
+  }
+}
+
+h1 {
+  font-size: 2em;
+}
+
+input, button {
+  font-size: 1.2em;
+  border: none;
+}
+
+input {
+  padding-bottom: 15px;
+  border-bottom: solid 1px $accent-color;
+}
+
+button {
+  color: $accent-color;
+  background-color: rgba(0, 0, 0, 0);
+  transition: ease all 0.3s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $default-bg-color;
+  }
+}
+
+.full-view {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.view {
+  padding-top: 70px;
 }
 
 @font-face {
