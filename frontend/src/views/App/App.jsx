@@ -13,7 +13,7 @@ export default class App extends Component {
   render() {
     const {Navbar, View} =
       this.props.auth.token ?
-        authenticatedRouting() : defaultRouting();
+        buildAuthenticatedRouting() : buildDefaultRouting();
 
     const App = (
       <Router>
@@ -32,7 +32,7 @@ export default class App extends Component {
 }
 
 /** Helper functions **/
-function authenticatedRouting() {
+function buildAuthenticatedRouting() {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/'>Home</NavLink>
@@ -53,7 +53,7 @@ function authenticatedRouting() {
   return {Navbar, View};
 }
 
-function defaultRouting() {
+function buildDefaultRouting() {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/'>Home</NavLink>

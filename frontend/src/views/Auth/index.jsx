@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { login } from '../../state/actionCreators/auth';
+import { login, register } from '../../state/actionCreators/auth';
 import Auth from './Auth';
 
 const mapStateToProps = (state) => {
@@ -7,7 +7,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  login
+  login, register
 };
 
 export default connect(

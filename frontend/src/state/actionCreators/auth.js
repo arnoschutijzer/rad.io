@@ -1,8 +1,29 @@
 import {
   LOGIN, LOGOUT,
-  FETCH_PROFILE
+  REGISTER_REQUEST, REGISTER_RESPONSE, REGISTER_ERROR,
+  FETCH_PROFILE,
 } from '../actions/auth';
 import { BASE } from '../../config/config';
+import request from 'axios';
+
+// We can't really use apiMiddleware here, since we want to chain actions.
+export const register = (email, password) => {
+  return (dispatch, getState) => {
+    dispatch(registerRequest());
+    request({
+      url: BASE + '/register',
+      method: 'POST',
+      data: {
+        email, password
+      }
+    }).then((res) => {
+      dispatch(registerResponse(res.response));
+      dispatch(login(email, password));
+    }).catch((error) => {
+      dispatch(registerError(error.response));
+    });
+  };
+};
 
 export const login = (email, password) => ({
   type: LOGIN,
@@ -42,4 +63,17 @@ export const fetchProfile = (token) => ({
       Authorization: token
     }
   }
+});
+
+/* Helper functions */
+const registerRequest = () => ({
+  type: REGISTER_REQUEST
+});
+const registerResponse = (response) => ({
+  type: REGISTER_RESPONSE,
+  payload: response
+});
+const registerError = (errorResponse) => ({
+  type: REGISTER_ERROR,
+  error: errorResponse
 });
