@@ -1,6 +1,7 @@
 // Kudos to A.B. for this code. :+1:
 import { isObject } from 'underscore';
 import request from 'axios';
+import uuid from 'uuid/v4';
 import { UNAUTHORIZED } from '../actions/auth';
 
 const apiMiddleware = store => next => action => {
@@ -16,7 +17,11 @@ const apiMiddleware = store => next => action => {
       if (error.response && error.response.status === 401 || !error.response) {
         dispatchUnauthorized();
       } else {
-        dispatch('ERROR', {error: error.response});
+        const payload = {
+          id: uuid(),
+          response: error.response.data
+        };
+        dispatch('ERROR', {error: payload});
       }
     });
 

@@ -1,0 +1,14 @@
+.notifications {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1;
+}
+
+.notification {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+  padding: 20px;
+}

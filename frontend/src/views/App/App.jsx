@@ -7,6 +7,7 @@ import {
   Switch
 } from 'react-router-dom';
 import { Home, Auth, Account } from '../';
+import { Notifications } from '../../components';
 import './style.scss';
 
 export default class App extends Component {
@@ -18,6 +19,8 @@ export default class App extends Component {
     const App = (
       <Router>
         <div className='app'>
+          <Notifications></Notifications>
+
           { Navbar }
 
           { View }
