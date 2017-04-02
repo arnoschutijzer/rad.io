@@ -23,8 +23,15 @@ export const register = (email, password) => {
     }).catch((error) => {
       const payload = {
         id: uuid(),
-        response: error.response.data
+        response: {
+          message: 'An error occurred.'
+        }
       };
+
+      if (error.response) {
+        payload.response = error.response;
+      }
+
       dispatch(registerError(payload));
     });
   };

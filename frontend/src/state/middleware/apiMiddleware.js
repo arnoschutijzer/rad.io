@@ -14,14 +14,20 @@ const apiMiddleware = store => next => action => {
     .then(response => {
       dispatch('RESPONSE', {payload: response.data});
     }).catch(error => {
-      if (error.response && error.response.status === 401 || !error.response) {
-        dispatchUnauthorized();
-      } else {
-        const payload = {
-          id: uuid(),
-          response: error.response.data
-        };
-        dispatch('ERROR', {error: payload});
+      const payload = {
+        id: uuid(),
+        response: {
+          message: 'An error occurred.'
+        }
+      };
+
+      if (error.response) {
+        payload.response = error.response.data;
+      }
+
+      dispatch('ERROR', {error: payload});
+      if (error.response.status === 401) {
+        dispatchUnauthorized(payload);
       }
     });
 
@@ -34,9 +40,17 @@ const apiMiddleware = store => next => action => {
     }, opts));
   }
 
-  function dispatchUnauthorized() {
+  function dispatchUnauthorized(payload) {
+    if (!payload) {
+      store.dispatch({
+        type: UNAUTHORIZED
+      });
+      return;
+    }
+
     store.dispatch({
-      type: UNAUTHORIZED
+      type: UNAUTHORIZED,
+      error: payload
     });
   }
 };
