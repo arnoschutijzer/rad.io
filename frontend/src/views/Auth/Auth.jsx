@@ -14,6 +14,9 @@ export default class Auth extends Component {
 
   login() {
     if (!this.state.email || !this.state.password) {
+      this.props.createNotification(
+        'info', {message: 'Please fill in all fields.'}
+      );
       return;
     }
 
@@ -23,8 +26,25 @@ export default class Auth extends Component {
   }
 
   register() {
-    if (this.state.password !== this.state.confirmPassword ||
-        this.state.email !== this.state.confirmEmail) {
+    if (!this.state.password || !this.state.email ||
+         !this.state.confirmPassword || !this.state.confirmEmail) {
+      this.props.createNotification(
+        'info', {message: 'Please fill in all fields.'}
+      );
+      return;
+    }
+
+    if (this.state.password !== this.state.confirmPassword) {
+      this.props.createNotification(
+        'info', {message: 'Passwords don\'t match.'}
+      );
+      return;
+    }
+
+    if (this.state.email !== this.state.confirmEmail) {
+      this.props.createNotification(
+        'info', {message: 'e-mails don\'t match'}
+      );
       return;
     }
 

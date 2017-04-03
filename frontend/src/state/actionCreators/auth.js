@@ -4,7 +4,7 @@ import {
   FETCH_PROFILE,
 } from '../actions/auth';
 import { BASE } from '../../config/config';
-import uuid from 'uuid/v4';
+import { createNotification } from './notifications';
 import request from 'axios';
 
 // We can't really use apiMiddleware here, since we want to chain actions.
@@ -21,18 +21,7 @@ export const register = (email, password) => {
       dispatch(registerResponse(res.response));
       dispatch(login(email, password));
     }).catch((error) => {
-      const payload = {
-        id: uuid(),
-        response: {
-          message: 'An error occurred.'
-        }
-      };
-
-      if (error.response) {
-        payload.response = error.response;
-      }
-
-      dispatch(registerError(payload));
+      dispatch(createNotification('error', error.response.data));
     });
   };
 };

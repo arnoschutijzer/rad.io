@@ -11,4 +11,8 @@
   cursor: pointer;
   margin-top: 5px;
   padding: 20px;
+
+  &.error {
+    background-color: rgba(229, 115, 115, 0.7)
+  }
 }

@@ -29,10 +29,11 @@ export default class Notifications extends Component {
 
     for (let key of _keys) {
       const notification = this.props.notifications[key];
+      const styling = 'notification ' + notification.type;
       const Notification = (
         <div key= { key }
           onClick={ () => { this.dismissNotification(key); } }
-          className='notification'>
+          className={ styling }>
           { notification.response.message }
         </div>
       );

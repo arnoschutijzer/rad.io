@@ -3,6 +3,7 @@ import { isObject } from 'underscore';
 import request from 'axios';
 import uuid from 'uuid/v4';
 import { UNAUTHORIZED } from '../actions/auth';
+import { createNotification } from '../actionCreators/notifications';
 
 const apiMiddleware = store => next => action => {
   if (!isObject(action.api)) {
@@ -14,20 +15,17 @@ const apiMiddleware = store => next => action => {
     .then(response => {
       dispatch('RESPONSE', {payload: response.data});
     }).catch(error => {
-      const payload = {
-        id: uuid(),
-        response: {
-          message: 'An error occurred.'
-        }
+      const response = error.response.data || {
+        message: 'An error occurred.'
       };
 
-      if (error.response) {
-        payload.response = error.response.data;
-      }
+      dispatch('ERROR', response);
 
-      dispatch('ERROR', {error: payload});
       if (error.response.status === 401) {
-        dispatchUnauthorized(payload);
+        dispatchUnauthorized(response);
+      }
+      if (!action.ignoreErrors) {
+        dispatchNotification(response);
       }
     });
 
@@ -52,6 +50,10 @@ const apiMiddleware = store => next => action => {
       type: UNAUTHORIZED,
       error: payload
     });
+  }
+
+  function dispatchNotification(payload) {
+    store.dispatch(createNotification('error', payload));
   }
 };
 
