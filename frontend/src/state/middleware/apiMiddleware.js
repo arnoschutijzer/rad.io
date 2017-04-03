@@ -1,7 +1,6 @@
 // Kudos to A.B. for this code. :+1:
 import { isObject } from 'underscore';
 import request from 'axios';
-import uuid from 'uuid/v4';
 import { UNAUTHORIZED } from '../actions/auth';
 import { createNotification } from '../actionCreators/notifications';
 
