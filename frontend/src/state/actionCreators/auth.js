@@ -8,31 +8,31 @@ import { createNotification } from './notifications';
 import request from 'axios';
 
 // We can't really use apiMiddleware here, since we want to chain actions.
-export const register = (email, password) => {
+export const register = (username, password) => {
   return (dispatch, getState) => {
     dispatch(registerRequest());
     request({
       url: BASE + '/register',
       method: 'POST',
       data: {
-        email, password
+        username, password
       }
     }).then((res) => {
       dispatch(registerResponse(res.response));
-      dispatch(login(email, password));
+      dispatch(login(username, password));
     }).catch((error) => {
       dispatch(createNotification('error', error.response.data));
     });
   };
 };
 
-export const login = (email, password) => ({
+export const login = (username, password) => ({
   type: LOGIN,
   api: {
     url: BASE + '/login',
     method: 'POST',
     data: {
-      email,
+      username,
       password
     }
   }

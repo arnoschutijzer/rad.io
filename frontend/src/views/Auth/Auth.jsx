@@ -9,48 +9,43 @@ export default class Auth extends Component {
 
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
-    this.state = {};
+    this.state = {
+      loginForm: {}
+    };
   }
 
   login() {
-    if (!this.state.email || !this.state.password) {
+    if (!this.state.loginUsername || !this.state.loginPassword) {
       this.props.createNotification(
         'info', {message: 'Please fill in all fields.'}
       );
       return;
     }
 
-    const email = this.state.email;
-    const password = this.state.password;
-    this.props.login(email, password);
+    const username = this.state.loginUsername;
+    const password = this.state.loginPassword;
+    this.props.login(username, password);
   }
 
   register() {
-    if (!this.state.password || !this.state.email ||
-         !this.state.confirmPassword || !this.state.confirmEmail) {
+    if (!this.state.registerPassword || !this.state.registerUsername ||
+         !this.state.registerConfirmPassword) {
       this.props.createNotification(
         'info', {message: 'Please fill in all fields.'}
       );
       return;
     }
 
-    if (this.state.password !== this.state.confirmPassword) {
+    if (this.state.registerPassword !== this.state.registerConfirmPassword) {
       this.props.createNotification(
         'info', {message: 'Passwords don\'t match.'}
       );
       return;
     }
 
-    if (this.state.email !== this.state.confirmEmail) {
-      this.props.createNotification(
-        'info', {message: 'e-mails don\'t match'}
-      );
-      return;
-    }
-
-    const email = this.state.email;
-    const password = this.state.password;
-    this.props.register(email, password);
+    const username = this.state.registerUsername;
+    const password = this.state.registerPassword;
+    this.props.register(username, password);
   }
 
   render() {
@@ -59,16 +54,16 @@ export default class Auth extends Component {
         <div className='login'>
           <div className='form'>
             <input type='text'
-              placeholder='email'
+              placeholder='username'
               onChange={ (event) => {
-                this.setState({email: event.target.value});
+                this.setState({loginUsername: event.target.value});
               }}></input>
             <input type='password'
               placeholder='password'
               onChange={ (event) => {
-                this.setState({password: event.target.value});
+                this.setState({loginPassword: event.target.value});
               }}></input>
-            <button onClick={ () => { this.login(); } }>
+            <button onClick={ this.login }>
               login
             </button>
             <Link to='register' smooth={ true } className='link'>
@@ -79,28 +74,22 @@ export default class Auth extends Component {
 
         <Element className='register' name='register'>
           <div className='form'>
-            <input type='email'
-              placeholder='email'
+            <input type='text'
+              placeholder='username'
               onChange={ (event) => {
-                this.setState({email: event.target.value});
-              }}>
-            </input>
-            <input type='email'
-              placeholder='confirm email'
-              onChange={ (event) => {
-                this.setState({confirmEmail: event.target.value});
+                this.setState({registerUsername: event.target.value});
               }}>
             </input>
             <input type='password'
               placeholder='password'
               onChange={ (event) => {
-                this.setState({password: event.target.value});
+                this.setState({registerPassword: event.target.value});
               }}>
             </input>
             <input type='password'
               placeholder='confirm password'
               onChange={ (event) => {
-                this.setState({confirmPassword: event.target.value});
+                this.setState({registerConfirmPassword: event.target.value});
               }}>
             </input>
             <button onClick={ this.register }>

@@ -5,56 +5,112 @@ const User = require('../models/user');
 const settings = require('../config/settings');
 
 authRouter.post('/register', (req, res) => {
-  if (!req.body.email || !req.body.password) {
-    res.status(409).json({success: false, message: 'ENOCRED'});
+  if (!req.body.username || !req.body.password) {
+    res.status(409).json({success: false, message: 'No credentials'});
   } else {
     const user = new User({
       username: req.body.username,
-      email: req.body.email,
       password: req.body.password
     });
 
     user.save((err, user) => {
       if (err) {
+        console.log(err);
         return res.status(409).json(
-          {success: false, message: 'This e-mail is already registered!'}
+          {success: false, message: 'This username is already registered'}
         );
       }
 
-      res.json({success: true, message: 'Registered!'});
+      return res.json({success: true, message: 'Registered'});
     });
   }
 });
 
 authRouter.post('/login', (req, res) => {
+  if (!req.body.username || !req.body.password) {
+    return res.status(401).json({success: false, message: 'No credentials'});
+  }
+
   User.findOne({
-    email: req.body.email
+    username: req.body.username
   }, (err, user) => {
-
-    if (err) {
-      throw err;
-    }
-
     if (!user) {
-      res.status(404).json({success: false, message: 'No user found.'});
-    } else {
-      user.comparePassword(req.body.password, (err, valid) => {
-        if (err) {
-          res.status(401).json({success: false, message: err});
-        }
-
-        if (valid) {
-          const token = jwt.sign(user, settings.secret, {
-            expiresIn: 604800
-          });
-
-          res.status(200)
-            .json({success: true, token: 'JWT ' + token, user});
-        }
-      });
+      return res.status(404).json({success: false, message: 'No user found'});
     }
+    if (err) {
+      return res.status(500).json({success: false, message: err});
+    }
+
+    user.comparePassword(req.body.password, (err, valid) => {
+      if (err) {
+        return res.status(401).json({success: false, message: err});
+      }
+
+      if (valid) {
+        const token = jwt.sign(user, settings.secret, {
+          expiresIn: 604800
+        });
+
+        return res.status(200)
+          .json({success: true, token: 'JWT ' + token, user});
+      }
+    });
   });
 });
+// authRouter.post('/login', (req, res) => {
+//   if (!req.body.email && !req.body.username || !req.body.password) {
+//     res.status(401).josn({success: false, message: 'No credentials'});
+//   }
+//
+//   if (req.body.email) {
+//     User.findOne({
+//       email: req.body.email
+//     }, (err, user) => {
+//
+//       if (!user) {
+//         return res.status(404).json({success: false, message: 'No user found'});
+//       }
+//
+//       user.comparePassword(req.body.password, (err, valid) => {
+//         if (err) {
+//           return res.status(401).json({success: false, message: err});
+//         }
+//
+//         if (valid) {
+//           const token = jwt.sign(user, settings.secret, {
+//             expiresIn: 604800
+//           });
+//
+//           res.status(200).json({success: true, token: 'JWT ' + token, user});
+//         }
+//       });
+//     });
+//   } else if (req.body.username) {
+//     User.findOne({
+//       username: req.body.username
+//     }, (err, user) => {
+//       if (!user) {
+//         res.status(404).json({success: false, message: 'No user found'});
+//         return;
+//       }
+//
+//       user.comparePassword(req.body.password, (err, valid) => {
+//         if (err) {
+//           res.status(401).json({success: false, message: err});
+//           return;
+//         }
+//
+//         if (valid) {
+//           const token = jwt.sign(user, settings.secret, {
+//             expiresIn: 604800
+//           });
+//
+//           res.status(200).json({success: true, token: 'JWT ' + token, user});
+//         }
+//       });
+//     });
+//   }
+// });
 
 authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
  (req, res) => {

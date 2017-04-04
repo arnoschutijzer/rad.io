@@ -77,7 +77,6 @@
               <p class="method-body">
 {
   "username": "a_username",
-  "email": "an_em@il.com",
   "password": "a_password"
 }
               </p>
@@ -90,14 +89,14 @@
               200: all good
               <p class="method-body">{
   "success": true,
-  "message": "Registered!"
+  "message": "Registered"
 }<p>
             </div>
             <div class="returns">
               409: conflict
               <p class="method-body">{
   "success": false,
-  "message": "This e-mail is already registered!"
+  "message": "This username is already registered"
 }</p>
             </div>
           </div>
@@ -110,7 +109,7 @@
             <div class="specs">
               <p class="method-body">
 {
-  "email": "an_em@il.com",
+  "username": "a_username",
   "password": "a_password"
 }
               </p>
@@ -126,7 +125,7 @@
   "token": "JWT {token}",
   "user": {
     "_id": "{id}",
-    "email": "an_em@il.com",
+    "username": "a_username",
     "__v": 0
   }
 }<p>
