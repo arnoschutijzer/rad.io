@@ -2,11 +2,20 @@
 
 .home-header {
   height: 100%;
-  width: 100%;
+  max-width: 100%;
   display: flex;
-  justify-content: center;
+  background-image: url('~assets/mic.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .home-header-center {
-  margin-top: 50vh;
+  margin-top: 40vh;
+  margin-left: 20vw;
+  color: $default-color;
+
+  h1 {
+    letter-spacing: 16px;
+    font-size: 3rem;
+  }
 }

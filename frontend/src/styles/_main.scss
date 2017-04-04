@@ -2,6 +2,7 @@ html, body {
   height: 100%;
   width: 100%;
   font-family: "Fira-regular";
+  background-color: #212121;
 }
 
 * {
@@ -40,6 +41,8 @@ input, button {
 input {
   padding-bottom: 15px;
   border-bottom: solid 1px $accent-color;
+  background-color: rgba(0, 0, 0, 0);
+  color: $default-color;
 }
 
 button {
@@ -47,10 +50,6 @@ button {
   background-color: rgba(0, 0, 0, 0);
   transition: ease all 0.3s;
   cursor: pointer;
-
-  &:hover {
-    background-color: $default-bg-color;
-  }
 }
 
 .full-view {

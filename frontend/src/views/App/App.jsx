@@ -11,10 +11,14 @@ import { Notifications } from '../../components';
 import './style.scss';
 
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     const {Navbar, View} =
       this.props.auth.token ?
-        buildAuthenticatedRouting() : buildDefaultRouting();
+        buildAuthenticatedRouting(this.props) : buildDefaultRouting();
 
     const App = (
       <Router>
@@ -35,12 +39,12 @@ export default class App extends Component {
 }
 
 /** Helper functions **/
-function buildAuthenticatedRouting() {
+function buildAuthenticatedRouting(props) {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/'>Home</NavLink>
       <NavLink exact to='/radio'>Radio</NavLink>
-      <NavLink exact to='/account'>Account</NavLink>
+      <NavLink exact to='/account'>Hi, { props.auth.user.username }!</NavLink>
     </div>
   );
 

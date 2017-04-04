@@ -6,7 +6,8 @@ export default class Home extends Component {
     return (
       <div className='home-header'>
         <div className='home-header-center'>
-          rad.io
+          <h1>rad.io</h1>
+          <p>synchronised music sharing</p>
         </div>
       </div>
     );
