@@ -1,5 +1,15 @@
-$default-bg-color: #212121;
-$default-color: #F5F5F5;
-$accent-color: #26A69A;
-$inactive-accent-color: #B2DFDB;
-$active-accent-color: #80CBC4;
+$primary-background-color: #212121;
+$primary-color-dark:   #FBC02D;
+$primary-color:        #FFEB3B;
+$primary-color-light:  #FFF9C4;
+$primary-color-text:   #F5F5F5;
+$accent-color:         #FFEB3B;
+$primary-text-color:   #F5F5F5;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
+$info-color: rgb(21, 21, 21);
+$info-color-opac: rgba(21, 21, 21, 0.5);
+
+$error-color: rgb(229, 115, 115);
+$error-color-opac: rgba(229, 115, 115, 0.5);

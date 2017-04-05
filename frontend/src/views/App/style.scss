@@ -16,6 +16,14 @@
   }
 }
 
+.right-aligned {
+  justify-content: flex-end;
+}
+
+.hidden {
+  display: none;
+}
+
 a.active {
   font-weight: bold;
   border-bottom: $accent-color solid 5px;

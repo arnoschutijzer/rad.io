@@ -7,6 +7,7 @@ html, body {
 
 * {
   font-family: "Fira-regular";
+  color: $primary-color-text;
 }
 
 #app, .app {
@@ -21,15 +22,19 @@ a {
 
   &.link {
     text-decoration: none;
-    color: $inactive-accent-color;
+    color: $primary-color-light;
 
     &:hover {
-      color: $active-accent-color;
+      color: $accent-color;
     }
   }
 }
 
-h1 {
+.title {
+  font-family: 'Moons';
+}
+
+h1, h2, h3, h4, h5 {
   font-size: 2em;
 }
 
@@ -42,7 +47,7 @@ input {
   padding-bottom: 15px;
   border-bottom: solid 1px $accent-color;
   background-color: rgba(0, 0, 0, 0);
-  color: $default-color;
+  color: $primary-color;
 }
 
 button {
@@ -65,5 +70,9 @@ button {
 
 @font-face {
   font-family: "Fira-regular";
-  src: url("/assets/fonts/FiraCode-Regular.ttf") format("truetype");
+  src: url("/assets/fonts/FiraCode-Retina.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Moons";
+  src: url("/assets/fonts/TT-Moons-Thin-Italic-DEMO.otf");
 }

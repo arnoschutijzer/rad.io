@@ -42,18 +42,16 @@ export default class App extends Component {
 function buildAuthenticatedRouting(props) {
   const Navbar = (
     <div className='navbar'>
-      <NavLink exact to='/'>Home</NavLink>
-      <NavLink exact to='/radio'>Radio</NavLink>
+      <NavLink exact to='/rooms'>Rooms</NavLink>
       <NavLink exact to='/account'>Hi, { props.auth.user.username }!</NavLink>
     </div>
   );
 
   const View = (
     <Switch>
-      <Route exact path='/' component={ Home } />
-      <Route exact path='/radio' />
+      <Route exact path='/rooms' />
       <Route path='/account' component={ Account } />
-      <Route render={ () => (<Redirect to='/'/>) } />
+      <Route render={ () => (<Redirect to='/rooms'/>) } />
     </Switch>
   );
 
@@ -61,12 +59,13 @@ function buildAuthenticatedRouting(props) {
 }
 
 function buildDefaultRouting() {
-  const Navbar = (
-    <div className='navbar'>
-      <NavLink exact to='/'>Home</NavLink>
-      <NavLink exact to='/auth'>Authenticate</NavLink>
-    </div>
-  );
+  // const Navbar = (
+  //   <div className='navbar'>
+  //     <NavLink exact to='/'>Home</NavLink>
+  //     <NavLink exact to='/auth'>Authenticate</NavLink>
+  //   </div>
+  // );
+  const Navbar = undefined;
 
   const View = (
     <Switch>

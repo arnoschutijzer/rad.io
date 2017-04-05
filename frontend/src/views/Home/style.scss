@@ -12,10 +12,14 @@
 .home-header-center {
   margin-top: 40vh;
   margin-left: 20vw;
-  color: $default-color;
+  color: $primary-color-text;
 
   h1 {
-    letter-spacing: 16px;
-    font-size: 3rem;
+    letter-spacing: 18px;
+    font-size: 4rem;
+  }
+
+  .actions {
+    margin-top: 10vh;
   }
 }
