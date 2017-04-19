@@ -1,9 +1,7 @@
-const ws = new WebSocket('ws://localhost:8080');
+import io from 'socket.io-client';
 
-ws.onopen = (event) => {
-  console.log(event);
-};
+const socket = io.connect('http://localhost:9002');
 
-ws.onmessage = (event) => {
-  console.log(event);
-};
+socket.on('connect', function(data) {
+  console.log('we\'re in business!');
+});

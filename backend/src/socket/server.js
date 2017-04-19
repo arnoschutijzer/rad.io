@@ -1,10 +1,15 @@
-const server = require('ws').Server;
-const websocketServer = new server({port: 8080});
+const io = require('socket.io');
 
-websocketServer.on('connection', (server) => {
-  server.on('message', (msg) => {
-    console.log(msg);
+const createServer  = (httpServer, port = 9002) => {
+  const server = io(httpServer);
+
+  server.on('connection', (client) => {
+    console.log('Connected to someone: ' + client);
   });
 
-  server.send('message from server');
-});
+  server.listen(port);
+
+  return server;
+};
+
+module.exports = createServer;

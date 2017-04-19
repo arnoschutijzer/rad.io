@@ -28,6 +28,6 @@
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "ws": "^2.2.2"
+    "socket.io": "^1.7.3"
   }
 }
