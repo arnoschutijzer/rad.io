@@ -32,7 +32,7 @@ module.exports = {
       port: PORT,
       proxy: 'http://localhost:8080'
     }),
-    new CopyWebpackPlugin([ {
+    new CopyWebpackPlugin([{
       from: path.join(__dirname, SRC, '/assets/fonts'),
       to: path.join(__dirname, DIST, '/assets/fonts')
     }]),

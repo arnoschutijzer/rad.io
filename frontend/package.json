@@ -4,9 +4,9 @@
   "description": "websockets + react radio",
   "main": "index.js",
   "scripts": {
-    "bundle": "webpack --config webpack.config.js --bail --progress",
-    "dev": "npm run clean:dist && export NODE_ENV=development && webpack-dev-server --config webpack.config.js --progress",
-    "prod": "npm run clean:dist && export NODE_ENV=production && npm run bundle",
+    "dev": "npm run clean:dist && webpack-dev-server --env=webpack.dev.js",
+    "prod": "npm run clean:dist && npm run dist",
+    "dist": "webpack --progress --env=webpack.prod.js",
     "clean:dist": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
