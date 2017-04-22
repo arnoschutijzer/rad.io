@@ -1,23 +1,26 @@
-const io = require('socket.io');
+const Server = require('socket.io');
+let connections = 0;
 
-const createServer  = (httpServer, port = 9002) => {
-  const server = io(httpServer);
+function createServer(httpServer, port = 9002) {
+  const socket = new Server(httpServer);
 
-  server.on('connection', (client) => {
-    console.log('Connected to someone: ' + client);
+  socket.sockets.on('connection', (client) => {
+    connections += 1;
+    console.log(`Connection opened, ${connections} connections open`);
 
-    setInterval(() => {
-      client.emit('ping', {'hello': 'world'});
-    }, 5000);
-
-    client.on('pong', (client) => {
-      console.log('successfully ping-ponged');
+    /* Register handlers */
+    client.on('disconnect', disconnect);
+    client.on('message', (message) => {
+      console.log(message);
     });
   });
 
-  server.listen(port);
+  socket.listen(port);
+}
 
-  return server;
-};
+function disconnect(data) {
+  connections -= 1;
+  console.log(`Connection closed: ${data}, ${connections} connections open`);
+}
 
 module.exports = createServer;

@@ -1,12 +1,25 @@
-import io from 'socket.io-client';
+import React, { Component } from 'react';
+import { createConnection } from '../../services';
 
-const socket = io.connect('http://localhost:9002');
+export default class Rooms extends Component {
+  constructor() {
+    super();
+    this.connect = this.connect.bind(this);
+  }
 
-socket.on('connect', function(data) {
-  console.log('we\'re in business!');
+  connect() {
+    const socket = createConnection(this);
+  }
 
-  socket.on('ping', (data) => {
-    socket.emit('pong', {my: 'data'});
-  });
-});
+  onConnect() {
+    console.log('We\'re in business!');
+  }
 
+  render() {
+    return (
+      <div className='view'>
+        <button onClick={ this.connect }>connect</button>
+      </div>
+    );
+  }
+}
