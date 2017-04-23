@@ -68,6 +68,12 @@ button {
   padding-top: 70px;
 }
 
+.centered {
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+}
+
 @font-face {
   font-family: "Fira-regular";
   src: url("/assets/fonts/FiraCode-Retina.ttf") format("truetype");

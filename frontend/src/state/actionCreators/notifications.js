@@ -8,6 +8,7 @@ export const dismissNotification = (id) => ({
   type: DISMISS_NOTIFICATION,
   id: id
 });
+
 export const createNotification = (type, response) => {
   return (dispatch, getState) => {
     const payload = {

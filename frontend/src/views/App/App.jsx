@@ -6,11 +6,9 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { Home, Auth, Account, Rooms } from '../';
+import { Home, Auth, Account, Broadcast } from '../';
 import { Notifications } from '../../components';
 import './style.scss';
-
-console.log(Rooms);
 
 export default class App extends Component {
   constructor(props) {
@@ -44,7 +42,7 @@ export default class App extends Component {
 function buildAuthenticatedRouting(props) {
   const Navbar = (
     <div className='navbar'>
-      <NavLink exact to='/rooms'>Rooms</NavLink>
+      <NavLink exact to='/broadcast'>Broadcast</NavLink>
       <NavLink exact to='/account'>Hi, { props.auth.user.username }!</NavLink>
     </div>
   );
@@ -52,8 +50,8 @@ function buildAuthenticatedRouting(props) {
   const View = (
     <Switch>
       <Route path='/account' component={ Account } />
-      <Route path='/rooms' component={ Rooms } />
-      <Route render={ () => (<Redirect to='/rooms'/>) } />
+      <Route path='/broadcast' component={ Broadcast } />
+      <Route render={ () => (<Redirect to='/broadcast'/>) } />
     </Switch>
   );
 

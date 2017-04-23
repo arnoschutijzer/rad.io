@@ -11,7 +11,7 @@ function createServer(httpServer, port = 9002) {
     /* Register handlers */
     client.on('disconnect', disconnect);
     client.on('message', (message) => {
-      console.log(message);
+      socket.sockets.send(message);
     });
   });
 

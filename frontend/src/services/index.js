@@ -9,4 +9,7 @@ export const createConnection = (handler) => {
 
   socket = io.connect('http://localhost:9002');
   socket.on('connect', handler.onConnect);
+  socket.on('message', handler.onMessage);
+
+  return socket;
 };
