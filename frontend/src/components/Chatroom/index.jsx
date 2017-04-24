@@ -12,10 +12,6 @@ export default class Chatroom extends Component {
     if (event.key === 'Enter') {
       if (this.state.message === '/connect') {
         event.target.value = '';
-        this.props.receiveMessage({
-          user: 'System',
-          message: 'Connected!'
-        });
         this.props.connect();
         return;
       }

@@ -21,7 +21,10 @@ export default class Broadcast extends Component {
   }
 
   onConnect() {
-    console.log('We\'re in business!');
+    this.props.receiveMessage({
+      user: 'System',
+      message: 'Connected!'
+    });
   }
 
   onMessage(message) {
