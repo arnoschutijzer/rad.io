@@ -59,7 +59,6 @@ export default class Broadcast extends Component {
           user = { this.props.auth.user }
           messages={ this.props.messages }
           connect={ this.connect }
-          receiveMessage={ this.props.receiveMessage }
           sendMessage={ this.sendMessage }>
         </Chatroom>
       </div>
