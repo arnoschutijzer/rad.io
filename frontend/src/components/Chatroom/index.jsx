@@ -25,10 +25,6 @@ export default class Chatroom extends Component {
     }
   }
 
-  handleScroll(event) {
-    console.log(event);
-  }
-
   componentDidUpdate() {
     this.refs.chatroom.scrollTop = this.refs.chatroom.scrollHeight;
   }
