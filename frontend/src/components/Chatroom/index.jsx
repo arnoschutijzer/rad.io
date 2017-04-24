@@ -12,6 +12,10 @@ export default class Chatroom extends Component {
     if (event.key === 'Enter') {
       if (this.state.message === '/connect') {
         event.target.value = '';
+        this.props.receiveMessage({
+          user: 'System',
+          message: 'Connected!'
+        });
         this.props.connect();
         return;
       }
@@ -19,6 +23,14 @@ export default class Chatroom extends Component {
       this.props.sendMessage(event.target.value);
       event.target.value = '';
     }
+  }
+
+  handleScroll(event) {
+    console.log(event);
+  }
+
+  componentDidUpdate() {
+    this.refs.chatroom.scrollTop = this.refs.chatroom.scrollHeight;
   }
 
   render() {
@@ -40,9 +52,9 @@ export default class Chatroom extends Component {
       Messages.push(
         <div className='message' key={ message.id }>
           <div className='user'>
-            { message.content.user }
+            { '<' }{ message.content.user }{ '>' }
           </div>
-          <div className='message-content'>
+          <div className='messageContent'>
             { message.content.message }
           </div>
         </div>
@@ -51,7 +63,8 @@ export default class Chatroom extends Component {
 
     return (
       <div className='chatroom'>
-        <div className='history'>
+        <h1>Chat</h1>
+        <div className='history' ref='chatroom'>
           { Messages }
         </div>
         <div className='messageBox'>

@@ -13,7 +13,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  createNotification, receiveMessage, sendMessage
+  receiveMessage, sendMessage
 };
 
 export default connect(

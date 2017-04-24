@@ -1,8 +1,10 @@
 @import '../../styles/vars';
 
 .history {
-  height: 50vh;
-  background-color: $divider-color;
+  height: 40vh;
+  overflow-y: scroll;
+
+  border-top: $accent-color;
 }
 
 .messageBox {
@@ -22,5 +24,7 @@
     margin-right: 20px;
   }
 
-  border-bottom: 1px solid black;
+  .messageContent {
+    word-break: break-word;
+  }
 }

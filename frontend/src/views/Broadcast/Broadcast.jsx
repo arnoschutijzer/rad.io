@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createConnection } from '../../services';
-import { Chatroom } from '../../components';
+import { Chatroom, Player } from '../../components';
+import './style.scss';
 
 export default class Broadcast extends Component {
   constructor() {
@@ -16,10 +17,6 @@ export default class Broadcast extends Component {
   connect() {
     this.setState({
       socket: createConnection(this)
-    });
-
-    this.props.createNotification('info', {
-      message: 'Connected!'
     });
   }
 
@@ -51,10 +48,15 @@ export default class Broadcast extends Component {
   render() {
     return (
       <div className='view'>
+        <h1>Broadcast</h1>
+        <div className='playerContainer'>
+          <Player></Player>
+        </div>
         <Chatroom
           user = { this.props.auth.user }
           messages={ this.props.messages }
           connect={ this.connect }
+          receiveMessage={ this.props.receiveMessage }
           sendMessage={ this.sendMessage }>
         </Chatroom>
       </div>
