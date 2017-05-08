@@ -25,10 +25,6 @@ server.use(routes.docs);
 
 auth(passport);
 
-mongoose.connect(settings.database, (err) => {
-  //if (err) { console.err(err); }
-});
-
 mongoose.connection.once('open', () => {
   console.info('> Sucessfully connected to database');
 });

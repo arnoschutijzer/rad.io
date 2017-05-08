@@ -57,60 +57,6 @@ authRouter.post('/login', (req, res) => {
     });
   });
 });
-// authRouter.post('/login', (req, res) => {
-//   if (!req.body.email && !req.body.username || !req.body.password) {
-//     res.status(401).josn({success: false, message: 'No credentials'});
-//   }
-//
-//   if (req.body.email) {
-//     User.findOne({
-//       email: req.body.email
-//     }, (err, user) => {
-//
-//       if (!user) {
-//         return res.status(404).json({success: false, message: 'No user found'});
-//       }
-//
-//       user.comparePassword(req.body.password, (err, valid) => {
-//         if (err) {
-//           return res.status(401).json({success: false, message: err});
-//         }
-//
-//         if (valid) {
-//           const token = jwt.sign(user, settings.secret, {
-//             expiresIn: 604800
-//           });
-//
-//           res.status(200).json({success: true, token: 'JWT ' + token, user});
-//         }
-//       });
-//     });
-//   } else if (req.body.username) {
-//     User.findOne({
-//       username: req.body.username
-//     }, (err, user) => {
-//       if (!user) {
-//         res.status(404).json({success: false, message: 'No user found'});
-//         return;
-//       }
-//
-//       user.comparePassword(req.body.password, (err, valid) => {
-//         if (err) {
-//           res.status(401).json({success: false, message: err});
-//           return;
-//         }
-//
-//         if (valid) {
-//           const token = jwt.sign(user, settings.secret, {
-//             expiresIn: 604800
-//           });
-//
-//           res.status(200).json({success: true, token: 'JWT ' + token, user});
-//         }
-//       });
-//     });
-//   }
-// });
 
 authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
  (req, res) => {
