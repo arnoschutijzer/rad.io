@@ -9,10 +9,10 @@ const apiMiddleware = store => next => action => {
     return next(action);
   }
 
-  dispatch('REQUEST', {request: action.api});
+  dispatch('REQUEST', { request: action.api });
   return request(action.api)
     .then(response => {
-      dispatch('RESPONSE', {payload: response.data});
+      dispatch('RESPONSE', { payload: response.data });
     }).catch(error => {
       const response = error.response.data || {
         message: 'An error occurred.'

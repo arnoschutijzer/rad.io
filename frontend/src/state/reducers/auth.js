@@ -5,14 +5,14 @@ import {
   UNAUTHORIZED
 } from '../actions/auth';
 
-const initialState = {
+const initialState = {
   loading: false
 };
 
 export default (state = initialState, action) => {
   if (action.type === LOGIN_REQUEST) {
     // do something
-    return Object.assign({}, state, {loading: true});
+    return Object.assign({}, state, { loading: true });
   }
 
   if (action.type === LOGIN_RESPONSE ||

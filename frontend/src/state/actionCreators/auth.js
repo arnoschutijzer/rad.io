@@ -4,12 +4,11 @@ import {
   FETCH_PROFILE,
 } from '../actions/auth';
 import { BASE } from '../../config/config';
-import { createNotification } from './notifications';
 import request from 'axios';
 
 // We can't really use apiMiddleware here, since we want to chain actions.
 export const register = (username, password) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(registerRequest());
     request({
       url: BASE + '/register',
@@ -21,7 +20,7 @@ export const register = (username, password) => {
       dispatch(registerResponse(res.response));
       dispatch(login(username, password));
     }).catch((error) => {
-      dispatch(createNotification('error', error.response.data));
+      dispatch(registerError(error.response.data));
     });
   };
 };

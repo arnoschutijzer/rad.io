@@ -28,13 +28,13 @@ export default class Chatroom extends Component {
   render() {
     const Messages = [];
 
-    let messagesToDisplay = [{
-        id: 0,
-        content: {
-          user: 'System',
-          message: 'Type /connect to connect to the server.'
-        }
-      }];
+    let messagesToDisplay = [ {
+      id: 0,
+      content: {
+        user: 'System',
+        message: 'Type /connect to connect to the server.'
+      }
+    } ];
 
     if (this.props.messages.length > 0) {
       messagesToDisplay = this.props.messages;
@@ -65,7 +65,7 @@ export default class Chatroom extends Component {
             type='text'
             onKeyPress={ this.handleKeyPress }
             onChange={ (event) => {
-              this.setState({message: event.target.value});
+              this.setState({ message: event.target.value });
             } }>
           </input>
 

@@ -6,13 +6,13 @@ const initialState = {};
 export default (state = initialState, action) => {
   if (action.notification && action.notification.type === 'error') {
     return Object.assign(
-      {}, state, {[action.notification.id]: action.notification}
+      {}, state, { [action.notification.id]: action.notification }
     );
   }
 
   if (action.notification && action.notification.type === 'info') {
     return Object.assign(
-      {}, state, {[action.notification.id]: action.notification}
+      {}, state, { [action.notification.id]: action.notification }
     );
   }
 
