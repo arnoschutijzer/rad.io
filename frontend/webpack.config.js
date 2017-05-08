@@ -65,7 +65,10 @@ let defaultConfig = {
   resolve: {
     alias: {
       assets: path.join(__dirname, SRC, 'assets'),
-      root: path.join(__dirname, SRC)
+      components: path.join(__dirname, SRC, 'components'),
+      src: path.join(__dirname, SRC),
+      state: path.join(__dirname, SRC, 'state'),
+      views: path.join(__dirname, SRC, 'views')
     },
     extensions: ['.js', '.jsx']
   }

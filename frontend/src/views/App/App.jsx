@@ -6,8 +6,8 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { Home, Auth, Account, Broadcast, Browse } from '../';
-import { Notifications } from '../../components';
+import { Home, Auth, Account, Broadcast, Browse } from 'views';
+import { Notifications } from 'components';
 import './style.scss';
 
 export default class App extends Component {
