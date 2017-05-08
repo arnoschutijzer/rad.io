@@ -8,7 +8,7 @@
 
 
 # other commands
-> yarn bundle          # just create the bundle
+> yarn dist          # just create the bundle
 
 > yarn prod            # run production bundle
 
