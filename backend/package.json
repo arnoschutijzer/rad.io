@@ -29,5 +29,8 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "socket.io": "^1.7.4"
+  },
+  "devDependencies": {
+    "eslint": "^3.19.0"
   }
 }

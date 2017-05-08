@@ -9,7 +9,7 @@ function createServer(httpServer, port = 9002) {
     console.log(`Connection opened, ${connections} connections open`);
 
     client.on('disconnect', disconnect);
-    
+
     client.on('message', (message) => {
       console.log(`received message: ${message.user}: ${message.message}`);
       socket.sockets.send(message);

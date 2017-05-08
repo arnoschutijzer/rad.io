@@ -60,15 +60,15 @@ authRouter.post('/login', (req, res) => {
 
 authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
  (req, res) => {
-  User.findOne({
-    _id: req.user._id
-  }, (err, user) => {
+   User.findOne({
+     _id: req.user._id
+   }, (err, user) => {
 
-    if (err) {
-      res.status(409).json({success: false, message: err});
-    }
-    res.status(200).json({success: true, user});
-  });
-});
+     if (err) {
+       res.status(409).json({success: false, message: err});
+     }
+     res.status(200).json({success: true, user});
+   });
+ });
 
 module.exports = authRouter;
