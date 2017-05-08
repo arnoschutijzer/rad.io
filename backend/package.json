@@ -7,7 +7,8 @@
     "start": "npm run start:db & npm run start:server",
     "start:db": "mongod",
     "start:server": "nodemon ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --fix ./src"
   },
   "repository": {
     "type": "git",
