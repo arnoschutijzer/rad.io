@@ -16,7 +16,7 @@ export default class App extends Component {
   }
 
   render() {
-    const {Navbar, View} =
+    const { Navbar, View } =
       this.props.auth.token ?
         buildAuthenticatedRouting(this.props) : buildDefaultRouting();
 
@@ -43,6 +43,7 @@ function buildAuthenticatedRouting(props) {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/browse'>Browse</NavLink>
+      <NavLink exact to='/broadcast'>Broadcast</NavLink>
       <NavLink exact to='/account'>Hi, { props.auth.user.username }!</NavLink>
     </div>
   );
@@ -50,12 +51,13 @@ function buildAuthenticatedRouting(props) {
   const View = (
     <Switch>
       <Route path='/account' component={ Account } />
+      <Route path='/broadcast' component={ Broadcast } />
       <Route path='/browse' component={ Browse } />
       <Route render={ () => (<Redirect to='/browse'/>) } />
     </Switch>
   );
 
-  return {Navbar, View};
+  return { Navbar, View };
 }
 
 function buildDefaultRouting() {
@@ -69,5 +71,5 @@ function buildDefaultRouting() {
     </Switch>
   );
 
-  return {Navbar, View};
+  return { Navbar, View };
 }
