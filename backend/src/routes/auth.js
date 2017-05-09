@@ -13,7 +13,7 @@ authRouter.post('/register', (req, res) => {
       password: req.body.password
     });
 
-    user.save((err, user) => {
+    user.save((err) => {
       if (err) {
         console.log(err);
         return res.status(409).json(

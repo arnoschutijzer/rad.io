@@ -17,6 +17,8 @@ function createServer(httpServer, port = 9002) {
   });
 
   socket.listen(port);
+
+  return socket;
 }
 
 function disconnect(data) {

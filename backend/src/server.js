@@ -9,7 +9,7 @@ const server = express();
 const routes = require('./routes');
 const createServer = require('./socket/server.js');
 const httpServer = require('http').createServer(server);
-const socketServer = createServer(httpServer);
+createServer(httpServer);
 
 server.use(bodyparser.json());
 server.use(bodyparser.urlencoded({extended: false}));
@@ -25,7 +25,7 @@ server.use(routes.docs);
 
 auth(passport);
 
-mongoose.connect(settings.database, (err) => {
+mongoose.connect(settings.database, () => {
 
 });
 

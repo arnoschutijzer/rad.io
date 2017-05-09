@@ -38,7 +38,7 @@ schema.methods.comparePassword = function(password, cb) {
 };
 
 schema.set('toJSON', {
-  transform: (doc, ret, options) => {
+  transform: (doc, ret) => {
     // Don't return the salt & password
     delete ret.password;
     delete ret.salt;
