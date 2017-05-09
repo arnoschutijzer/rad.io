@@ -1,3 +1,4 @@
+const Message = require('../models/message.js');
 const Server = require('socket.io');
 let connections = 0;
 
@@ -11,7 +12,20 @@ function createServer(httpServer, port = 9002) {
     client.on('disconnect', disconnect);
 
     client.on('message', (message) => {
-      console.log(`received message: ${message.user}: ${message.message}`);
+      const persistantMessage = new Message({
+        content: {
+          author: message.author._id,
+          message: message.message
+        }
+      });
+
+      persistantMessage.save((err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+
+      console.log(`received message: ${message.author.username}: ${message.message}`);
       socket.sockets.send(message);
     });
   });

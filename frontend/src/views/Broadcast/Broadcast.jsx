@@ -20,9 +20,15 @@ export default class Broadcast extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.fetchChatlog();
+  }
+
   onConnect() {
     this.props.receiveMessage({
-      user: 'System',
+      author: {
+        username: 'System'
+      },
       message: 'Connected!'
     });
   }
@@ -35,20 +41,35 @@ export default class Broadcast extends Component {
     if (!this.state.socket) {
       this.props.createNotification(
         'error',
-        {message: 'You\'re not connected!'}
+        { message: 'You\'re not connected!' }
       );
       return;
     }
 
     const Message = {
       message: message,
-      user: this.props.auth.user.username
+      author: this.props.auth.user,
     };
 
     this.state.socket.send(Message);
   }
 
   render() {
+    const systemMsg = {
+      _id: 0,
+      content: {
+        author: {
+          username: 'System',
+        },
+        message: 'Type /connect to connect'
+      }
+    };
+    let messagesToDisplay = this.props.messages;
+
+    if (!this.state.socket) {
+      messagesToDisplay = messagesToDisplay.concat([ systemMsg ]);
+    }
+
     return (
       <div className='view'>
         <h1>Broadcast</h1>
@@ -57,7 +78,7 @@ export default class Broadcast extends Component {
         </div>
         <Chatroom
           user = { this.props.auth.user }
-          messages={ this.props.messages }
+          messages={ messagesToDisplay }
           connect={ this.connect }
           sendMessage={ this.sendMessage }>
         </Chatroom>

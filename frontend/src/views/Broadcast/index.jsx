@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 import {
   sendMessage,
-  receiveMessage
+  receiveMessage,
+  fetchChatlog
 } from 'state/actionCreators/messages';
 import { createNotification } from 'state/actionCreators/notifications';
 import Broadcast from './Broadcast';
@@ -11,7 +12,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  receiveMessage, sendMessage
+  createNotification, fetchChatlog, receiveMessage, sendMessage
 };
 
 export default connect(

@@ -25,26 +25,19 @@ export default class Chatroom extends Component {
     this.refs.chatroom.scrollTop = this.refs.chatroom.scrollHeight;
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps !== this.props;
+  }
+
   render() {
     const Messages = [];
-
-    let messagesToDisplay = [ {
-      id: 0,
-      content: {
-        user: 'System',
-        message: 'Type /connect to connect to the server.'
-      }
-    } ];
-
-    if (this.props.messages.length > 0) {
-      messagesToDisplay = this.props.messages;
-    }
+    let messagesToDisplay = this.props.messages;
 
     for (let message of messagesToDisplay) {
       Messages.push(
-        <div className='message' key={ message.id }>
+        <div className='message' key={ message._id }>
           <div className='user'>
-            { '<' }{ message.content.user }{ '>' }
+            { '<' }{ message.content.author.username }{ '>' }
           </div>
           <div className='messageContent'>
             { message.content.message }

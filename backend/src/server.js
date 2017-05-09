@@ -19,11 +19,16 @@ server.use(cors({
   // Pass the header
   credentials: true
 }));
-server.use(routes.util);
 server.use(routes.auth);
+server.use(routes.chat);
 server.use(routes.docs);
+server.use(routes.util);
 
 auth(passport);
+
+// Since the default promise library mongoose uses is deprecated,
+// we plug in the ES6 Promise instead
+mongoose.Promise = global.Promise;
 
 mongoose.connect(settings.database, () => {
 
