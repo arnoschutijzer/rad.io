@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run clean:dist && webpack-dev-server --env=webpack.dev.js",
-    "lint": "eslint --fix ./src",
+    "lint": "eslint ./src",
     "prod": "npm run clean:dist && npm run dist",
     "dist": "webpack --progress --env=webpack.prod.js",
     "clean:dist": "rm -rf dist",
