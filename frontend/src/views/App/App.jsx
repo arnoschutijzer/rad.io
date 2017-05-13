@@ -39,7 +39,7 @@ export default class App extends Component {
 }
 
 /** Helper functions **/
-function buildAuthenticatedRouting(props) {
+export const buildAuthenticatedRouting = (props) => {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/browse'>Browse</NavLink>
@@ -58,9 +58,9 @@ function buildAuthenticatedRouting(props) {
   );
 
   return { Navbar, View };
-}
+};
 
-function buildDefaultRouting() {
+export const buildDefaultRouting = () => {
   const Navbar = undefined;
 
   const View = (
@@ -72,4 +72,4 @@ function buildDefaultRouting() {
   );
 
   return { Navbar, View };
-}
+};
