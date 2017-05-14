@@ -35,19 +35,14 @@ authRouter.post('/login', (req, res) => {
       return res.status(404).json({ success: false, message: 'No user found' });
     }
 
-    user.comparePassword(req.body.password, (err, valid) => {
-      if (err) {
-        return res.status(401).json({success: false, message: err});
-      }
+    user.comparePassword(req.body.password).then(() => {
+      const token = jwt.sign(user, settings.secret, {
+        expiresIn: 604800
+      });
 
-      if (valid) {
-        const token = jwt.sign(user, settings.secret, {
-          expiresIn: 604800
-        });
-
-        return res.status(200)
-          .json({success: true, token: 'JWT ' + token, user});
-      }
+      res.status(200).json({ success: true, token: 'JWT ' + token, user });
+    }).catch(err => {
+      res.status(401).json({ success: false, message: err });
     });
   }).catch(err => {
     return res.status(500).json({ success: false, message: err });

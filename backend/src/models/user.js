@@ -28,12 +28,12 @@ schema.pre('save', function(next) {
   }
 });
 
-schema.methods.comparePassword = function(password, cb) {
+schema.methods.comparePassword = function(password) {
   const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
   if (hash !== this.password) {
-    cb('Incorrect username/password.', false);
+    return Promise.reject('Incorrect username/password');
   } else {
-    cb(null, true);
+    return Promise.resolve();
   }
 };
 
