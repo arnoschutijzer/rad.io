@@ -25,11 +25,11 @@
     "cors": "^2.8.1",
     "express": "^4.15.2",
     "jsonwebtoken": "^7.4.0",
-    "mongoose": "^4.9.8",
+    "mongoose": "^4.9.9",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "socket.io": "^1.7.4"
+    "socket.io": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^3.19.0"
