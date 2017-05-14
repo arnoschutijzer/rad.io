@@ -13,15 +13,12 @@ authRouter.post('/register', (req, res) => {
       password: req.body.password
     });
 
-    user.save((err) => {
-      if (err) {
-        console.log(err);
-        return res.status(409).json(
-          {success: false, message: 'This username is already registered'}
-        );
-      }
-
-      return res.json({success: true, message: 'Registered'});
+    user.save().then(() => {
+      res.json({success: true, message: 'Registered'});
+    }).catch(() => {
+      res.status(409).json(
+        {success: false, message: 'This username is already registered'}
+      );
     });
   }
 });
@@ -33,12 +30,9 @@ authRouter.post('/login', (req, res) => {
 
   User.findOne({
     username: req.body.username
-  }, (err, user) => {
+  }).then(user => {
     if (!user) {
-      return res.status(404).json({success: false, message: 'No user found'});
-    }
-    if (err) {
-      return res.status(500).json({success: false, message: err});
+      return res.status(404).json({ success: false, message: 'No user found' });
     }
 
     user.comparePassword(req.body.password, (err, valid) => {
@@ -55,6 +49,8 @@ authRouter.post('/login', (req, res) => {
           .json({success: true, token: 'JWT ' + token, user});
       }
     });
+  }).catch(err => {
+    return res.status(500).json({ success: false, message: err });
   });
 });
 
@@ -62,13 +58,11 @@ authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
  (req, res) => {
    User.findOne({
      _id: req.user._id
-   }, (err, user) => {
-
-     if (err) {
-       res.status(409).json({success: false, message: err});
-     }
-     res.status(200).json({success: true, user});
-   });
+   }).then(user => {
+     res.status(200).json({ success: true, user });
+   }).catch(err => {
+     res.status(409).json({ success: false, message: err });
+   }) ;
  });
 
 module.exports = authRouter;

@@ -4,9 +4,10 @@ const Message = require('../models/message');
 
 messageRouter.get('/chatlog', passport.authenticate('jwt', {session: false}),
   (req, res) => {
-    Message.find().populate('content.author').exec((err, messages) => {
-      console.log(messages);
+    Message.find().populate('content.author').exec().then(messages => {
       res.json(messages);
+    }).catch(err => {
+      res.status(500).json(err);
     });
   });
 
