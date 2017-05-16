@@ -43,7 +43,6 @@ export const buildAuthenticatedRouting = (props) => {
   const Navbar = (
     <div className='navbar'>
       <NavLink exact to='/browse'>Browse</NavLink>
-      <NavLink exact to='/broadcast'>Broadcast</NavLink>
       <NavLink exact to='/account'>Hi, { props.auth.user.username }!</NavLink>
     </div>
   );
@@ -51,8 +50,8 @@ export const buildAuthenticatedRouting = (props) => {
   const View = (
     <Switch>
       <Route path='/account' component={ Account } />
-      <Route path='/broadcast' component={ Broadcast } />
       <Route path='/browse' component={ Browse } />
+      <Route path='/broadcast/:id' component={ Broadcast } />
       <Route render={ () => (<Redirect to='/browse'/>) } />
     </Switch>
   );

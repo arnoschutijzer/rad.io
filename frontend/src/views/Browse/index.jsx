@@ -1,13 +1,19 @@
-import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {
+  createRoom,
+  fetchRooms
+} from 'state/actionCreators/rooms';
+import Browse from './Browse';
 
-export default class Browse extends Component {
-  render() {
-    return (
-      <div className="view">
-        <h1>
-          Active rooms
-        </h1>
-      </div>
-    )
-  }
-}
+const mapStateToProps = (state) => {
+  return state;
+};
+
+const mapDispatchToProps = {
+  createRoom, fetchRooms
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Browse);

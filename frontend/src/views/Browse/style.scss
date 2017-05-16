@@ -1,0 +1,39 @@
+.create-room {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.rooms {
+  display: flex;
+  flex-basis: 20%;
+  flex-wrap: wrap;
+
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.room {
+  cursor: pointer;
+  display: flex;
+  flex-direction:column;
+  justify-content: flex-end;
+  height: 300px;
+  width: 200px;
+
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+
+  .room-title, .description {
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  * {
+    padding: 5px;
+  }
+}
