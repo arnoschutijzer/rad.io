@@ -11,7 +11,7 @@ roomsRouter.post('/room', passport.authenticate('jwt', {session: false}), (req, 
     style: getRandomGradient()
   });
 
-  room.save().then((response) => {
+  room.save().then(() => {
     res.sendStatus(200);
   }).catch((err) => {
     res.status(500).json({ err });
