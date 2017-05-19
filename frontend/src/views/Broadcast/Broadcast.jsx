@@ -25,6 +25,10 @@ export default class Broadcast extends Component {
     });
   }
 
+  componentWillMount() {
+    this.props.fetchChatlog();
+  }
+
   componentWillUnmount() {
     if (this.state.socket) {
       this.state.socket.disconnect();
@@ -33,7 +37,6 @@ export default class Broadcast extends Component {
   }
 
   onConnect() {
-    this.props.fetchChatlog();
   }
 
   onMessage(message) {
