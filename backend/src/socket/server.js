@@ -1,43 +1,76 @@
-const Message = require('../models/message.js');
+const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
-let connections = 0;
+const config = require('../config/settings.js');
+let rootSocket = {};
 
 function createServer(httpServer, port = 9002) {
-  const socket = new Server(httpServer);
+  rootSocket = new Server(httpServer);
 
-  socket.sockets.on('connection', (client) => {
-    connections += 1;
-    console.log(`Connection opened, ${connections} connections open`);
+  rootSocket.use(socketJwt.authorize({
+    secret: config.secret,
+    handshake: true
+  }));
 
-    client.on('disconnect', disconnect);
+  rootSocket.on('connection', (clientSocket) => {
+    clientSocket.on('join', data => {
+      onJoin(clientSocket, data);
+    });
 
-    client.on('message', (message) => {
-      const persistantMessage = new Message({
-        content: {
-          author: message.author._id,
-          message: message.message
-        }
-      });
+    clientSocket.on('message', data => {
+      onMessage(clientSocket, data);
+    });
 
-      persistantMessage.save((err) => {
-        if (err) {
-          console.log(err);
-        }
-      });
-
-      console.log(`received message: ${message.author.username}: ${message.message}`);
-      socket.sockets.send(message);
+    clientSocket.on('disconnect', data => {
+      onDisconnect(clientSocket, data);
     });
   });
 
-  socket.listen(port);
+  rootSocket.on('unauthorized', function(err){
+    console.log('There was an error with the authentication:', err.message);
+  });
 
-  return socket;
+  rootSocket.listen(port);
+  return rootSocket;
 }
 
-function disconnect(data) {
-  connections -= 1;
-  console.log(`Connection closed: ${data}, ${connections} connections open`);
-}
+const onJoin = (clientSocket, data) => {
+  clientSocket.join(data, () => {
+    // We can't use the rooms property here to notify all the rooms of the disconnect,
+    // since the property has already been cleared, so we define a property ___radRooms on the socket.
+    clientSocket.___radRooms = clientSocket.rooms;
+
+    sendMessage(data, {
+      author: {
+        username: 'System'
+      },
+      message: `${clientSocket.decoded_token._doc.username} connected`
+    });
+  });
+};
+
+const onDisconnect = (clientSocket) => {
+  // We loop over the ___radRooms property to notify the rooms the user was last in.
+  const keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
+  const author = clientSocket.decoded_token._doc;
+  keys.forEach(key => {
+    sendMessage(key, {
+      author: {
+        username: 'System'
+      },
+      message: `${author.username} disconnected`
+    });
+  });
+};
+
+const onMessage = (clientSocket, data) => {
+  // Just send the message to all the clients in the room,
+  // the user that sent it will receive it as well, but this is desirable.
+  // If the user doesn't see their message pop up, it hasn't arrived.
+  rootSocket.to(data.room).send(data);
+};
+
+const sendMessage = (room, data) => {
+  rootSocket.to(room).send(data);
+};
 
 module.exports = createServer;

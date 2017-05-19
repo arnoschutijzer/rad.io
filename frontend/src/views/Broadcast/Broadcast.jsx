@@ -15,22 +15,25 @@ export default class Broadcast extends Component {
   }
 
   connect() {
+    // The token contains 'JWT' in the beginning of the string, here we take this out,
+    // to successfully establish a connection.
+    const token = this.props.auth.token.substr(3, this.props.auth.token.length+1).trim();
+    const roomId = this.props.match.params.id;
+
     this.setState({
-      socket: createConnection(this)
+      socket: createConnection(this, token, roomId)
     });
   }
 
-  componentWillMount() {
-    this.props.fetchChatlog();
+  componentWillUnmount() {
+    if (this.state.socket) {
+      this.state.socket.disconnect();
+      this.state.socket = undefined;
+    }
   }
 
   onConnect() {
-    this.props.receiveMessage({
-      author: {
-        username: 'System'
-      },
-      message: 'Connected!'
-    });
+    this.props.fetchChatlog();
   }
 
   onMessage(message) {
@@ -47,6 +50,7 @@ export default class Broadcast extends Component {
     }
 
     const Message = {
+      room: this.props.match.params.id,
       message: message,
       author: this.props.auth.user,
     };
@@ -64,6 +68,7 @@ export default class Broadcast extends Component {
         message: 'Type /connect to connect'
       }
     };
+
     let messagesToDisplay = this.props.messages;
 
     if (!this.state.socket) {
