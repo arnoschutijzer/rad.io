@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { RoomCard } from 'components/RoomCard';
 import { keys } from 'underscore';
 import './style.scss';
 
@@ -28,30 +28,9 @@ export default class Browse extends Component {
     let Rooms = [];
     const _keys = keys(this.props.rooms);
     _keys.forEach(key => {
-      const link = '/broadcast/' + key;
-      let style = {};
-      if (this.props.rooms[key].style) {
-        style.backgroundColor = `${this.props.rooms[key].style.top}`;
-        style.backgroundImage = `linear-gradient(140deg,
-          ${this.props.rooms[key].style.top},
-          ${this.props.rooms[key].style.bottom})`;
-      }
-
-      const element = (
-        <Link key={ key } to={ link } className="room" style={ style }>
-          <h2 className="room-title">
-            { this.props.rooms[key].name }
-          </h2>
-          <div>
-            <p>
-              created by { this.props.rooms[key].creator.username }
-            </p>
-            <p className="description">{ this.props.rooms[key].topic }</p>
-          </div>
-        </Link>
-      );
-
-      Rooms.push(element);
+      Rooms.push((
+        <RoomCard key={ key } room={ this.props.rooms[key] }></RoomCard>
+      ));
     });
 
     return (

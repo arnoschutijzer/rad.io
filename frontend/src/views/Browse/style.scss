@@ -1,8 +1,11 @@
 .create-room {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   padding-top: 50px;
   padding-bottom: 50px;
+
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .rooms {
@@ -10,30 +13,11 @@
   flex-basis: 20%;
   flex-wrap: wrap;
 
-  margin-left: 10%;
-  margin-right: 10%;
-}
+  margin-left: 5%;
+  margin-right: 5%;
 
-.room {
-  cursor: pointer;
-  display: flex;
-  flex-direction:column;
-  justify-content: flex-end;
-  height: 300px;
-  width: 200px;
-
-  margin: 0;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 20px;
-
-  .room-title, .description {
-    max-height: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  * {
-    padding: 5px;
+  .room {
+    height: 300px;
+    width: 20%;
   }
 }
