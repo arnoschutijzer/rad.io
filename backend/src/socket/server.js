@@ -1,6 +1,7 @@
 const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
-const config = require('../config/settings.js');
+const config = require('../config/settings');
+const Message = require('../models/message');
 let rootSocket = {};
 
 function createServer(httpServer, port = 9002) {
@@ -67,6 +68,18 @@ const onMessage = (clientSocket, data) => {
   // the user that sent it will receive it as well, but this is desirable.
   // If the user doesn't see their message pop up, it hasn't arrived.
   rootSocket.to(data.room).send(data);
+
+  const message = new Message({
+    content: {
+      author: data.author._id,
+      message: data.message
+    },
+    room: data.room,
+  });
+
+  message.save().catch((err) => {
+    console.log('ERR_SAVING_MSG: ', err);
+  });
 };
 
 const sendMessage = (room, data) => {

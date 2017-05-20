@@ -4,10 +4,12 @@ import { Chatroom, Player } from '../../components';
 import './style.scss';
 
 export default class Broadcast extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
-    this.state = {};
+    this.state = {
+      roomId: props.match.params.id
+    };
     this.connect = this.connect.bind(this);
     this.onConnect = this.onConnect.bind(this);
     this.onMessage = this.onMessage.bind(this);
@@ -18,15 +20,14 @@ export default class Broadcast extends Component {
     // The token contains 'JWT' in the beginning of the string, here we take this out,
     // to successfully establish a connection.
     const token = this.props.auth.token.substr(3, this.props.auth.token.length+1).trim();
-    const roomId = this.props.match.params.id;
 
     this.setState({
-      socket: createConnection(this, token, roomId)
+      socket: createConnection(this, token, this.state.roomId)
     });
   }
 
   componentWillMount() {
-    this.props.fetchChatlog();
+    this.props.fetchChatlog(this.state.roomId);
   }
 
   componentWillUnmount() {
@@ -53,7 +54,7 @@ export default class Broadcast extends Component {
     }
 
     const Message = {
-      room: this.props.match.params.id,
+      room: this.state.roomId,
       message: message,
       author: this.props.auth.user,
     };

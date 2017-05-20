@@ -7,6 +7,10 @@ const schema = mongoose.Schema({
       type: String,
       required: true
     }
+  },
+  room: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Room',
+    required: true
   }
 });
 
