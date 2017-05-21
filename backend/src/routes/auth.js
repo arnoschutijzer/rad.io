@@ -14,10 +14,10 @@ authRouter.post('/register', (req, res) => {
     });
 
     user.save().then(() => {
-      res.json({success: true, message: 'Registered'});
+      res.json({ message: 'Registered' });
     }).catch(() => {
       res.status(409).json(
-        {success: false, message: 'This username is already registered'}
+        { message: 'This username is already registered' }
       );
     });
   }
@@ -25,14 +25,14 @@ authRouter.post('/register', (req, res) => {
 
 authRouter.post('/login', (req, res) => {
   if (!req.body.username || !req.body.password) {
-    return res.status(401).json({success: false, message: 'No credentials'});
+    return res.status(401).json({ message: 'No credentials' });
   }
 
   User.findOne({
     username: req.body.username
   }).then(user => {
     if (!user) {
-      return res.status(404).json({ success: false, message: 'No user found' });
+      return res.status(404).json({ message: 'No user found' });
     }
 
     user.comparePassword(req.body.password).then(() => {
@@ -40,12 +40,12 @@ authRouter.post('/login', (req, res) => {
         expiresIn: 604800
       });
 
-      res.status(200).json({ success: true, token: 'JWT ' + token, user });
+      res.status(200).json({ token: 'JWT ' + token, user });
     }).catch(err => {
-      res.status(401).json({ success: false, message: err });
+      res.status(401).json({ message: err });
     });
   }).catch(err => {
-    return res.status(500).json({ success: false, message: err });
+    return res.status(500).json({ message: err });
   });
 });
 
@@ -54,9 +54,9 @@ authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
    User.findOne({
      _id: req.user._id
    }).then(user => {
-     res.status(200).json({ success: true, user });
+     res.status(200).json({ user });
    }).catch(err => {
-     res.status(409).json({ success: false, message: err });
+     res.status(409).json({ message: err });
    }) ;
  });
 
