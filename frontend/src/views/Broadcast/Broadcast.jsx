@@ -65,12 +65,10 @@ export default class Broadcast extends Component {
   render() {
     const systemMsg = {
       _id: 0,
-      content: {
-        author: {
-          username: 'System',
-        },
-        message: 'Type /connect to connect'
-      }
+      author: {
+        username: 'System',
+      },
+      message: 'Type /connect to connect'
     };
 
     let messagesToDisplay = this.props.messages;

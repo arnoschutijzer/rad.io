@@ -8,7 +8,7 @@ import { LOGOUT } from '../actions/auth';
 export default (state = [], action) => {
   if (action.type === RECEIVE_CHAT_MESSAGE ||
       action.type === SEND_CHAT_MESSAGE) {
-    let newMessage = [ action.message ];
+    let newMessage = [ action.content ];
     return state.concat(newMessage);
   }
 

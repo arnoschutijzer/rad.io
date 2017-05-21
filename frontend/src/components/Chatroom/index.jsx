@@ -33,14 +33,16 @@ export default class Chatroom extends Component {
     const Messages = [];
     let messagesToDisplay = this.props.messages;
 
+    console.log(messagesToDisplay);
+
     for (let message of messagesToDisplay) {
       Messages.push(
         <div className='message' key={ message._id }>
           <div className='user'>
-            { '<' }{ message.content.author.username }{ '>' }
+            { '<' }{ message.author.username }{ '>' }
           </div>
           <div className='messageContent'>
-            { message.content.message }
+            { message.message }
           </div>
         </div>
       );

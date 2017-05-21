@@ -70,10 +70,8 @@ const onMessage = (clientSocket, data) => {
   rootSocket.to(data.room).send(data);
 
   const message = new Message({
-    content: {
-      author: data.author._id,
-      message: data.message
-    },
+    author: data.author._id,
+    message: data.message,
     room: data.room,
   });
 

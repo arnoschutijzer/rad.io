@@ -8,7 +8,7 @@ messageRouter.get('/chatlog/:roomId', passport.authenticate('jwt', {session: fal
       res.sendStatus(400);
     }
 
-    Message.find({ room: req.params.roomId }).populate('content.author').exec().then(messages => {
+    Message.find({ room: req.params.roomId }).populate('author').exec().then(messages => {
       res.json(messages);
     }).catch(err => {
       res.status(500).json(err);

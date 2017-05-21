@@ -24,18 +24,21 @@ export const fetchChatlog = (roomId) => {
   };
 };
 
-export const receiveMessage = (content) => ({
-  type: RECEIVE_CHAT_MESSAGE,
-  message: {
-    _id: uuid(),
-    content
+export const receiveMessage = (content) => {
+  if (!content._id) {
+    content._id = uuid();
   }
-});
+  
+  return {
+    type: RECEIVE_CHAT_MESSAGE,
+    content
+  };
+};
 
-export const sendMessage = (content) => ({
-  type: SEND_CHAT_MESSAGE,
-  message: {
-    _id: uuid(),
-    content
-  }
-});
+export const sendMessage = (content) => {
+  content._id = uuid();
+  return {
+    type: SEND_CHAT_MESSAGE,
+    message: content
+  };
+};
