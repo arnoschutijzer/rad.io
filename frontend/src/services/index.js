@@ -12,7 +12,10 @@ export const createConnection = (handler, token, roomId) => {
   });
   socket.on('connect', (args) => {
     socket.emit('join', roomId);
-    handler.onConnect(args);
+    
+    if (handler.onConnect) {
+      handler.onConnect(args);
+    }
   });
   socket.on('message', handler.onMessage);
 

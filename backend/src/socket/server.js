@@ -2,9 +2,10 @@ const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
 const config = require('../config/settings');
 const Message = require('../models/message');
+var Link = require('../models/link');
 let rootSocket = {};
 
-function createServer(httpServer, port = 9002) {
+module.exports = function createServer(httpServer, port = 9002) {
   rootSocket = new Server(httpServer);
 
   rootSocket.use(socketJwt.authorize({
@@ -24,6 +25,10 @@ function createServer(httpServer, port = 9002) {
     clientSocket.on('disconnect', data => {
       onDisconnect(clientSocket, data);
     });
+
+    clientSocket.on('add', (data) => {
+      onAdd(clientSocket, data);
+    });
   });
 
   rootSocket.on('unauthorized', function(err){
@@ -32,7 +37,7 @@ function createServer(httpServer, port = 9002) {
 
   rootSocket.listen(port);
   return rootSocket;
-}
+};
 
 const onJoin = (clientSocket, data) => {
   clientSocket.join(data, () => {
@@ -45,6 +50,24 @@ const onJoin = (clientSocket, data) => {
         username: 'System'
       },
       message: `${clientSocket.decoded_token._doc.username} connected`
+    });
+  });
+};
+
+const onAdd = (clientSocket, data) => {
+  const link = new Link({
+    originalUrl: data.url,
+    videoId: 'derp',
+    submitter: clientSocket.decoded_token._doc._id,
+    room: data.roomId
+  });
+
+  link.save().then(() => {
+    clientSocket.send({
+      author: {
+        username: 'System'
+      },
+      message: 'Successfully added!'
     });
   });
 };
@@ -83,5 +106,3 @@ const onMessage = (clientSocket, data) => {
 const sendMessage = (room, data) => {
   rootSocket.to(room).send(data);
 };
-
-module.exports = createServer;

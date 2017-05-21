@@ -15,6 +15,16 @@ export default class Chatroom extends Component {
         this.props.connect();
         return;
       }
+      if (this.state.message.indexOf('/add') === 0) {
+        event.target.value = '';
+        const splitUrl = this.state.message.replace('/add', '').trim().split(' ');
+
+        this.props.emitEvent({
+          type: 'add',
+          url: splitUrl[0]
+        });
+        return;
+      }
 
       this.props.sendMessage(event.target.value);
       event.target.value = '';

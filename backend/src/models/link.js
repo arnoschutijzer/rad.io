@@ -9,7 +9,14 @@ const schema = mongoose.Schema({
     type: String,
     required: true
   },
-  submitter: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  submitter: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'User',
+    required: true
+  },
+  room: {
+    type: mongoose.Schema.Types.ObjectId, ref: 'Room',
+    required: true
+  }
 });
 
 const model = mongoose.model('Link', schema);

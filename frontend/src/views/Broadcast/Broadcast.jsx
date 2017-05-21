@@ -11,7 +11,7 @@ export default class Broadcast extends Component {
       roomId: props.match.params.id
     };
     this.connect = this.connect.bind(this);
-    this.onConnect = this.onConnect.bind(this);
+    this.emitEvent = this.emitEvent.bind(this);
     this.onMessage = this.onMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -37,7 +37,19 @@ export default class Broadcast extends Component {
     }
   }
 
-  onConnect() {
+  emitEvent(args) {
+    if (this.state.socket) {
+      const data = Object.assign({}, args, {
+        roomId: this.state.roomId
+      });
+
+      this.state.socket.emit(data.type, data);
+    } else {
+      this.props.createNotification(
+        'error',
+        { message: 'You\'re not connected!' }
+      );
+    }
   }
 
   onMessage(message) {
@@ -87,7 +99,8 @@ export default class Broadcast extends Component {
           user = { this.props.auth.user }
           messages={ messagesToDisplay }
           connect={ this.connect }
-          sendMessage={ this.sendMessage }>
+          sendMessage={ this.sendMessage }
+          emitEvent={ this.emitEvent }>
         </Chatroom>
       </div>
     );
