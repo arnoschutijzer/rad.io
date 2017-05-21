@@ -21,3 +21,21 @@
     width: 20%;
   }
 }
+
+@media screen and (max-device-width: 500px) {
+  .rooms {
+    margin: 0;
+
+    .room {
+      width: 100% !important;
+    }
+  }
+}
+
+@media screen and (min-device-width: 500px) and (max-device-width: 1000px) {
+  .rooms {
+    .room {
+      width: 25%;
+    }
+  }
+}
