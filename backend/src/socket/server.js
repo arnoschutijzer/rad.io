@@ -2,7 +2,8 @@ const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
 const config = require('../config/settings');
 const Message = require('../models/message');
-var Link = require('../models/link');
+const initMusicServer = require('./musicServer');
+const rooms = {};
 let rootSocket = {};
 
 module.exports = function createServer(httpServer, port = 9002) {
@@ -16,6 +17,11 @@ module.exports = function createServer(httpServer, port = 9002) {
   rootSocket.on('connection', (clientSocket) => {
     clientSocket.on('join', data => {
       onJoin(clientSocket, data);
+
+      // create a 'music server'
+      if (!rooms[data]) {
+        rooms[data] = initMusicServer(data, rootSocket.to(data));
+      }
     });
 
     clientSocket.on('message', data => {
@@ -27,7 +33,11 @@ module.exports = function createServer(httpServer, port = 9002) {
     });
 
     clientSocket.on('add', (data) => {
-      onAdd(clientSocket, data);
+      const enrichedData = Object.assign({}, {
+        user: clientSocket.decoded_token._doc._id
+      }, data);
+
+      rooms[data.roomId].add(enrichedData);
     });
   });
 
@@ -50,24 +60,6 @@ const onJoin = (clientSocket, data) => {
         username: 'System'
       },
       message: `${clientSocket.decoded_token._doc.username} connected`
-    });
-  });
-};
-
-const onAdd = (clientSocket, data) => {
-  const link = new Link({
-    originalUrl: data.url,
-    videoId: 'derp',
-    submitter: clientSocket.decoded_token._doc._id,
-    room: data.roomId
-  });
-
-  link.save().then(() => {
-    clientSocket.send({
-      author: {
-        username: 'System'
-      },
-      message: 'Successfully added!'
     });
   });
 };

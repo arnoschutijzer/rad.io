@@ -12,12 +12,13 @@ export const createConnection = (handler, token, roomId) => {
   });
   socket.on('connect', (args) => {
     socket.emit('join', roomId);
-    
+
     if (handler.onConnect) {
       handler.onConnect(args);
     }
   });
   socket.on('message', handler.onMessage);
+  socket.on('play', handler.onPlay);
 
   return socket;
 };

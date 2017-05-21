@@ -56,6 +56,10 @@ export default class Broadcast extends Component {
     this.props.receiveMessage(message);
   }
 
+  onPlay(data) {
+    console.log(data);
+  }
+
   sendMessage(message) {
     if (!this.state.socket) {
       this.props.createNotification(
