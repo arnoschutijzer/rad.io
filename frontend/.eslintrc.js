@@ -4,6 +4,9 @@ module.exports = {
     'es6': true
   },
   'extends': 'eslint:recommended',
+  'globals': {
+    'ReactDOM': true
+  },
   'parserOptions': {
     'ecmaFeatures': {
       'experimentalObjectRestSpread': true,

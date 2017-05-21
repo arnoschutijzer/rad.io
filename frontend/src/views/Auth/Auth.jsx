@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import { Element, Link } from 'react-scroll';
 import './style.scss';
 
@@ -17,7 +16,7 @@ export default class Auth extends Component {
   login() {
     if (!this.state.loginUsername || !this.state.loginPassword) {
       this.props.createNotification(
-        'info', {message: 'Please fill in all fields.'}
+        'info', { message: 'Please fill in all fields.' }
       );
       return;
     }
@@ -31,14 +30,14 @@ export default class Auth extends Component {
     if (!this.state.registerPassword || !this.state.registerUsername ||
          !this.state.registerConfirmPassword) {
       this.props.createNotification(
-        'info', {message: 'Please fill in all fields.'}
+        'info', { message: 'Please fill in all fields.' }
       );
       return;
     }
 
-    if (this.state.registerPassword !== this.state.registerConfirmPassword) {
+    if (this.state.registerPassword !== this.state.registerConfirmPassword) {
       this.props.createNotification(
-        'info', {message: 'Passwords don\'t match.'}
+        'info', { message: 'Passwords don\'t match.' }
       );
       return;
     }
@@ -56,12 +55,12 @@ export default class Auth extends Component {
             <input type='text'
               placeholder='username'
               onChange={ (event) => {
-                this.setState({loginUsername: event.target.value});
+                this.setState({ loginUsername: event.target.value });
               }}></input>
             <input type='password'
               placeholder='password'
               onChange={ (event) => {
-                this.setState({loginPassword: event.target.value});
+                this.setState({ loginPassword: event.target.value });
               }}></input>
             <button onClick={ this.login }>
               login
@@ -77,19 +76,19 @@ export default class Auth extends Component {
             <input type='text'
               placeholder='username'
               onChange={ (event) => {
-                this.setState({registerUsername: event.target.value});
+                this.setState({ registerUsername: event.target.value });
               }}>
             </input>
             <input type='password'
               placeholder='password'
               onChange={ (event) => {
-                this.setState({registerPassword: event.target.value});
+                this.setState({ registerPassword: event.target.value });
               }}>
             </input>
             <input type='password'
               placeholder='confirm password'
               onChange={ (event) => {
-                this.setState({registerConfirmPassword: event.target.value});
+                this.setState({ registerConfirmPassword: event.target.value });
               }}>
             </input>
             <button onClick={ this.register }>
