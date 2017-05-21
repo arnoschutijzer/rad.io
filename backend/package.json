@@ -4,11 +4,11 @@
   "description": "websockets + react radio",
   "main": "./src/server.js",
   "scripts": {
+    "lint": "eslint src --ext .js",
     "start": "npm run start:db & npm run start:server",
     "start:db": "mongod",
     "start:server": "nodemon ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./src"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
