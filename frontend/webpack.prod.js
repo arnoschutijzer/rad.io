@@ -6,8 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
-const env = process.env;
-
 module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
@@ -15,7 +13,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(env.NODE_ENV)
+        NODE_ENV: JSON.stringify('production')
       }
     }),
     new webpack.optimize.CommonsChunkPlugin({
@@ -24,9 +22,9 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin({
       mangle: true
     }),
-    new CopyWebpackPlugin([{
+    new CopyWebpackPlugin([ {
       from: path.join(__dirname, SRC, '/assets/fonts'),
       to: path.join(__dirname, DIST, '/assets/fonts')
-    }])
+    } ])
   ]
 };
