@@ -25,6 +25,8 @@ class MusicServer {
     });
 
     link.save().then(() => {
+      this.activePlaylist.push(link);
+
       this.socket.send({
         author: {
           username: 'System'
@@ -33,7 +35,6 @@ class MusicServer {
       });
     });
 
-    this.activePlaylist.push(data);
   }
 
   startPlaying() {
