@@ -57,7 +57,9 @@ export default class Broadcast extends Component {
   }
 
   onPlay(data) {
+    /*eslint-disable no-console*/
     console.log(data);
+    /*eslint-enable no-console*/
   }
 
   sendMessage(message) {
