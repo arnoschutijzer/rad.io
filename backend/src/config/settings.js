@@ -1,5 +1,6 @@
 module.exports = {
-  'secret': 'radiossecret',
-  'database': 'mongodb://127.0.0.1:27017/rad-io',
+  'apiKey': 'GOOGLE_API_KEY',
+  'secret': 'JWT_SECRET',
+  'database': 'MONGODB_DB_ADDRESS',
   'port': 9001
 };
