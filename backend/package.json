@@ -31,7 +31,8 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "socket.io": "^2.0.1",
-    "socketio-jwt": "^4.5.0"
+    "socketio-jwt": "^4.5.0",
+    "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
     "eslint": "^3.19.0"

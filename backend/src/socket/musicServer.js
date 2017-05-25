@@ -1,4 +1,5 @@
 const Link = require('../models/link');
+const youtube = require('../helpers/youtube');
 
 module.exports = (id, socket) => {
   return new MusicServer(id, socket);
@@ -10,31 +11,30 @@ class MusicServer {
     this.socket = socket;
 
     this.__refreshPlaylist().then(() => {
-      console.log('hi');
       this.startPlaying();
     });
   }
 
   add(data) {
     console.log('adding data to queue: ', data);
-    const link = new Link({
-      originalUrl: data.url,
-      videoId: 'derp',
-      submitter: data.user,
-      room: data.roomId
-    });
 
-    link.save().then(() => {
-      this.activePlaylist.push(link);
+    youtube.parseUrl(data.url).then((response) => {
+      const link = new Link(Object.assign({}, response, {
+        submitter: data.user,
+        room: data.roomId
+      }));
 
-      this.socket.send({
-        author: {
-          username: 'System'
-        },
-        message: 'Successfully added!'
+      link.save().then(() => {
+        this.activePlaylist.push(link);
+
+        this.socket.send({
+          author: {
+            username: 'System'
+          },
+          message: 'Successfully added'
+        });
       });
     });
-
   }
 
   startPlaying() {
