@@ -57,15 +57,17 @@ class MusicServer {
 
   startPlaying() {
     if (this.activePlaylist.length > 0) {
-      this.socket.emit('play', this.activePlaylist[0]);
+      const latestLink = this.activePlaylist[0];
+      this.socket.emit('play', latestLink);
       setTimeout(() => {
         this.activePlaylist = this.activePlaylist.slice(1, this.activePlaylist.length);
         this.startPlaying();
-      }, 1000 /* song time in ms */);
+      }, latestLink.metadata.duration);
     } else {
+      /* after 2 seconds, check again if we have items to play */
       setTimeout(() => {
         this.startPlaying();
-      }, 2000 /* actually a sort of 'interval', we want to start playing when another item was added to the playlist */);
+      }, 2000);
     }
   }
 

@@ -24,7 +24,7 @@ const findVideoById = (id) => {
       const snippet = response.items[0].snippet;
 
       const metadata = {
-        duration: details.duration,
+        duration: parseDuration(details.duration),
         title: snippet.title,
         description: snippet.description,
         uploader: snippet.channelTitle
@@ -68,7 +68,19 @@ const parseUrl = (url) => {
   return Promise.reject({ message: 'Invalid url' });
 };
 
+// cfr. https://stackoverflow.com/questions/22148885/converting-youtube-data-api-v3-video-duration-format-to-seconds-in-javascript-no
+const parseDuration = (duration) => {
+  const match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+
+  const hours = (parseInt(match[1]) || 0);
+  const minutes = (parseInt(match[2]) || 0);
+  const seconds = (parseInt(match[3]) || 0);
+
+  return (hours * 3600 + minutes * 60 + seconds) * 1000;
+};
+
 module.exports = {
   findVideoById,
+  parseDuration,
   parseUrl
 };
