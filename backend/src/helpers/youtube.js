@@ -4,16 +4,34 @@ const config = require('../config/settings');
 const verEx = require('verbal-expressions');
 
 const findVideoById = (id) => {
-  youtube.videos.list({
-    auth: config.apiKey,
-    part: 'contentDetails',
-    id: id
-  }, (err, response) => {
-    if (err) {
-      return Promise.reject(err);
-    }
+  return new Promise((resolve, reject) => {
+    youtube.videos.list({
+      auth: config.apiKey,
+      part: 'contentDetails, snippet',
+      id: id
+    }, (err, response) => {
+      if (err) {
+        return reject(err);
+      }
 
-    return Promise.resolve(response);
+      if (response.items.length < 1) {
+        return reject({ message: 'No videos found' });
+      }
+
+      // Assume we need the details of first result, which is always correct
+      // since we do lookup by id...
+      const details = response.items[0].contentDetails;
+      const snippet = response.items[0].snippet;
+
+      const metadata = {
+        duration: details.duration,
+        title: snippet.title,
+        description: snippet.description,
+        uploader: snippet.channelTitle
+      };
+
+      return resolve(metadata);
+    });
   });
 };
 
@@ -45,9 +63,9 @@ const parseUrl = (url) => {
       originalUrl: url,
       videoId
     });
-  } else {
-    return Promise.reject();
   }
+
+  return Promise.reject({ message: 'Invalid url' });
 };
 
 module.exports = {

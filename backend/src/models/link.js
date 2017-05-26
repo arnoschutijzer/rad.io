@@ -16,6 +16,23 @@ const schema = mongoose.Schema({
   room: {
     type: mongoose.Schema.Types.ObjectId, ref: 'Room',
     required: true
+  },
+  metadata: {
+    duration: {
+      type: String,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    description: {
+      type: String
+    },
+    uploader: {
+      type: String,
+      required: true
+    }
   }
 });
 

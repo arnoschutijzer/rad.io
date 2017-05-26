@@ -16,23 +16,41 @@ class MusicServer {
   }
 
   add(data) {
-    console.log('adding data to queue: ', data);
-
     youtube.parseUrl(data.url).then((response) => {
-      const link = new Link(Object.assign({}, response, {
-        submitter: data.user,
-        room: data.roomId
-      }));
+      youtube.findVideoById(response.videoId).then((metadata) => {
+        const linkData = Object.assign({}, response, {
+          submitter: data.user,
+          room: data.roomId,
+          metadata
+        });
 
-      link.save().then(() => {
-        this.activePlaylist.push(link);
+        const link = new Link(linkData);
 
+        link.save().then(() => {
+          this.activePlaylist.push(link);
+
+          this.socket.send({
+            author: {
+              username: 'System'
+            },
+            message: 'Successfully added'
+          });
+        });
+      }).catch((err) => {
         this.socket.send({
           author: {
             username: 'System'
           },
-          message: 'Successfully added'
+          message: err.message
         });
+      });
+    }).catch((err) => {
+      // Invalid url
+      this.socket.send({
+        author: {
+          username: 'System'
+        },
+        message: err.message
       });
     });
   }
