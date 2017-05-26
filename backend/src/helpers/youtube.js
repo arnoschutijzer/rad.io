@@ -50,7 +50,9 @@ const parseUrl = (url) => {
 
   if (isFull) {
     const queryIndex = url.indexOf('v=');
-    const videoId = url.substr(queryIndex + 2, url.length - 1);
+    const queryUrl = url.substr(queryIndex + 2, url.length - 1);
+    const nextParamIndex = queryUrl.indexOf('&') || queryUrl.length - 1;
+    const videoId = queryUrl.substr(0, nextParamIndex);
 
     return Promise.resolve({
       originalUrl: url,
