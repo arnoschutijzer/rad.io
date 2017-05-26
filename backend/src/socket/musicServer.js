@@ -21,7 +21,8 @@ class MusicServer {
         const linkData = Object.assign({}, response, {
           submitter: data.user,
           room: data.roomId,
-          metadata
+          metadata,
+          isActive: true
         });
 
         const link = new Link(linkData);
@@ -59,6 +60,10 @@ class MusicServer {
     if (this.activePlaylist.length > 0) {
       const latestLink = this.activePlaylist[0];
       this.socket.emit('play', latestLink);
+
+      latestLink.isActive = false;
+      latestLink.save();
+
       setTimeout(() => {
         this.activePlaylist = this.activePlaylist.slice(1, this.activePlaylist.length);
         this.startPlaying();
@@ -72,7 +77,7 @@ class MusicServer {
   }
 
   __refreshPlaylist() {
-    return Link.find().then((links) => {
+    return Link.find({ isActive: true }).then((links) => {
       this.activePlaylist = links;
     }).catch((err) => {
       console.log(err);

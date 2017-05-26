@@ -17,6 +17,10 @@ const schema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: 'Room',
     required: true
   },
+  isActive: {
+    type: mongoose.Schema.Types.Boolean,
+    required: true
+  },
   metadata: {
     duration: {
       type: String,
