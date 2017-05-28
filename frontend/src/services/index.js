@@ -2,6 +2,8 @@ import io from 'socket.io-client';
 
 let socket;
 
+const noop = () => {};
+
 export const createConnection = (handler, token, roomId) => {
   if (socket) {
     socket.disconnect();
@@ -17,8 +19,9 @@ export const createConnection = (handler, token, roomId) => {
       handler.onConnect(args);
     }
   });
-  socket.on('message', handler.onMessage);
-  socket.on('play', handler.onPlay);
+  socket.on('message', handler.onMessage || noop);
+  socket.on('play', handler.onPlay || noop);
+  socket.on('notification', handler.onNotification || noop);
 
   return socket;
 };

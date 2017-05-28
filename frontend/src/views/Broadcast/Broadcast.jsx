@@ -13,6 +13,7 @@ export default class Broadcast extends Component {
     this.connect = this.connect.bind(this);
     this.emitEvent = this.emitEvent.bind(this);
     this.onMessage = this.onMessage.bind(this);
+    this.onNotification = this.onNotification.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
 
@@ -60,6 +61,13 @@ export default class Broadcast extends Component {
     /*eslint-disable no-console*/
     console.log(data);
     /*eslint-enable no-console*/
+  }
+
+  onNotification(data) {
+    this.props.createNotification(
+      data.type,
+      { message: data.message }
+    );
   }
 
   sendMessage(message) {

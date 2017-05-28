@@ -1,5 +1,6 @@
 const Link = require('../models/link');
-const youtube = require('../helpers/youtube');
+const youtube = require('./youtube');
+const notificationTypes = require('../models/constants').notifications;
 
 module.exports = (id, socket) => {
   return new MusicServer(id, socket);
@@ -30,29 +31,14 @@ class MusicServer {
         link.save().then(() => {
           this.activePlaylist.push(link);
 
-          this.socket.send({
-            author: {
-              username: 'System'
-            },
-            message: 'Successfully added'
-          });
+          this.__sendNotification(notificationTypes.info, 'Successfully added!');
         });
       }).catch((err) => {
-        this.socket.send({
-          author: {
-            username: 'System'
-          },
-          message: err.message
-        });
+        this.__sendNotification(notificationTypes.error, err.message);
       });
     }).catch((err) => {
       // Invalid url
-      this.socket.send({
-        author: {
-          username: 'System'
-        },
-        message: err.message
-      });
+      this.__sendNotification(notificationTypes.error, err.message);
     });
   }
 
@@ -82,5 +68,9 @@ class MusicServer {
     }).catch((err) => {
       console.log(err);
     });
+  }
+
+  __sendNotification(type = 'info', message) {
+    this.socket.emit('notification', { type, message });
   }
 }
