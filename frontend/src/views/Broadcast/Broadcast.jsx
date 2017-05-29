@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createConnection } from '../../services';
-import { Chatroom, Player } from '../../components';
+import { Chatroom } from '../../components';
+import Youtube from 'react-youtube';
 import './style.scss';
 
 export default class Broadcast extends Component {
@@ -8,11 +9,13 @@ export default class Broadcast extends Component {
     super(props);
 
     this.state = {
-      roomId: props.match.params.id
+      roomId: props.match.params.id,
+      currentVideoId: ''
     };
     this.connect = this.connect.bind(this);
     this.emitEvent = this.emitEvent.bind(this);
     this.onMessage = this.onMessage.bind(this);
+    this.onPlay = this.onPlay.bind(this);
     this.onNotification = this.onNotification.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -58,9 +61,15 @@ export default class Broadcast extends Component {
   }
 
   onPlay(data) {
-    /*eslint-disable no-console*/
-    console.log(data);
-    /*eslint-enable no-console*/
+    // We first clear the currentVideoId to force the player to play the next song,
+    // even if it has the same id as the last one.
+    this.setState({
+      currentVideoId: ''
+    });
+
+    this.setState({
+      currentVideoId: data.videoId
+    });
   }
 
   onNotification(data) {
@@ -103,11 +112,20 @@ export default class Broadcast extends Component {
       messagesToDisplay = messagesToDisplay.concat([ systemMsg ]);
     }
 
+    const playerOpts = {
+      playerVars: {
+        autoplay: 1
+      }
+    };
+
     return (
       <div className='view'>
-        <h1>Broadcast</h1>
         <div className='playerContainer'>
-          <Player></Player>
+          <Youtube
+            videoId={ this.state.currentVideoId }
+            opts={ playerOpts }
+            >
+          </Youtube>
         </div>
         <Chatroom
           user = { this.props.auth.user }

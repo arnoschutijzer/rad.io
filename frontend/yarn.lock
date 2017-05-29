@@ -3813,6 +3813,10 @@ load-json-file@^1.0.0:
     pinkie-promise "^2.0.0"
     strip-bom "^2.0.0"
 
+load-script@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/load-script/-/load-script-1.0.0.tgz#0491939e0bee5643ee494a7e3da3d2bac70c6ca4"
+
 loader-runner@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/loader-runner/-/loader-runner-2.3.0.tgz#f482aea82d543e07921700d5a46ef26fdac6b8a2"
@@ -3909,7 +3913,7 @@ lodash.isarray@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/lodash.isarray/-/lodash.isarray-3.0.4.tgz#79e4eb88c36a8122af86f844aa9bcd851b5fbb55"
 
-lodash.isequal@^4.0.0:
+lodash.isequal@^4.0.0, lodash.isequal@^4.4.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
 
@@ -5025,7 +5029,7 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
+prop-types@^15.5.10, prop-types@^15.5.3, prop-types@^15.5.4, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@~15.5.7:
   version "15.5.10"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
   dependencies:
@@ -5180,6 +5184,14 @@ react-scroll@^1.4.7:
   dependencies:
     object-assign "^4.1.1"
     prop-types "^15.5.8"
+
+react-youtube@^7.4.0:
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/react-youtube/-/react-youtube-7.4.0.tgz#d346c30ec77eec61871e8c0784cef2cb2c69b63d"
+  dependencies:
+    lodash.isequal "^4.4.0"
+    prop-types "^15.5.3"
+    youtube-player "^4.2.3"
 
 react@^15.4.2:
   version "15.5.4"
@@ -5723,6 +5735,10 @@ shelljs@^0.7.5:
 signal-exit@^3.0.0:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
+
+sister@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/sister/-/sister-3.0.0.tgz#88eb57047cb283da1e070b1a7cae8212f3bcb2db"
 
 slash@^1.0.0:
   version "1.0.0"
@@ -6854,3 +6870,12 @@ yauzl@^2.2.1:
 yeast@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/yeast/-/yeast-0.1.2.tgz#008e06d8094320c372dbc2f8ed76a0ca6c8ac419"
+
+youtube-player@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/youtube-player/-/youtube-player-4.2.3.tgz#00248b7b012b2ae06177c77da8d893a6d01ca92c"
+  dependencies:
+    babel-runtime "^6.22.0"
+    load-script "^1.0.0"
+    lodash "^4.3.0"
+    sister "^3.0.0"
