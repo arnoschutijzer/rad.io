@@ -7,9 +7,9 @@ const settings = require('./config/settings');
 const auth = require('./config/auth');
 const server = express();
 const routes = require('./routes');
-const createServer = require('./socket/server.js');
 const httpServer = require('http').createServer(server);
-createServer(httpServer);
+const initializeSocketServer = require('./socket/server.js');
+initializeSocketServer(httpServer);
 
 server.use(bodyparser.json());
 server.use(bodyparser.urlencoded({extended: false}));
@@ -39,7 +39,7 @@ mongoose.connection.once('open', () => {
   console.info('> Sucessfully connected to database');
 });
 
-server.listen(settings.port, () => {
+httpServer.listen(settings.port, () => {
   console.info('> Started rad.io-backend on port ' + settings.port);
 });
 

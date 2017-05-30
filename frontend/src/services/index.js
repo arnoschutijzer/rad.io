@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import { BASE } from '../config/config';
 
 let socket;
 
@@ -9,7 +10,7 @@ export const createConnection = (handler, token, roomId) => {
     socket.disconnect();
   }
 
-  socket = io.connect('http://localhost:9002', {
+  socket = io.connect(BASE, {
     'query': 'token=' + token
   });
   socket.on('connect', (args) => {

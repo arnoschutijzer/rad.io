@@ -6,7 +6,7 @@ const initMusicServer = require('./musicServer');
 const rooms = {};
 let rootSocket = {};
 
-module.exports = function createServer(httpServer, port = 9002) {
+module.exports = function initializeSocketServer(httpServer) {
   rootSocket = new Server(httpServer);
 
   rootSocket.use(socketJwt.authorize({
@@ -45,7 +45,6 @@ module.exports = function createServer(httpServer, port = 9002) {
     console.log('There was an error with the authentication:', err.message);
   });
 
-  rootSocket.listen(port);
   return rootSocket;
 };
 
