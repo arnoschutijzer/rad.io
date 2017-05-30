@@ -20,5 +20,5 @@ module.exports = {
 ```
 > yarn
 
-> yarn start
+> yarn start:local
 ```

@@ -5,9 +5,9 @@
   "main": "./src/server.js",
   "scripts": {
     "lint": "eslint src --ext .js",
-    "start": "npm run start:db & npm run start:server",
+    "start": "nodemon ./src/server.js",
+    "start:local": "npm run start:db & npm run start",
     "start:db": "mongod",
-    "start:server": "nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
