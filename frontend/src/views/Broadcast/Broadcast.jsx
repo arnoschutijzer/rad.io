@@ -12,10 +12,12 @@ export default class Broadcast extends Component {
       roomId: props.match.params.id,
       currentVideoId: ''
     };
+
     this.connect = this.connect.bind(this);
     this.emitEvent = this.emitEvent.bind(this);
     this.onMessage = this.onMessage.bind(this);
     this.onPlay = this.onPlay.bind(this);
+    this.onStop = this.onStop.bind(this);
     this.onNotification = this.onNotification.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
@@ -77,6 +79,12 @@ export default class Broadcast extends Component {
       data.type,
       { message: data.message }
     );
+  }
+
+  onStop() {
+    this.setState({
+      currentVideoId: ''
+    });
   }
 
   sendMessage(message) {

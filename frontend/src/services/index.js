@@ -23,6 +23,7 @@ export const createConnection = (handler, token, roomId) => {
   socket.on('message', handler.onMessage || noop);
   socket.on('play', handler.onPlay || noop);
   socket.on('notification', handler.onNotification || noop);
+  socket.on('stop', handler.onStop || noop);
 
   return socket;
 };

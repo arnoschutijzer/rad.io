@@ -20,8 +20,12 @@ module.exports = function initializeSocketServer(httpServer) {
 
       // create a 'music server'
       if (!rooms[data]) {
-        rooms[data] = initMusicServer(data, rootSocket.to(data));
+        rooms[data] = initMusicServer(data, rootSocket.to(data),
+          clientSocket.decoded_token._doc._id);
+      } else {
+        rooms[data].join(clientSocket.decoded_token._doc._id);
       }
+
     });
 
     clientSocket.on('message', data => {
@@ -39,6 +43,10 @@ module.exports = function initializeSocketServer(httpServer) {
 
       rooms[data.roomId].add(enrichedData);
     });
+
+    clientSocket.on('rtv', (data) => {
+      rooms[data.roomId].rtv(clientSocket.decoded_token._doc._id);
+    });
   });
 
   rootSocket.on('unauthorized', function(err){
@@ -53,6 +61,7 @@ const onJoin = (clientSocket, data) => {
     // We can't use the rooms property here to notify all the rooms of the disconnect,
     // since the property has already been cleared, so we define a property ___radRooms on the socket.
     clientSocket.___radRooms = clientSocket.rooms;
+    clientSocket.___radUser = clientSocket.decoded_token._doc;
 
     sendMessage(data, {
       author: {
@@ -67,7 +76,11 @@ const onDisconnect = (clientSocket) => {
   // We loop over the ___radRooms property to notify the rooms the user was last in.
   const keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
   const author = clientSocket.decoded_token._doc;
+
   keys.forEach(key => {
+
+    rooms[key].leave(author);
+
     sendMessage(key, {
       author: {
         username: 'System'

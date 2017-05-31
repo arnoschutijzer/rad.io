@@ -12,16 +12,26 @@ export default class Chatroom extends Component {
     if (event.key === 'Enter') {
       if (this.state.message === '/connect') {
         event.target.value = '';
+
         this.props.connect();
         return;
       }
       if (this.state.message.indexOf('/add') === 0) {
         event.target.value = '';
+
         const splitUrl = this.state.message.replace('/add', '').trim().split(' ');
 
         this.props.emitEvent({
           type: 'add',
           url: splitUrl[0]
+        });
+        return;
+      }
+      if (this.state.message.indexOf('/rtv') === 0) {
+        event.target.value = '';
+
+        this.props.emitEvent({
+          type: 'rtv'
         });
         return;
       }

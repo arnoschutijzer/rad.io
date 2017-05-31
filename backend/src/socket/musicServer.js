@@ -1,15 +1,20 @@
 const Link = require('../models/link');
 const youtube = require('./youtube');
 const notificationTypes = require('../models/constants').notifications;
+const _ = require('underscore');
 
-module.exports = (id, socket) => {
-  return new MusicServer(id, socket);
+module.exports = (id, socket, userId) => {
+  return new MusicServer(id, socket, userId);
 };
 
 class MusicServer {
-  constructor(id, socket) {
+  constructor(id, socket, userId) {
     this.id = id;
     this.socket = socket;
+    this.users = [
+      userId
+    ];
+    this.rtvVotes = [];
 
     this.__refreshPlaylist().then(() => {
       this.startPlaying();
@@ -42,17 +47,66 @@ class MusicServer {
     });
   }
 
+  join(userId) {
+    if (this.users.indexOf(userId) > -1) {
+      return;
+    }
+
+    this.users.push(userId);
+  }
+
+  leave(user) {
+    if (this.users.indexOf(user._id) > -1) {
+      this.users = _.without(this.users, user._id);
+    }
+  }
+
+  rtv(userId) {
+    if (!this.latestLink) {
+      this.__sendNotification('error', 'Nothing is playing');
+      return;
+    }
+
+    if (this.rtvVotes.indexOf(userId) === -1) {
+      this.rtvVotes.push(userId);
+    }
+
+    // Check if the majority has voted...
+    if (this.rtvVotes.length >= this.users.length / 2) {
+      clearTimeout(this.playing);
+
+      // clear the RTV votes
+      this.rtvVotes.length = 0;
+
+      // We don't want to skip if this is the last video in the playlist...
+      if (this.activePlaylist.length === 1) {
+        this.__sendNotification('error', 'This is the last video in the playlist!');
+
+        return;
+      }
+
+      this.__stopPlaying();
+      this.skipOneAndPlay();
+    }
+  }
+
+  skipOneAndPlay() {
+    this.activePlaylist = this.activePlaylist.slice(1, this.activePlaylist.length);
+    this.startPlaying();
+  }
+
   startPlaying() {
     if (this.activePlaylist.length > 0) {
       const latestLink = this.activePlaylist[0];
       this.socket.emit('play', latestLink);
 
+      this.latestLink = latestLink;
+
       latestLink.isActive = false;
       latestLink.save();
 
-      setTimeout(() => {
-        this.activePlaylist = this.activePlaylist.slice(1, this.activePlaylist.length);
-        this.startPlaying();
+      this.playing = setTimeout(() => {
+        this.skipOneAndPlay();
       }, latestLink.metadata.duration);
     } else {
       /* after 2 seconds, check again if we have items to play */
@@ -68,6 +122,10 @@ class MusicServer {
     }).catch((err) => {
       console.log(err);
     });
+  }
+
+  __stopPlaying() {
+    this.socket.emit('stop');
   }
 
   __sendNotification(type = 'info', message) {
