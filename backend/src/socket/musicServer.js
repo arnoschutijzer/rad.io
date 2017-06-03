@@ -73,8 +73,6 @@ class MusicServer {
 
     // Check if the majority has voted...
     if (this.rtvVotes.length >= this.users.length / 2) {
-      clearTimeout(this.playing);
-
       // clear the RTV votes
       this.rtvVotes.length = 0;
 
@@ -84,6 +82,8 @@ class MusicServer {
 
         return;
       }
+
+      clearTimeout(this.playing);
 
       this.__stopPlaying();
       this.skipOneAndPlay();
