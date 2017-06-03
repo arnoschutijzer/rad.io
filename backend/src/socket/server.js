@@ -41,7 +41,18 @@ module.exports = function initializeSocketServer(httpServer) {
         user: clientSocket.decoded_token._doc._id
       }, data);
 
-      rooms[data.roomId].add(enrichedData);
+      rooms[data.roomId].add(enrichedData).then(() => {
+        sendNotification(clientSocket, {
+          type: 'info',
+          message: 'Successfully added'
+        });
+      }).catch((err) => {
+        sendNotification(clientSocket, {
+          type: 'info',
+          message: err || 'Failed to add video'
+        });
+      });
+
     });
 
     clientSocket.on('rtv', (data) => {
@@ -109,4 +120,8 @@ const onMessage = (clientSocket, data) => {
 
 const sendMessage = (room, data) => {
   rootSocket.to(room).send(data);
+};
+
+const sendNotification = (clientSocket, data) => {
+  clientSocket.emit('notification', data);
 };

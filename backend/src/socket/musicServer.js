@@ -22,8 +22,8 @@ class MusicServer {
   }
 
   add(data) {
-    youtube.parseUrl(data.url).then((response) => {
-      youtube.findVideoById(response.videoId).then((metadata) => {
+    return youtube.parseUrl(data.url).then((response) => {
+      return youtube.findVideoById(response.videoId).then((metadata) => {
         const linkData = Object.assign({}, response, {
           submitter: data.user,
           room: data.roomId,
@@ -33,17 +33,10 @@ class MusicServer {
 
         const link = new Link(linkData);
 
-        link.save().then(() => {
+        return link.save().then(() => {
           this.activePlaylist.push(link);
-
-          this.__sendNotification(notificationTypes.info, 'Successfully added!');
         });
-      }).catch((err) => {
-        this.__sendNotification(notificationTypes.error, err.message);
       });
-    }).catch((err) => {
-      // Invalid url
-      this.__sendNotification(notificationTypes.error, err.message);
     });
   }
 
@@ -63,7 +56,7 @@ class MusicServer {
 
   rtv(userId) {
     if (!this.latestLink) {
-      this.__sendNotification('error', 'Nothing is playing');
+      this.__sendNotification(notificationTypes.error, 'Nothing is playing');
       return;
     }
 
@@ -78,7 +71,7 @@ class MusicServer {
 
       // We don't want to skip if this is the last video in the playlist...
       if (this.activePlaylist.length === 1) {
-        this.__sendNotification('error', 'This is the last video in the playlist!');
+        this.__sendNotification(notificationTypes.error, 'This is the last video in the playlist!');
 
         return;
       }
@@ -128,7 +121,7 @@ class MusicServer {
     this.socket.emit('stop');
   }
 
-  __sendNotification(type = 'info', message) {
+  __sendNotification(type = notificationTypes.info, message) {
     this.socket.emit('notification', { type, message });
   }
 }
