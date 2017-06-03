@@ -70,7 +70,7 @@ const parseUrl = (url) => {
     });
   }
 
-  return Promise.reject({ message: 'Invalid url' });
+  return Promise.reject('Invalid url');
 };
 
 // cfr. https://stackoverflow.com/questions/22148885/converting-youtube-data-api-v3-video-duration-format-to-seconds-in-javascript-no

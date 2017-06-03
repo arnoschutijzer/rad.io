@@ -14,6 +14,7 @@ export default class Broadcast extends Component {
     };
 
     this.connect = this.connect.bind(this);
+    this.onDisconnect = this.onDisconnect.bind(this);
     this.emitEvent = this.emitEvent.bind(this);
     this.onMessage = this.onMessage.bind(this);
     this.onPlay = this.onPlay.bind(this);
@@ -45,9 +46,7 @@ export default class Broadcast extends Component {
 
   emitEvent(args) {
     if (this.state.socket) {
-      const data = Object.assign({}, args, {
-        roomId: this.state.roomId
-      });
+      const data = Object.assign({}, args);
 
       this.state.socket.emit(data.type, data);
     } else {
@@ -56,6 +55,13 @@ export default class Broadcast extends Component {
         { message: 'You\'re not connected!' }
       );
     }
+  }
+
+  onDisconnect() {
+    this.props.createNotification(
+      'error',
+      { message: 'Disconnected!' }
+    );
   }
 
   onMessage(message) {
@@ -97,7 +103,6 @@ export default class Broadcast extends Component {
     }
 
     const Message = {
-      room: this.state.roomId,
       message: message,
       author: this.props.auth.user,
     };

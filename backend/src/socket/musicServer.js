@@ -1,6 +1,5 @@
 const Link = require('../models/link');
 const youtube = require('./youtube');
-const notificationTypes = require('../models/constants').notifications;
 const _ = require('underscore');
 
 module.exports = (id, socket, userId) => {
@@ -26,7 +25,7 @@ class MusicServer {
       return youtube.findVideoById(response.videoId).then((metadata) => {
         const linkData = Object.assign({}, response, {
           submitter: data.user,
-          room: data.roomId,
+          room: this.id,
           metadata,
           isActive: true
         });
@@ -56,8 +55,7 @@ class MusicServer {
 
   rtv(userId) {
     if (!this.latestLink) {
-      this.__sendNotification(notificationTypes.error, 'Nothing is playing');
-      return;
+      return Promise.reject('Nothing is playing');
     }
 
     if (this.rtvVotes.indexOf(userId) === -1) {
@@ -71,9 +69,7 @@ class MusicServer {
 
       // We don't want to skip if this is the last video in the playlist...
       if (this.activePlaylist.length === 1) {
-        this.__sendNotification(notificationTypes.error, 'This is the last video in the playlist!');
-
-        return;
+        return Promise.reject('This is the last video in the playlist!');
       }
 
       clearTimeout(this.playing);
@@ -81,6 +77,8 @@ class MusicServer {
       this.__stopPlaying();
       this.skipOneAndPlay();
     }
+
+    return Promise.resolve();
   }
 
   skipOneAndPlay() {
@@ -119,9 +117,5 @@ class MusicServer {
 
   __stopPlaying() {
     this.socket.emit('stop');
-  }
-
-  __sendNotification(type = notificationTypes.info, message) {
-    this.socket.emit('notification', { type, message });
   }
 }

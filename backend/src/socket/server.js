@@ -2,6 +2,7 @@ const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
 const config = require('../config/settings');
 const Message = require('../models/message');
+const notificationTypes = require('../models/constants').notifications;
 const initMusicServer = require('./musicServer');
 const rooms = {};
 let rootSocket = {};
@@ -15,25 +16,30 @@ module.exports = function initializeSocketServer(httpServer) {
   }));
 
   rootSocket.on('connection', (clientSocket) => {
+    let roomId = '';
+
     clientSocket.on('join', data => {
       onJoin(clientSocket, data);
+      roomId = data;
 
       // create a 'music server'
-      if (!rooms[data]) {
-        rooms[data] = initMusicServer(data, rootSocket.to(data),
+      if (!rooms[roomId]) {
+        rooms[roomId] = initMusicServer(data, rootSocket.to(roomId),
           clientSocket.decoded_token._doc._id);
       } else {
-        rooms[data].join(clientSocket.decoded_token._doc._id);
+        rooms[roomId].join(clientSocket.decoded_token._doc._id);
       }
-
     });
 
-    clientSocket.on('message', data => {
-      onMessage(clientSocket, data);
+    clientSocket.on('message', (data) => {
+      // add the roomId to the data
+      onMessage(Object.assign({}, data, {
+        roomId
+      }));
     });
 
-    clientSocket.on('disconnect', data => {
-      onDisconnect(clientSocket, data);
+    clientSocket.on('disconnect', () => {
+      onDisconnect(clientSocket, roomId);
     });
 
     clientSocket.on('add', (data) => {
@@ -41,22 +47,31 @@ module.exports = function initializeSocketServer(httpServer) {
         user: clientSocket.decoded_token._doc._id
       }, data);
 
-      rooms[data.roomId].add(enrichedData).then(() => {
+      rooms[roomId].add(enrichedData).then(() => {
         sendNotification(clientSocket, {
-          type: 'info',
+          type: notificationTypes.info,
           message: 'Successfully added'
         });
       }).catch((err) => {
+        console.log(err);
+
         sendNotification(clientSocket, {
-          type: 'info',
+          type: notificationTypes.error,
           message: err || 'Failed to add video'
         });
       });
 
     });
 
-    clientSocket.on('rtv', (data) => {
-      rooms[data.roomId].rtv(clientSocket.decoded_token._doc._id);
+    clientSocket.on('rtv', () => {
+      rooms[roomId].rtv(clientSocket.decoded_token._doc._id).then(() => {
+
+      }).catch((err) => {
+        sendNotification(clientSocket, {
+          type: notificationTypes.error,
+          message: err
+        });
+      });
     });
   });
 
@@ -101,16 +116,16 @@ const onDisconnect = (clientSocket) => {
   });
 };
 
-const onMessage = (clientSocket, data) => {
+const onMessage = (data) => {
   // Just send the message to all the clients in the room,
   // the user that sent it will receive it as well, but this is desirable.
   // If the user doesn't see their message pop up, it hasn't arrived.
-  rootSocket.to(data.room).send(data);
+  rootSocket.to(data.roomId).send(data);
 
   const message = new Message({
     author: data.author._id,
     message: data.message,
-    room: data.room,
+    room: data.roomId,
   });
 
   message.save().catch((err) => {

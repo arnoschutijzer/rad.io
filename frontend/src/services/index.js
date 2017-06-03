@@ -19,6 +19,8 @@ export const createConnection = (handler, token, roomId) => {
     if (handler.onConnect) {
       handler.onConnect(args);
     }
+
+    socket.on('disconnect', handler.onDisconnect || noop);
   });
   socket.on('message', handler.onMessage || noop);
   socket.on('play', handler.onPlay || noop);
