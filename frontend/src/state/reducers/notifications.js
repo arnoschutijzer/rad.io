@@ -4,7 +4,7 @@ import { omit } from 'underscore';
 const initialState = {};
 
 export default (state = initialState, action) => {
-  if (action.notification && !action.notification.message) {
+  if (action.notification && !action.notification.response) {
     throw new Error('No notification message specified');
   }
 

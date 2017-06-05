@@ -6,43 +6,49 @@ export default class Chatroom extends Component {
     super();
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
+  }
+
+  getInitialState() {
+    return {
+      message: ''
+    };
+  }
+
+  handleMessage() {
+    this.inputField.value = '';
+
+    if (this.state.message === '/connect') {
+      this.props.connect();
+      return;
+    }
+    if (this.state.message.indexOf('/add') === 0) {
+      const splitUrl = this.state.message.replace('/add', '').trim().split(' ');
+
+      this.props.emitEvent({
+        type: 'add',
+        url: splitUrl[0]
+      });
+      return;
+    }
+    if (this.state.message.indexOf('/rtv') === 0) {
+      this.props.emitEvent({
+        type: 'rtv'
+      });
+      return;
+    }
+
+    this.props.sendMessage(this.state.message);
   }
 
   handleKeyPress(event) {
     if (event.key === 'Enter') {
-      if (this.state.message === '/connect') {
-        event.target.value = '';
-
-        this.props.connect();
-        return;
-      }
-      if (this.state.message.indexOf('/add') === 0) {
-        event.target.value = '';
-
-        const splitUrl = this.state.message.replace('/add', '').trim().split(' ');
-
-        this.props.emitEvent({
-          type: 'add',
-          url: splitUrl[0]
-        });
-        return;
-      }
-      if (this.state.message.indexOf('/rtv') === 0) {
-        event.target.value = '';
-
-        this.props.emitEvent({
-          type: 'rtv'
-        });
-        return;
-      }
-
-      this.props.sendMessage(event.target.value);
-      event.target.value = '';
+      this.handleMessage();
     }
   }
 
   componentDidUpdate() {
-    this.refs.chatroom.scrollTop = this.refs.chatroom.scrollHeight;
+    this.chatroom.scrollTop = this.chatroom.scrollHeight;
   }
 
   shouldComponentUpdate(nextProps) {
@@ -69,20 +75,21 @@ export default class Chatroom extends Component {
     return (
       <div className='chatroom'>
         <h1>Chat</h1>
-        <div className='history' ref='chatroom'>
+        <div className='history' ref={ (chatroom) => { this.chatroom = chatroom; } }>
           { Messages }
         </div>
         <div className='messageBox'>
           <input
             className='inputField'
             type='text'
+            ref={ (input) => { this.inputField = input; } }
             onKeyPress={ this.handleKeyPress }
             onChange={ (event) => {
               this.setState({ message: event.target.value });
             } }>
           </input>
 
-          <button>
+          <button onClick= { this.handleMessage }>
             Send
           </button>
         </div>
