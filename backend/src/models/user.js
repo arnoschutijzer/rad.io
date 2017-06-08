@@ -29,7 +29,7 @@ schema.pre('save', function(next) {
 });
 
 schema.methods.comparePassword = function(password) {
-  const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
   if (hash !== this.password) {
     return Promise.reject('Incorrect username/password');
   } else {
