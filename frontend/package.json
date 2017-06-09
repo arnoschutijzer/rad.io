@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src --ext .jsx .js",
-    "dev": "npm run clean:dist && webpack-dev-server --env=webpack.dev.js",
+    "dev": "npm run clean:dist && webpack-dev-server --config webpack.dev.js",
     "prod": "npm run clean:dist && npm run dist",
-    "dist": "webpack --progress --env=webpack.prod.js",
+    "dist": "webpack --progress --config webpack.prod.js",
     "clean:dist": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,12 +1,12 @@
 const SRC = './src';
 const DIST = './dist';
+const defaultConfig = require('./webpack.config');
 const path = require('path');
-// Import build plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 
-module.exports = {
+const prodConfig = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(SRC, 'index.html')
@@ -28,3 +28,5 @@ module.exports = {
     } ])
   ]
 };
+
+module.exports = Object.assign({}, defaultConfig, prodConfig);

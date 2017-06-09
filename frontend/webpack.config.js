@@ -2,9 +2,7 @@ const SRC = './src';
 const DIST = './dist';
 const path = require('path');
 
-// The default configuration
-// Properties in the default config will be overwritten by the resolved config
-let defaultConfig = {
+module.exports = {
   entry: [ 'babel-polyfill', path.join(__dirname, SRC, 'index.jsx') ],
 
   output: {
@@ -72,9 +70,4 @@ let defaultConfig = {
     },
     extensions: [ '.js', '.jsx' ]
   }
-};
-
-module.exports = (env) => {
-  const resolvedConfig = require(path.join(__dirname, env));
-  return Object.assign({}, defaultConfig, resolvedConfig);
 };
