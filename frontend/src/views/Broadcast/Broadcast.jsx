@@ -35,6 +35,7 @@ export default class Broadcast extends Component {
 
   componentWillMount() {
     this.props.fetchChatlog(this.state.roomId);
+    this.connect();
   }
 
   componentWillUnmount() {
