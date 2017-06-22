@@ -5,14 +5,12 @@ export default class Chatroom extends Component {
   constructor() {
     super();
 
-    this.handleKeyPress = this.handleKeyPress.bind(this);
-    this.handleMessage = this.handleMessage.bind(this);
-  }
-
-  getInitialState() {
-    return {
+    this.state = {
       message: ''
     };
+
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
   }
 
   handleMessage() {
