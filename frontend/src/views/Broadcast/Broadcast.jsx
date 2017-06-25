@@ -34,8 +34,9 @@ export default class Broadcast extends Component {
   }
 
   componentWillMount() {
-    this.props.fetchChatlog(this.state.roomId);
-    this.connect();
+    this.props.fetchChatlog(this.state.roomId).then(() => {
+      this.connect();
+    });
   }
 
   componentWillUnmount() {
@@ -112,19 +113,7 @@ export default class Broadcast extends Component {
   }
 
   render() {
-    const systemMsg = {
-      _id: 0,
-      author: {
-        username: 'System',
-      },
-      message: 'Type /connect to connect'
-    };
-
     let messagesToDisplay = this.props.messages;
-
-    if (!this.state.socket) {
-      messagesToDisplay = messagesToDisplay.concat([ systemMsg ]);
-    }
 
     const playerOpts = {
       playerVars: {
