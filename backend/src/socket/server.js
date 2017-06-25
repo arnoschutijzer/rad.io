@@ -34,7 +34,8 @@ module.exports = function initializeSocketServer(httpServer) {
     clientSocket.on('message', (data) => {
       // add the roomId to the data
       onMessage(Object.assign({}, data, {
-        roomId
+        roomId,
+        shouldNotify: true
       }));
     });
 
@@ -99,8 +100,15 @@ const onJoin = (clientSocket, data) => {
 };
 
 const onDisconnect = (clientSocket) => {
+  let keys;
   // We loop over the ___radRooms property to notify the rooms the user was last in.
-  const keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
+  try {
+    keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
+  } catch(error) {
+    console.error(error);
+    console.trace();
+  }
+
   const author = clientSocket.decoded_token._doc;
 
   keys.forEach(key => {

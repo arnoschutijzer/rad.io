@@ -25,7 +25,10 @@ const prodConfig = {
     new CopyWebpackPlugin([ {
       from: path.join(__dirname, SRC, '/assets/fonts'),
       to: path.join(__dirname, DIST, '/assets/fonts')
-    } ])
+    }, {
+      from: path.join(__dirname, SRC, '/assets/sounds'),
+      to: path.join(__dirname, DIST, '/assets/sounds')
+    } ]),
   ]
 };
 

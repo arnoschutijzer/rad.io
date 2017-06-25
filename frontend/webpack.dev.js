@@ -15,7 +15,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const devConfig = {
   devServer: {
-    contentBase: path.join(__dirname, './dist'),
+    contentBase: path.join(__dirname, DIST),
     clientLogLevel: 'info',
     quiet: true,
     port: 3100
@@ -36,6 +36,9 @@ const devConfig = {
     new CopyWebpackPlugin([ {
       from: path.join(__dirname, SRC, '/assets/fonts'),
       to: path.join(__dirname, DIST, '/assets/fonts')
+    }, {
+      from: path.join(__dirname, SRC, '/assets/sounds'),
+      to: path.join(__dirname, DIST, '/assets/sounds')
     } ]),
     new DashboardPlugin(dashboard.setData)
   ]
