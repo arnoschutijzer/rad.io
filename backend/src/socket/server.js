@@ -1,6 +1,7 @@
 const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
 const config = require('../config/settings');
+const User = require('../models/user');
 const Message = require('../models/message');
 const notificationTypes = require('../models/constants').notifications;
 const initMusicServer = require('./musicServer');
@@ -40,6 +41,8 @@ module.exports = function initializeSocketServer(httpServer) {
       } else {
         rooms[roomId].join(user._id);
       }
+
+      initializeClientRoom(clientSocket, rooms[roomId]);
     });
 
     clientSocket.on('message', (data) => {
@@ -158,6 +161,14 @@ const isInRoom = (socket, roomId) => {
 
 const sendMessage = (room, data) => {
   rootSocket.to(room).send(data);
+};
+
+const initializeClientRoom = (socket, room) => {
+  User.find({
+    '_id': { $in: room.users }
+  }).then((users) => {
+    socket.emit('userlist', users);
+  });
 };
 
 const sendNotification = (clientSocket, data) => {
