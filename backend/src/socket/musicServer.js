@@ -64,13 +64,13 @@ class MusicServer {
 
     // Check if the majority has voted...
     if (this.rtvVotes.length >= this.users.length / 2) {
-      // clear the RTV votes
-      this.rtvVotes.length = 0;
-
       // We don't want to skip if this is the last video in the playlist...
       if (this.activePlaylist.length === 1) {
         return Promise.reject('This is the last video in the playlist!');
       }
+
+      // clear the RTV votes
+      this.rtvVotes.length = 0;
 
       clearTimeout(this.playing);
 
