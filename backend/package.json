@@ -22,20 +22,20 @@
   "homepage": "https://github.com/arnoschutijzer/rad.io#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
-    "cors": "^2.8.1",
+    "cors": "^2.8.4",
     "express": "^4.15.3",
-    "googleapis": "^19.0.0",
+    "googleapis": "^20.1.0",
     "jsonwebtoken": "^7.4.1",
-    "mongoose": "^4.10.2",
+    "mongoose": "^4.11.5",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
-    "socket.io": "^2.0.1",
+    "socket.io": "^2.0.3",
     "socketio-jwt": "^4.5.0",
     "underscore": "^1.8.3",
     "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^3.19.0"
+    "eslint": "^4.3.0"
   }
 }
