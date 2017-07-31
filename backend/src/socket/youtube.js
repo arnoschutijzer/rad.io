@@ -42,8 +42,8 @@ const parseUrl = (url) => {
     .anything().endOfLine().removeModifier('g');
 
   const mobileUrl = verEx().startOfLine()
-      .then('http').maybe('s').then('://')
-      .then('youtu.be/').anything().endOfLine().removeModifier('g');
+    .then('http').maybe('s').then('://')
+    .then('youtu.be/').anything().endOfLine().removeModifier('g');
 
   const isFull = fullUrl.test(url);
   const isMobile = mobileUrl.test(url);
