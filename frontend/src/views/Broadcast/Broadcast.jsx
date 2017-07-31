@@ -126,8 +126,7 @@ export default class Broadcast extends Component {
         <div className='playerContainer'>
           <Youtube
             videoId={ this.state.currentVideoId }
-            opts={ playerOpts }
-            >
+            opts={ playerOpts }>
           </Youtube>
         </div>
         <Chatroom
