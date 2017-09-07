@@ -48,7 +48,9 @@ export default class Broadcast extends Component {
 
   emitEvent(args) {
     if (this.state.socket) {
-      const data = Object.assign({}, args);
+      const data = Object.assign({
+        roomId: this.state.roomId
+      }, args);
 
       this.state.socket.emit(data.type, data);
     } else {
@@ -107,6 +109,7 @@ export default class Broadcast extends Component {
     const Message = {
       message: message,
       author: this.props.auth.user,
+      roomId: this.state.roomId
     };
 
     this.state.socket.send(Message);

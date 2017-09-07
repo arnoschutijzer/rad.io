@@ -16,15 +16,12 @@ module.exports = function initializeSocketServer(httpServer) {
   }));
 
   rootSocket.on('connection', (clientSocket) => {
-    let roomId = '';
-
-    clientSocket.on('join', data => {
-      onJoin(clientSocket, data);
-      roomId = data;
+    clientSocket.on('join', roomId => {
+      onJoin(clientSocket, roomId);
 
       // create a 'music server'
       if (!rooms[roomId]) {
-        rooms[roomId] = initMusicServer(data, rootSocket.to(roomId),
+        rooms[roomId] = initMusicServer(roomId, rootSocket.to(roomId),
           clientSocket.decoded_token._doc._id);
       } else {
         rooms[roomId].join(clientSocket.decoded_token._doc._id);
@@ -32,18 +29,25 @@ module.exports = function initializeSocketServer(httpServer) {
     });
 
     clientSocket.on('message', (data) => {
-      // add the roomId to the data
-      onMessage(Object.assign({}, data, {
-        roomId,
+      if (!isInRoom(clientSocket, data.roomId)) {
+        return;
+      }
+
+      onMessage(Object.assign(data, {
         shouldNotify: true
       }));
     });
 
     clientSocket.on('disconnect', () => {
-      onDisconnect(clientSocket, roomId);
+      onDisconnect(clientSocket);
     });
 
     clientSocket.on('add', (data) => {
+      if (!isInRoom(clientSocket, data.roomId)) {
+        return;
+      }
+
+      const { roomId } = data;
       const enrichedData = Object.assign({}, {
         user: clientSocket.decoded_token._doc._id
       }, data);
@@ -64,7 +68,12 @@ module.exports = function initializeSocketServer(httpServer) {
 
     });
 
-    clientSocket.on('rtv', () => {
+    clientSocket.on('rtv', (data) => {
+      if (!isInRoom(clientSocket, data.roomId)) {
+        return;
+      }
+
+      const { roomId } = data;
       rooms[roomId].rtv(clientSocket.decoded_token._doc._id).then(() => {
 
       }).catch((err) => {
@@ -139,6 +148,14 @@ const onMessage = (data) => {
   message.save().catch((err) => {
     console.log('ERR_SAVING_MSG: ', err);
   });
+};
+
+const isInRoom = (socket, roomId) => {
+  if (!socket || !socket.rooms || !socket.rooms.hasOwnProperty(roomId)) {
+    return false;
+  }
+
+  return true;
 };
 
 const sendMessage = (room, data) => {
