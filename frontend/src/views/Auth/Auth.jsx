@@ -8,9 +8,6 @@ export default class Auth extends Component {
 
     this.login = this.login.bind(this);
     this.register = this.register.bind(this);
-    this.state = {
-      loginForm: {}
-    };
   }
 
   login() {

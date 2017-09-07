@@ -3,9 +3,7 @@ import { login, register } from 'state/actionCreators/auth';
 import { createNotification } from 'state/actionCreators/notifications';
 import Auth from './Auth';
 
-const mapStateToProps = () => {
-  return {};
-};
+const mapStateToProps = () => {};
 
 const mapDispatchToProps = {
   login, register, createNotification
