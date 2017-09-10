@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
   }
 
   if (action.type === LOGOUT) {
-    return [];
+    return initialState;
   }
 
   return state;

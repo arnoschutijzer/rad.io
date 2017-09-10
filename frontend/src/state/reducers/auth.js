@@ -1,6 +1,5 @@
 import {
   LOGIN_REQUEST, LOGIN_RESPONSE, LOGOUT,
-  REGISTER_REQUEST,
   FETCH_PROFILE_RESPONSE, FETCH_PROFILE_ERROR,
   UNAUTHORIZED
 } from '../actions/auth';
@@ -25,10 +24,6 @@ export default (state = initialState, action) => {
       user: payload.user,
       token: token
     });
-  }
-
-  if (action.type === REGISTER_REQUEST) {
-    // do something
   }
 
   if (action.type === FETCH_PROFILE_ERROR ||

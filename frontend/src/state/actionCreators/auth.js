@@ -3,6 +3,7 @@ import {
   REGISTER_REQUEST, REGISTER_RESPONSE, REGISTER_ERROR,
   FETCH_PROFILE,
 } from '../actions/auth';
+import { createNotification } from './notifications';
 import { BASE } from '../../config/config';
 import request from 'axios';
 
@@ -21,6 +22,7 @@ export const register = (username, password) => {
       dispatch(login(username, password));
     }).catch((error) => {
       dispatch(registerError(error.response.data));
+      dispatch(createNotification('error', error.response.data));
     });
   };
 };
