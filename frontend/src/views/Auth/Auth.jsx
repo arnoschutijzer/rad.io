@@ -51,11 +51,22 @@ export default class Auth extends Component {
           <div className='form'>
             <input type='text'
               placeholder='username'
+              onKeyPress={ (event) => {
+                if (event.key === 'Enter') {
+                  this.passwordField.focus();
+                }
+              } }
               onChange={ (event) => {
                 this.setState({ loginUsername: event.target.value });
               }}></input>
             <input type='password'
               placeholder='password'
+              ref={ (input) => { this.passwordField = input; } }
+              onKeyPress={ (event) => {
+                if (event.key === 'Enter') {
+                  this.login();
+                }
+              } }
               onChange={ (event) => {
                 this.setState({ loginPassword: event.target.value });
               }}></input>
@@ -72,18 +83,35 @@ export default class Auth extends Component {
           <div className='form'>
             <input type='text'
               placeholder='username'
+              onKeyPress={ (event) => {
+                if (event.key === 'Enter') {
+                  this.registerPasswordField.focus();
+                }
+              } }
               onChange={ (event) => {
                 this.setState({ registerUsername: event.target.value });
               }}>
             </input>
             <input type='password'
               placeholder='password'
+              ref={ (input) => {  this.registerPasswordField = input; } }
+              onKeyPress={ (event) => {
+                if (event.key === 'Enter') {
+                  this.registerConfirmPasswordField.focus();
+                }
+              } }
               onChange={ (event) => {
                 this.setState({ registerPassword: event.target.value });
               }}>
             </input>
             <input type='password'
               placeholder='confirm password'
+              ref={ (input) => {  this.registerConfirmPasswordField = input; } }
+              onKeyPress={ (event) => {
+                if (event.key == 'Enter') {
+                  this.register();
+                }
+              } }
               onChange={ (event) => {
                 this.setState({ registerConfirmPassword: event.target.value });
               }}>
