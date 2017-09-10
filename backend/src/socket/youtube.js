@@ -1,11 +1,11 @@
-const google = require('googleapis');
-const youtube = google.youtube('v3');
+const { youtube } = require('googleapis');
+const youtubeAPI = youtube('v3');
 const config = require('../config/settings');
 const verEx = require('verbal-expressions');
 
 const findVideoById = (id) => {
   return new Promise((resolve, reject) => {
-    youtube.videos.list({
+    youtubeAPI.videos.list({
       auth: config.apiKey,
       part: 'contentDetails, snippet',
       id: id

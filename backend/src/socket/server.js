@@ -16,20 +16,36 @@ module.exports = function initializeSocketServer(httpServer) {
   }));
 
   rootSocket.on('connection', (clientSocket) => {
+    const user = clientSocket.decoded_token._doc;
+
     clientSocket.on('join', roomId => {
-      onJoin(clientSocket, roomId);
+      clientSocket.join(roomId, () => {
+        // We can't use the rooms property here to notify all the rooms of the disconnect,
+        // since the property has already been cleared, so we define a property ___radRooms on the socket.
+        clientSocket.___radRooms = clientSocket.rooms;
+        clientSocket.___radUser = user;
+
+        sendMessage(roomId, {
+          author: {
+            username: 'System'
+          },
+          message: `${user.username} connected`
+        });
+      });
 
       // create a 'music server'
       if (!rooms[roomId]) {
         rooms[roomId] = initMusicServer(roomId, rootSocket.to(roomId),
-          clientSocket.decoded_token._doc._id);
+          user._id);
       } else {
-        rooms[roomId].join(clientSocket.decoded_token._doc._id);
+        rooms[roomId].join(user._id);
       }
     });
 
     clientSocket.on('message', (data) => {
-      if (!isInRoom(clientSocket, data.roomId)) {
+      const { roomId } = data;
+
+      if (!isInRoom(clientSocket, roomId)) {
         return;
       }
 
@@ -39,17 +55,40 @@ module.exports = function initializeSocketServer(httpServer) {
     });
 
     clientSocket.on('disconnect', () => {
-      onDisconnect(clientSocket);
+      let keys;
+
+      if (!clientSocket || !clientSocket.__radRooms) {
+        return;
+      }
+      // We loop over the ___radRooms property to notify the rooms the user was last in.
+      try {
+        keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
+      } catch(error) {
+        console.error(error);
+        console.trace();
+      }
+
+      keys.forEach(key => {
+
+        rooms[key].leave(user);
+
+        sendMessage(key, {
+          author: {
+            username: 'System'
+          },
+          message: `${user.username} disconnected`
+        });
+      });
     });
 
     clientSocket.on('add', (data) => {
-      if (!isInRoom(clientSocket, data.roomId)) {
+      const { roomId } = data;
+      if (!isInRoom(clientSocket, roomId)) {
         return;
       }
 
-      const { roomId } = data;
       const enrichedData = Object.assign({}, {
-        user: clientSocket.decoded_token._doc._id
+        user
       }, data);
 
       rooms[roomId].add(enrichedData).then(() => {
@@ -74,7 +113,7 @@ module.exports = function initializeSocketServer(httpServer) {
       }
 
       const { roomId } = data;
-      rooms[roomId].rtv(clientSocket.decoded_token._doc._id).then(() => {
+      rooms[roomId].rtv(user._id).then(() => {
 
       }).catch((err) => {
         sendNotification(clientSocket, {
@@ -90,47 +129,6 @@ module.exports = function initializeSocketServer(httpServer) {
   });
 
   return rootSocket;
-};
-
-const onJoin = (clientSocket, data) => {
-  clientSocket.join(data, () => {
-    // We can't use the rooms property here to notify all the rooms of the disconnect,
-    // since the property has already been cleared, so we define a property ___radRooms on the socket.
-    clientSocket.___radRooms = clientSocket.rooms;
-    clientSocket.___radUser = clientSocket.decoded_token._doc;
-
-    sendMessage(data, {
-      author: {
-        username: 'System'
-      },
-      message: `${clientSocket.decoded_token._doc.username} connected`
-    });
-  });
-};
-
-const onDisconnect = (clientSocket) => {
-  let keys;
-  // We loop over the ___radRooms property to notify the rooms the user was last in.
-  try {
-    keys = Object.keys(clientSocket.___radRooms).slice(1, clientSocket.___radRooms.length);
-  } catch(error) {
-    console.error(error);
-    console.trace();
-  }
-
-  const author = clientSocket.decoded_token._doc;
-
-  keys.forEach(key => {
-
-    rooms[key].leave(author);
-
-    sendMessage(key, {
-      author: {
-        username: 'System'
-      },
-      message: `${author.username} disconnected`
-    });
-  });
 };
 
 const onMessage = (data) => {
