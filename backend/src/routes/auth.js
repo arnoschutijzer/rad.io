@@ -36,9 +36,7 @@ authRouter.post('/login', (req, res) => {
     }
 
     user.comparePassword(req.body.password).then(() => {
-      const token = jwt.sign(user, settings.secret, {
-        expiresIn: 604800
-      });
+      const token = jwt.sign({ user }, settings.secret, { expiresIn: 604800 });
 
       res.status(200).json({ token: 'JWT ' + token, user });
     }).catch(err => {

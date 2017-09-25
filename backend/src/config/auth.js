@@ -6,12 +6,12 @@ const config = require('./settings');
 
 module.exports = (passport) => {
   var opts = {};
-  opts.jwtFromRequest = ExtractJwt.fromAuthHeader();
+  opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
   opts.secretOrKey = config.secret;
 
   passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
     // Use a custom function to check if there's a user associated with the token
-    user.findOne({ _id: jwt_payload._doc._id }, function (err, user) {
+    user.findOne({ _id: jwt_payload.user._id }, function (err, user) {
       if (err) {
         return done(err, false);
       }

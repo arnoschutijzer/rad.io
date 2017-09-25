@@ -16,7 +16,7 @@ module.exports = function initializeSocketServer(httpServer) {
   }));
 
   rootSocket.on('connection', (clientSocket) => {
-    const user = clientSocket.decoded_token._doc;
+    const user = clientSocket.decoded_token.user;
 
     clientSocket.on('join', roomId => {
       clientSocket.join(roomId, () => {
