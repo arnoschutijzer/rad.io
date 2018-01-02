@@ -26,8 +26,8 @@
     "express": "^4.16.2",
     "googleapis": "^23.0.0",
     "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.7",
-    "nodemon": "^1.13.3",
+    "mongoose": "^4.13.8",
+    "nodemon": "^1.14.7",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "socket.io": "^2.0.4",
@@ -36,6 +36,6 @@
     "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^4.13.1"
+    "eslint": "^4.14.0"
   }
 }
