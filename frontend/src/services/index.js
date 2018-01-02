@@ -1,6 +1,4 @@
 import io from 'socket.io-client';
-import { store } from '../state';
-import { receiveUserlist } from '../state/actionCreators/users';
 import { BASE } from '../config/config';
 
 let socket;
@@ -29,9 +27,7 @@ export const createConnection = (handler, token, roomId) => {
   socket.on('play', handler.onPlay || noop);
   socket.on('notification', handler.onNotification || noop);
   socket.on('stop', handler.onStop || noop);
-  socket.on('userlist', handler.onEvent || function(data) {
-    store.dispatch(receiveUserlist(data));
-  });
+  socket.on('userlist', handler.onUserlist || noop);
 
   return socket;
 };

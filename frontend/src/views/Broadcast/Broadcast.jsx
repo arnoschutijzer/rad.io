@@ -20,6 +20,7 @@ export default class Broadcast extends Component {
     this.onPlay = this.onPlay.bind(this);
     this.onStop = this.onStop.bind(this);
     this.onNotification = this.onNotification.bind(this);
+    this.onUserlist = this.onUserlist.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
 
@@ -97,6 +98,12 @@ export default class Broadcast extends Component {
     });
   }
 
+  onUserlist(users) {
+    this.setState({
+      users: users
+    });
+  }
+
   sendMessage(message) {
     if (!this.state.socket) {
       this.props.createNotification(
@@ -134,6 +141,7 @@ export default class Broadcast extends Component {
         </div>
         <Chatroom
           user = { this.props.auth.user }
+          users = { this.state.users }
           messages={ messagesToDisplay }
           connect={ this.connect }
           sendMessage={ this.sendMessage }

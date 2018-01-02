@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './style.scss';
-
+import { Users } from '../Users';
 export default class Chatroom extends Component {
   constructor() {
     super();
@@ -72,25 +72,29 @@ export default class Chatroom extends Component {
 
     return (
       <div className='chatroom'>
-        <h1>Chat</h1>
-        <div className='history' ref={ (chatroom) => { this.chatroom = chatroom; } }>
-          { Messages }
+        <div>
+          <h1>Chat</h1>
+          <div className='history' ref={ (chatroom) => { this.chatroom = chatroom; } }>
+            { Messages }
+          </div>
+          <div className='messageBox'>
+            <input
+              className='inputField'
+              type='text'
+              ref={ (input) => { this.inputField = input; } }
+              onKeyPress={ this.handleKeyPress }
+              onChange={ (event) => {
+                this.setState({ message: event.target.value });
+              } }>
+            </input>
+            
+            <button onClick= { this.handleMessage }>
+              Send
+            </button>
+          </div>
         </div>
-        <div className='messageBox'>
-          <input
-            className='inputField'
-            type='text'
-            ref={ (input) => { this.inputField = input; } }
-            onKeyPress={ this.handleKeyPress }
-            onChange={ (event) => {
-              this.setState({ message: event.target.value });
-            } }>
-          </input>
-
-          <button onClick= { this.handleMessage }>
-            Send
-          </button>
-        </div>
+        <Users users={ this.props.users }>
+        </Users>
       </div>
     );
   }
