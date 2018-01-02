@@ -57,7 +57,7 @@ module.exports = function initializeSocketServer(httpServer) {
     clientSocket.on('disconnect', () => {
       let keys;
 
-      if (!clientSocket || !clientSocket.__radRooms) {
+      if (!clientSocket || !clientSocket.___radRooms) {
         return;
       }
       // We loop over the ___radRooms property to notify the rooms the user was last in.
