@@ -13,5 +13,8 @@
   "bugs": {
     "url": "https://github.com/arnoschutijzer/rad.io/issues"
   },
-  "homepage": "https://github.com/arnoschutijzer/rad.io#readme"
+  "homepage": "https://github.com/arnoschutijzer/rad.io#readme",
+  "engines": {
+    "node": ">=8.9.0"
+  }
 }
