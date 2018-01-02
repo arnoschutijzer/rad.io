@@ -8,6 +8,47 @@ const initMusicServer = require('./musicServer');
 const rooms = {};
 let rootSocket = {};
 
+const refreshClientRoom = (room) => {
+  User.find({
+    '_id': { $in: room.users }
+  }).then((users) => {
+    room.socket.emit('userlist', users);
+  });
+};
+
+const onMessage = (data) => {
+  // Just send the message to all the clients in the room,
+  // the user that sent it will receive it as well, but this is desirable.
+  // If the user doesn't see their message pop up, it hasn't arrived.
+  rootSocket.to(data.roomId).send(data);
+
+  const message = new Message({
+    author: data.author._id,
+    message: data.message,
+    room: data.roomId,
+  });
+
+  message.save().catch((err) => {
+    console.log('ERR_SAVING_MSG: ', err);
+  });
+};
+
+const isInRoom = (socket, roomId) => {
+  if (!socket || !socket.rooms || !socket.rooms.hasOwnProperty(roomId)) {
+    return false;
+  }
+
+  return true;
+};
+
+const sendMessage = (room, data) => {
+  rootSocket.to(room).send(data);
+};
+
+const sendNotification = (clientSocket, data) => {
+  clientSocket.emit('notification', data);
+};
+
 module.exports = function initializeSocketServer(httpServer) {
   rootSocket = new Server(httpServer);
 
@@ -42,7 +83,7 @@ module.exports = function initializeSocketServer(httpServer) {
         rooms[roomId].join(user._id);
       }
 
-      initializeClientRoom(clientSocket, rooms[roomId]);
+      refreshClientRoom(rooms[roomId]);
     });
 
     clientSocket.on('message', (data) => {
@@ -74,7 +115,7 @@ module.exports = function initializeSocketServer(httpServer) {
       keys.forEach(key => {
 
         rooms[key].leave(user);
-
+        refreshClientRoom(rooms[key]);
         sendMessage(key, {
           author: {
             username: 'System'
@@ -132,45 +173,4 @@ module.exports = function initializeSocketServer(httpServer) {
   });
 
   return rootSocket;
-};
-
-const onMessage = (data) => {
-  // Just send the message to all the clients in the room,
-  // the user that sent it will receive it as well, but this is desirable.
-  // If the user doesn't see their message pop up, it hasn't arrived.
-  rootSocket.to(data.roomId).send(data);
-
-  const message = new Message({
-    author: data.author._id,
-    message: data.message,
-    room: data.roomId,
-  });
-
-  message.save().catch((err) => {
-    console.log('ERR_SAVING_MSG: ', err);
-  });
-};
-
-const isInRoom = (socket, roomId) => {
-  if (!socket || !socket.rooms || !socket.rooms.hasOwnProperty(roomId)) {
-    return false;
-  }
-
-  return true;
-};
-
-const sendMessage = (room, data) => {
-  rootSocket.to(room).send(data);
-};
-
-const initializeClientRoom = (socket, room) => {
-  User.find({
-    '_id': { $in: room.users }
-  }).then((users) => {
-    socket.emit('userlist', users);
-  });
-};
-
-const sendNotification = (clientSocket, data) => {
-  clientSocket.emit('notification', data);
 };

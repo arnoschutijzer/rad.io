@@ -1,5 +1,9 @@
 @import '../../styles/vars';
 
+.chatroom {
+  display: flex;
+}
+
 .history {
   height: 40vh;
   overflow-y: scroll;
