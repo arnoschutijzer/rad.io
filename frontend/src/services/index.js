@@ -9,6 +9,7 @@ const noop = () => {};
 
 export const createConnection = (handler, token, roomId) => {
   if (socket) {
+    socket.removeAllListeners();
     socket.disconnect();
   }
 
