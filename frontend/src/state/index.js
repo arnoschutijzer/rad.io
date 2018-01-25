@@ -6,11 +6,18 @@ import { apiMiddleware } from './middleware';
 import { validateToken } from './actionCreators/auth';
 import reducers from './reducers';
 
+const middlewares = [
+  apiMiddleware,
+  thunk
+];
+
+if (process.env.NODE_ENV !== 'production') {
+  middlewares.push(createLogger());
+}
+
 const enhancer = compose(
   applyMiddleware(
-    apiMiddleware,
-    thunk,
-    createLogger()
+    ...middlewares
   ),
   persistState('auth', {
     key: 'rad.io-state-auth'
