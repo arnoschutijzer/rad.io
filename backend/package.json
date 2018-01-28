@@ -24,10 +24,10 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "googleapis": "^23.0.0",
-    "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.13.8",
-    "nodemon": "^1.14.7",
+    "googleapis": "^25.0.0",
+    "jsonwebtoken": "^8.1.1",
+    "mongoose": "^5.0.1",
+    "nodemon": "^1.14.11",
     "passport": "^0.4.0",
     "passport-jwt": "^3.0.1",
     "socket.io": "^2.0.4",
@@ -36,7 +36,7 @@
     "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^4.14.0"
+    "eslint": "^4.16.0"
   },
   "engines": {
     "node": ">=8.9.0"
