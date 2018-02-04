@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { logout } from 'state/actionCreators/auth';
+import { fetchSpotify, logout } from 'state/actionCreators/auth';
 import Account from './Account';
 
 const mapStateToProps = (state) => {
@@ -9,7 +9,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  logout
+  fetchSpotify, logout
 };
 
 export default connect(

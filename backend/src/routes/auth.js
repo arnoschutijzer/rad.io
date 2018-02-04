@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const authRouter = require('express').Router();
+const request = require('axios');
 const User = require('../models/user');
 const settings = require('../config/settings');
 
@@ -44,6 +45,33 @@ authRouter.post('/login', (req, res) => {
     });
   }).catch(err => {
     return res.status(500).json({ message: err });
+  });
+});
+
+authRouter.get('/spotify', (req, res) => {
+  if (req.query.error) {
+    return res.redirect(`${settings.FRONTEND_URL}`);
+  }
+
+  const { code } = req.query;
+  request({
+    url: 'https://accounts.spotify.com/api/token',
+    method: 'POST',
+    params: {
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: `${settings.URL}/spotify`,
+      client_id: settings.CLIENT_ID,
+      client_secret: settings.CLIENT_SECRET  
+    }
+  }).then((response) => {
+    // TODO(arno): url encode the response & redirect to frontend again...
+    console.log(response.data);
+    return res.redirect(
+      `${settings.FRONTEND_URL}`
+    );
+  }).catch((err) => {
+    return res.redirect(`${settings.FRONTEND_URL}`);
   });
 });
 

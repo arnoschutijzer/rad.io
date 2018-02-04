@@ -4,7 +4,7 @@ import {
   FETCH_PROFILE,
 } from '../actions/auth';
 import { createNotification } from './notifications';
-import { BASE } from '../../config/config';
+import { BASE, CLIENT_ID } from '../../config/config';
 import request from 'axios';
 
 // We can't really use apiMiddleware here, since we want to chain actions.
@@ -79,3 +79,27 @@ const registerError = (errorResponse) => ({
   type: REGISTER_ERROR,
   error: errorResponse
 });
+
+// Spotify authorization flow
+// TODO(arno):
+// this shouldn't be a redux call, we just redirect the user to spotify auth flow.
+// What we want to do here is:
+// - redirect to backend/auth/spotify so we don't need the scopes, client_id, ... in the frontend
+// - redirect back to the frontend after auth flow is completed
+// - save the credentials.
+export const fetchSpotify = () => {
+  return (dispatch) => {
+    request({
+      url: 'https://accounts.spotify.com/authorize',
+      method: 'GET',
+      params: {
+        client_id: CLIENT_ID,
+        response_type: 'code',
+        redirect_uri: 'http://localhost:8080/spotify',
+        scopes: 'user-read-private user-read-email'
+      }
+    }).then((response) => {
+      // dispatch(response);
+    });
+  };
+};

@@ -5,6 +5,7 @@ export default class Account extends Component {
     return (
       <div className='view'>
         <div className='profile'>
+          <button onClick={ this.props.fetchSpotify }>Connect to Spotify</button>
           <button onClick={ this.props.logout }>logout</button>
         </div>
       </div>
