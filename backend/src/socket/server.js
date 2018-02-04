@@ -1,6 +1,6 @@
 const socketJwt = require('socketio-jwt');
 const Server = require('socket.io');
-const config = require('../config/settings');
+const settings = require('../config/settings');
 const User = require('../models/user');
 const Message = require('../models/message');
 const notificationTypes = require('../models/constants').notifications;
@@ -53,7 +53,7 @@ module.exports = function initializeSocketServer(httpServer) {
   rootSocket = new Server(httpServer);
 
   rootSocket.use(socketJwt.authorize({
-    secret: config.secret,
+    secret: settings.SECRET,
     handshake: true
   }));
 

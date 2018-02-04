@@ -2,12 +2,12 @@ const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
 const user = require('../models/user');
-const config = require('./settings');
+const settings = require('./settings');
 
 module.exports = (passport) => {
   var opts = {};
   opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-  opts.secretOrKey = config.secret;
+  opts.secretOrKey = settings.SECRET;
 
   passport.use(new JwtStrategy(opts, function (jwt_payload, done) {
     // Use a custom function to check if there's a user associated with the token

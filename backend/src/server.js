@@ -31,18 +31,18 @@ auth(passport);
 // we plug in the ES6 Promise instead
 mongoose.Promise = global.Promise;
 
-mongoose.connect(settings.database)
+mongoose.connect(settings.DATABASE)
   .then(() => {
     console.info('> Successfully connected to database');
   })
   .catch((error) => {
     if (error) {
-      console.info(`> Failed connecting to the database on ${settings.database}`);
+      console.info(`> Failed connecting to the database on ${settings.DATABASE}`);
     }
   });
 
-httpServer.listen(settings.port, () => {
-  console.info('> Started rad.io-backend on port ' + settings.port);
+httpServer.listen(settings.PORT, () => {
+  console.info('> Started rad.io-backend on port ' + settings.PORT);
 });
 
 server.get('/', (req, res) => {
