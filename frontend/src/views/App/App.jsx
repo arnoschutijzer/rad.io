@@ -6,7 +6,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { Home, Auth, Account, Broadcast, Browse } from 'views';
+import { Home, Auth, Account, Broadcast, Browse, SpotifyConnection } from 'views';
 import { Notifications } from 'components';
 import './style.scss';
 
@@ -52,6 +52,7 @@ export const buildAuthenticatedRouting = (props) => {
       <Route path='/account' component={ Account } />
       <Route path='/browse' component={ Browse } />
       <Route path='/broadcast/:id' component={ Broadcast } />
+      <Route path='/connect/:type/:accessToken/:refreshToken' component={ SpotifyConnection } />
       <Route render={ () => (<Redirect to='/browse'/>) } />
     </Switch>
   );

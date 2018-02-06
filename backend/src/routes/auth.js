@@ -65,12 +65,11 @@ authRouter.get('/spotify', (req, res) => {
       client_secret: settings.CLIENT_SECRET  
     }
   }).then((response) => {
-    // TODO(arno): url encode the response & redirect to frontend again...
-    console.log(response.data);
+    const { token_type, access_token, refresh_token } = response.data;
     return res.redirect(
-      `${settings.FRONTEND_URL}`
+      `${settings.FRONTEND_URL}connect/spotify/${token_type} ${access_token}/${refresh_token}`
     );
-  }).catch((err) => {
+  }).catch(() => {
     return res.redirect(`${settings.FRONTEND_URL}`);
   });
 });
