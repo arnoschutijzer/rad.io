@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 const User = require('../models/user');
 const Link = require('../models/link');
 const Message = require('../models/message');
