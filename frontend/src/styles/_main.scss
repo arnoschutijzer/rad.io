@@ -1,13 +1,13 @@
 html, body {
   height: 100%;
   width: 100%;
-  font-family: "Fira-regular";
-  background-color: #212121;
+  font-family: "Chivo-light";
+  background-color: $primary-background-color;
 }
 
 * {
-  font-family: "Fira-regular";
-  color: $primary-color-text;
+  font-family: "Chivo-light";
+  color: $primary-text-color;
 }
 
 #app, .app {
@@ -22,7 +22,7 @@ a {
 
   &.link {
     text-decoration: none;
-    color: $primary-color-light;
+    color: $accent-color-dark;
 
     &:hover {
       color: $accent-color;
@@ -32,6 +32,10 @@ a {
 
 .title {
   font-family: 'Moons';
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Chivo-regular";
 }
 
 h1 {
@@ -73,6 +77,10 @@ button {
   cursor: pointer;
 }
 
+input {
+  font-family: "Fira-regular";
+}
+
 .full-view {
   position: absolute;
   top: 0;
@@ -82,6 +90,8 @@ button {
 
 .view {
   padding-top: 70px;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .centered {
@@ -91,10 +101,18 @@ button {
 }
 
 @font-face {
-  font-family: "Fira-regular";
-  src: url("/assets/fonts/FiraCode-Retina.ttf") format("truetype");
+  font-family: "Chivo-light";
+  src: url("/assets/fonts/Chivo-Light.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Chivo-regular";
+  src: url("/assets/fonts/Chivo-Regular.ttf") format("truetype");
 }
 @font-face {
   font-family: "Moons";
   src: url("/assets/fonts/TT-Moons-Thin-Italic-DEMO.otf");
+}
+@font-face {
+  font-family: "Fira-regular";
+  src: url("/assets/fonts/FiraCode-Retina.ttf") format("truetype");
 }

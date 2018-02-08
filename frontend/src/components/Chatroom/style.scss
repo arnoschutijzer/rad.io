@@ -2,10 +2,13 @@
 
 .chatroom {
   display: flex;
+  flex-direction: column;
+  width: 20%;
+  height: 100%;
 }
 
 .history {
-  height: 40vh;
+  height: 90%;
   overflow-y: scroll;
 
   border-top: $accent-color;
