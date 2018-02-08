@@ -1,17 +1,15 @@
-const google = require('googleapis');
-var api = google.youtube('v3');
+const { youtube } = require('googleapis');
+const youtubeAPI = youtube('v3');
 const settings = require('../config/settings');
 const verEx = require('verbal-expressions');
 
 const findVideoById = (id) => {
   return new Promise((resolve, reject) => {
-    api.videos.list({
+    youtubeAPI.videos.list({
       auth: settings.API_KEY,
       part: 'contentDetails, snippet',
-      id
+      id: id
     }, (err, response) => {
-      response = response.data;
-      console.log(err);
       if (err) {
         return reject(err);
       }
@@ -37,30 +35,18 @@ const findVideoById = (id) => {
   });
 };
 
-const isMobileUrl = (url) => {
-  const mobileUrl = verEx().startOfLine()
-    .then('http').maybe('s').then('://')
-    .then('youtu.be/').anything().endOfLine().removeModifier('g');
-
-  return mobileUrl.test(url);
-};
-
-const isFullUrl = (url) => {
+const parseUrl = (url) => {
   const fullUrl = verEx().startOfLine()
     .then('http').maybe('s').then('://')
     .maybe('www.').then('youtube.com/watch?v=')
     .anything().endOfLine().removeModifier('g');
 
-  return fullUrl.test(url);
-};
+  const mobileUrl = verEx().startOfLine()
+    .then('http').maybe('s').then('://')
+    .then('youtu.be/').anything().endOfLine().removeModifier('g');
 
-const isValidUrl = (url) => {
-  return isFullUrl(url) || isMobileUrl(url);
-};
-
-const parseUrl = (url) => {
-  const isFull = isFullUrl(url);
-  const isMobile = isMobileUrl(url);
+  const isFull = fullUrl.test(url);
+  const isMobile = mobileUrl.test(url);
 
   if (isFull) {
     const queryIndex = url.indexOf('v=');
@@ -69,7 +55,6 @@ const parseUrl = (url) => {
     if (queryUrl.indexOf('&') > -1) {
       nextParamIndex = queryUrl.indexOf('&');
     }
-    console.log('doijiozajeiozajd');
     const videoId = queryUrl.substr(0, nextParamIndex);
 
     return Promise.resolve({
@@ -102,6 +87,5 @@ const parseDuration = (duration) => {
 module.exports = {
   findVideoById,
   parseDuration,
-  parseUrl,
-  isValidUrl
+  parseUrl
 };
