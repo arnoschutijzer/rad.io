@@ -236,6 +236,22 @@ class MusicRoom {
   }
 
   // Events
+  onJoin(event) {
+    if (event.type !== JOIN) {
+      return;
+    }
+
+    User.findOne({
+      _id: event.userId
+    }).then((user) => {
+      // Send a message to the room when the user connects...
+      this.socket.send({
+        message: 'Connected!',
+        author: user
+      });
+    });
+  }
+
   onDisconnect(event) {
     if (event.type !== DISCONNECT) {
       return;
@@ -255,6 +271,7 @@ class MusicRoom {
   ___initializeEventbus() {
     Object.assign(this.eventBus, {
       DISCONNECT: this.onDisconnect,
+      JOIN: this.onJoin,
       START_PLAYING: this.startPlaying,
       REFRESH: this.refresh
     });
