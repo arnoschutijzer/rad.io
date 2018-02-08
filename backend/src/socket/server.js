@@ -26,16 +26,16 @@ function initializeSocketServer(httpServer) {
 
     // Events
     clientSocket.on('join', (roomId) => {
-      clientSocket.join('roomId', () => {
+      clientSocket.join(roomId, () => {
         Room.findOne({
           _id: roomId
         }).then((room) => {
           if (!rooms[roomId]) {
             rooms[roomId] = new MusicRoom(room, rootSocket.to(roomId));
           }
-            
+    
           clientSocket.___radRooms.push(roomId);
-          rooms[roomId].join(user._id, clientSocket);
+          rooms[roomId].join(user._id, clientSocket);  
         });  
       });
     });
