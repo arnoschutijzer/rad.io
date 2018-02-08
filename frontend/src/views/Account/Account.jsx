@@ -8,7 +8,6 @@ export default class Account extends Component {
       <div className='view'>
         <div className='profile'>
           <div className="settings">
-            <button>do something else</button>
             <button onClick={ this.props.logout }>logout</button>
           </div>
         </div>

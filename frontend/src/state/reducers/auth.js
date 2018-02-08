@@ -10,7 +10,6 @@ const initialState = {
 
 export default (state = initialState, action) => {
   if (action.type === LOGIN_REQUEST) {
-    // do something
     return Object.assign({}, state, { loading: true });
   }
 
