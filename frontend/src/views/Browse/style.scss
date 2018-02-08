@@ -19,6 +19,22 @@
   .room {
     height: 300px;
     width: 20%;
+
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    margin-bottom: 2%;
+
+    transition: all ease-in 100ms;
+    transform: scale(1);
+    z-index: 0;
+
+    &:hover {
+      transition: all ease-in 200ms;
+      transform: scale(1.1);
+      z-index: 1;
+
+      box-shadow: rgba(0, 0, 0, 0.4) 0px 10px 20px 0px;
+    }
   }
 }
 

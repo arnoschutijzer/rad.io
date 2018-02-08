@@ -21,7 +21,7 @@ export const Users = (props) => {
   });
 
   return (
-    <div>
+    <div className="userlist">
       <h3>Users</h3>
       { mappedUsers }
     </div>

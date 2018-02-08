@@ -5,11 +5,12 @@
   width: 100%;
   display: flex;
   justify-content: space-around;
-
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 6px 0px;
+  background-color: $primary-background-color;
   position: fixed;
   top: 0;
 
-  z-index: 1;
+  z-index: 10;
 
   &> a {
     padding: 25px;
