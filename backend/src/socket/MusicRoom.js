@@ -95,6 +95,11 @@ class MusicRoom {
 
     this.users[userId] = socket;
 
+    this.sendNotification(userId, {
+      type: notificationTypes.info,
+      message: 'Connected!'
+    });
+
     this.notify({
       type: JOIN,
       userId
@@ -105,8 +110,6 @@ class MusicRoom {
     if (!this.isInRoom(userId)) {
       return;
     }
-
-    // this.users = _.without(this.users, userId);
 
     delete this.users[userId];
 
@@ -235,21 +238,6 @@ class MusicRoom {
   }
 
   // Events
-  onJoin(event) {
-    if (event.type !== JOIN) {
-      return;
-    }
-
-    User.findOne({
-      _id: event.userId
-    }).then((user) => {
-      this.socket.send({
-        message: 'Connected!',
-        author: user
-      });
-    });
-  }
-
   onDisconnect(event) {
     if (event.type !== DISCONNECT) {
       return;
@@ -268,7 +256,6 @@ class MusicRoom {
 
   ___initializeEventbus() {
     Object.assign(this.eventBus, {
-      JOIN: this.onJoin,
       DISCONNECT: this.onDisconnect,
       START_PLAYING: this.startPlaying,
       REFRESH: this.refresh

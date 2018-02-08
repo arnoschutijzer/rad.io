@@ -32,6 +32,12 @@ function initializeSocketServer(httpServer) {
         if (!rooms[roomId]) {
           rooms[roomId] = new MusicRoom(room, rootSocket.to(roomId));
         }
+        
+        // Send a message to the room when the user connects...
+        rootSocket.to(roomId).send({
+          message: 'Connected!',
+          author: user
+        });
 
         clientSocket.___radRooms.push(roomId);
         rooms[roomId].join(user._id, clientSocket);
