@@ -69,7 +69,6 @@ const parseUrl = (url) => {
     if (queryUrl.indexOf('&') > -1) {
       nextParamIndex = queryUrl.indexOf('&');
     }
-    console.log('doijiozajeiozajd');
     const videoId = queryUrl.substr(0, nextParamIndex);
 
     return Promise.resolve({
