@@ -14,14 +14,16 @@ const findVideoById = (id) => {
         return reject(err);
       }
 
-      if (response.items.length < 1) {
+      const { data: result } = response;
+
+      if (result.items.length < 1) {
         return reject({ message: 'No videos found' });
       }
 
       // Assume we need the details of first result, which is always correct
       // since we do lookup by id...
-      const details = response.items[0].contentDetails;
-      const snippet = response.items[0].snippet;
+      const details = result.items[0].contentDetails;
+      const snippet = result.items[0].snippet;
 
       const metadata = {
         duration: parseDuration(details.duration),
