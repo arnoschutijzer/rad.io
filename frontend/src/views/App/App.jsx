@@ -13,9 +13,29 @@ import './style.scss';
 export default class App extends Component {
   constructor(props) {
     super(props);
+
+    props.fetchSystemStatus();
   }
 
   render() {
+    const { online, loading } = this.props.system;
+
+    if (!online) {
+      if (!loading) {
+        return (
+          <div>
+            Sorry we're offline for maintenance.
+          </div>
+        );
+      } else {
+        return (
+          <div>
+            Loading....
+          </div>
+        );
+      }
+    }
+    
     const { Navbar, View } =
       this.props.auth.token ?
         buildAuthenticatedRouting(this.props) : buildDefaultRouting();
