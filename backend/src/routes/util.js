@@ -18,4 +18,8 @@ utilRouter.get('/models', (req, res) => {
   );
 });
 
+utilRouter.get('/status', (req, res) => {
+  res.status(204).send();
+});
+
 module.exports = utilRouter;
