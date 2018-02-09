@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './style.scss';
-import { Users } from '../Users';
 export default class Chatroom extends Component {
   constructor() {
     super();

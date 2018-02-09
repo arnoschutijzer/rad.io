@@ -1,7 +1,9 @@
 .playerContainer {
   height: 100%;
   width: 80%;
+  max-width: 80%;
   float: left;
+  overflow-y: hidden;
 
   * {
     height: 100%;

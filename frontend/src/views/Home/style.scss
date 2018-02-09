@@ -4,7 +4,7 @@
   height: 100%;
   max-width: 100%;
   display: flex;
-  // background-image: url('~assets/mic.jpg');
+  background-image: url('~assets/mic.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -17,6 +17,10 @@
   h1 {
     letter-spacing: 18px;
     font-size: 4rem;
+  }
+
+  p {
+    letter-spacing: 1.5px;
   }
 
   .actions {
