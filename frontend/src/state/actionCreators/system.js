@@ -7,6 +7,11 @@ export const fetchSystemStatus = () => ({
   type: FETCH_SYSTEM_STATUS,
   api: {
     url: `${BASE}/status`,
-    method: 'GET'
+    method: 'GET',
+    // don't cache it
+    headers: {
+      'Cache-Control': 'no-cache',
+      'Pragma': 'no-cache'
+    }
   }
 });

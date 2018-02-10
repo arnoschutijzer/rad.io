@@ -24,6 +24,9 @@ export default class App extends Component {
         <Maintenance></Maintenance>
       );
     }
+    if (!online && loading) {
+      return null;
+    }
     
     const { Navbar, View } =
       this.props.auth.token ?
