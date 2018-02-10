@@ -14,13 +14,16 @@ const apiMiddleware = store => next => action => {
     .then(response => {
       dispatch('RESPONSE', { payload: response.data });
     }).catch(error => {
-      const response = error.response.data || {
+      let response = {
         message: 'An error occurred.'
       };
+      if (error && error.response) {
+        response = error.response.data;
+      }
 
       dispatch('ERROR', response);
 
-      if (error.response.status === 401) {
+      if (error.response && error.response.status === 401) {
         dispatchUnauthorized(response);
       }
       if (!action.ignoreErrors) {

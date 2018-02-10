@@ -1,5 +1,5 @@
 import {
-  FETCH_SYSTEM_STATUS,
+  FETCH_SYSTEM_STATUS_REQUEST,
   FETCH_SYSTEM_STATUS_RESPONSE,
   FETCH_SYSTEM_STATUS_ERROR
 } from 'state/actions/system';
@@ -7,7 +7,7 @@ import {
 const initialState = {};
 
 export default (state = initialState, action) => {
-  if (action.type === FETCH_SYSTEM_STATUS) {
+  if (action.type === FETCH_SYSTEM_STATUS_REQUEST) {
     return Object.assign({}, state, {
       loading: true
     });
