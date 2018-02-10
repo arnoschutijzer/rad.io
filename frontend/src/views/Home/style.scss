@@ -1,12 +1,8 @@
 @import '~src/styles/vars';
 
 .home-header {
-  height: 100%;
-  max-width: 100%;
-  display: flex;
   background-image: url('~assets/mic.jpg');
   background-size: cover;
-  background-position: center;
 }
 
 .home-header-center {

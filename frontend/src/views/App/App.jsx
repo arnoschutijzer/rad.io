@@ -6,7 +6,7 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import { Home, Auth, Account, Broadcast, Browse } from 'views';
+import { Home, Auth, Account, Broadcast, Browse, Maintenance } from 'views';
 import { Notifications } from 'components';
 import './style.scss';
 
@@ -19,21 +19,10 @@ export default class App extends Component {
 
   render() {
     const { online, loading } = this.props.system;
-
-    if (!online) {
-      if (!loading) {
-        return (
-          <div>
-            Sorry we're offline for maintenance.
-          </div>
-        );
-      } else {
-        return (
-          <div>
-            Loading....
-          </div>
-        );
-      }
+    if (!online && !loading) {
+      return (
+        <Maintenance></Maintenance>
+      );
     }
     
     const { Navbar, View } =

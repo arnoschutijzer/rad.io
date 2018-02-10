@@ -100,6 +100,22 @@ input {
   justify-content: center;
 }
 
+.header {
+  height: 100%;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  background-position: center;
+}
+
+.header-center {
+  height: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 @font-face {
   font-family: "Chivo-light";
   src: url("/assets/fonts/Chivo-Light.ttf") format("truetype");
