@@ -3,10 +3,13 @@ import {
   createRoom,
   fetchRooms
 } from 'state/actionCreators/rooms';
+import { selectRooms } from 'state/selectors/rooms';
 import Browse from './Browse';
 
 const mapStateToProps = (state) => {
-  return state;
+  return {
+    rooms: selectRooms(state)
+  };
 };
 
 const mapDispatchToProps = {
