@@ -51,7 +51,7 @@
     "file-loader": "^1.1.10",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "webpack-contrib/html-webpack-plugin",
-    "image-webpack-loader": "^4.1.0",
+    "image-webpack-loader": "^3.6.0",
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
