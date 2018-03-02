@@ -1,5 +1,5 @@
-const { youtube } = require('googleapis');
-var youtubeAPI = youtube('v3');
+const { google } = require('googleapis');
+const youtubeAPI = google.youtube('v3');
 const settings = require('../config/settings');
 const verEx = require('verbal-expressions');
 
