@@ -102,6 +102,10 @@ class MusicRoom {
       type: JOIN,
       userId
     });
+
+    this.startPlaying({
+      type: START_PLAYING
+    }, socket);
   }
 
   leave(userId) {
@@ -200,7 +204,7 @@ class MusicRoom {
     this.startPlaying();
   }
 
-  startPlaying(event) {
+  startPlaying(event, socket) {
     if (event && event.type !== START_PLAYING) {
       return;
     }
@@ -209,8 +213,10 @@ class MusicRoom {
       return;
     }
 
+    // Either we have a specific socket passed in, or we use the socket of the room
+    const socketToStart = socket || this.socket;
     const latestLink = this.playlist[0];
-    this.socket.emit('play', latestLink);
+    socketToStart.emit('play', latestLink);
 
     latestLink.isActive = false;
     latestLink.save();
