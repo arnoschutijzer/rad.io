@@ -3,6 +3,7 @@ const Link = require('../models/link');
 const Message = require('../models/message');
 const notificationTypes = require('../models/constants').notifications;
 const youtube = require('./youtube');
+const moment = require('moment');
 
 const JOIN = 'JOIN';
 const DISCONNECT = 'DISCONNECT';
@@ -22,13 +23,15 @@ class MusicRoom {
         socket,
         eventBus: {},
         playlist: [],
-        rtvVotes: []
+        rtvVotes: [],
+        startTime: undefined,
+        isPlaying: false
       }
     );
 
     this.___initializePlaylist().then(() => {
       setTimeout(() => {
-        this.startPlaying();
+        this.startPlaying({ type: START_PLAYING });
       }, 1000);
     });
     this.___initializeEventbus();
@@ -64,7 +67,7 @@ class MusicRoom {
         const link = new Link(linkData);
 
         return link.save().then(() => {
-          const startPlaying = this.playlist.length === 0;
+          const shouldStartPlaying = this.playlist.length === 0;
           this.playlist.push(link);
 
           this.sendNotification(userId, {
@@ -72,8 +75,8 @@ class MusicRoom {
             message: 'Successfully added video'
           });
 
-          if (startPlaying) {
-            this.notify({ type: START_PLAYING });
+          if (shouldStartPlaying) {
+            this.startPlaying({ type: START_PLAYING });
           }
         });
       }).catch((err) => {
@@ -103,9 +106,12 @@ class MusicRoom {
       userId
     });
 
-    this.startPlaying({
-      type: START_PLAYING
-    }, socket);
+    if (this.isPlaying) {
+      this.startPlaying({
+        type: START_PLAYING,
+        startAt: moment.duration(moment().diff(this.startTime))
+      }, socket);
+    }
   }
 
   leave(userId) {
@@ -201,27 +207,39 @@ class MusicRoom {
   skipOneAndPlay() {
     this.playlist = this.playlist.slice(1, this.playlist.length);
     this.rtvVotes = [];
-    this.startPlaying();
+    this.startPlaying({ type: START_PLAYING });
   }
 
-  startPlaying(event, socket) {
-    if (event && event.type !== START_PLAYING) {
+  startPlaying(event = {}, socket) {
+    if (event.type !== START_PLAYING) {
       return;
     }
 
     if (this.playlist.length === 0) {
+      this.isPlaying = false;
+      return;
+    }
+      
+    if (socket && this.isPlaying) {
+      const currentLink = Object.assign(
+        {}, 
+        this.latestLink._doc, 
+        { startAt: event.startAt }
+      );
+
+      socket.emit('play', currentLink);
       return;
     }
 
-    // Either we have a specific socket passed in, or we use the socket of the room
-    const socketToStart = socket || this.socket;
+    this.isPlaying = true;
     const latestLink = this.playlist[0];
-    socketToStart.emit('play', latestLink);
+    this.socket.emit('play', latestLink);
 
     latestLink.isActive = false;
     latestLink.save();
 
     this.latestLink = latestLink;
+    this.startTime = moment();
 
     this.playing = setTimeout(() => {
       this.skipOneAndPlay();

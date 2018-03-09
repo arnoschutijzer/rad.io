@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { createConnection } from '../../services';
 import { Chatroom } from '../../components';
 import Youtube from 'react-youtube';
+import moment from 'moment';
 import './style.scss';
 
 export default class Broadcast extends Component {
@@ -80,8 +81,12 @@ export default class Broadcast extends Component {
       currentVideoId: ''
     });
 
+    // Add some `buffer seconds` to account for loading and network delay but only when startAt is defined.
+    let startAt = data.startAt ? moment.duration(data.startAt).asSeconds() + 1 : 0;
+
     this.setState({
-      currentVideoId: data.videoId
+      currentVideoId: data.videoId,
+      startAt: startAt
     });
   }
 
@@ -127,7 +132,8 @@ export default class Broadcast extends Component {
 
     const playerOpts = {
       playerVars: {
-        autoplay: 1
+        autoplay: 1,
+        start: this.state.startAt
       }
     };
 

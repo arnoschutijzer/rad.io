@@ -26,6 +26,7 @@
     "express": "^4.16.2",
     "googleapis": "^27.0.0",
     "jsonwebtoken": "^8.2.0",
+    "moment": "^2.21.0",
     "mongoose": "^5.0.7",
     "nodemon": "^1.17.1",
     "passport": "^0.4.0",
