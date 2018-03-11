@@ -31,7 +31,7 @@ class MusicRoom {
 
     this.___initializePlaylist().then(() => {
       setTimeout(() => {
-        this.startPlaying({ type: START_PLAYING });
+        this.notify({ type: START_PLAYING });
       }, 1000);
     });
     this.___initializeEventbus();
@@ -76,7 +76,7 @@ class MusicRoom {
           });
 
           if (shouldStartPlaying) {
-            this.startPlaying({ type: START_PLAYING });
+            this.notify({ type: START_PLAYING });
           }
         });
       }).catch((err) => {
@@ -107,10 +107,11 @@ class MusicRoom {
     });
 
     if (this.isPlaying) {
-      this.startPlaying({
+      this.notify({
         type: START_PLAYING,
-        startAt: moment.duration(moment().diff(this.startTime))
-      }, socket);
+        startAt: moment.duration(moment().diff(this.startTime)),
+        socket: socket
+      });
     }
   }
 
@@ -132,7 +133,9 @@ class MusicRoom {
   }
 
   notify(event) {
-    console.log(`NOTIFICATION FIRED: ${JSON.stringify(event)}`);
+    if (!event) return;
+
+    console.log(`NOTIFICATION FIRED: ${event.type}`);
     const keys = Object.keys(this.eventBus);
     keys.forEach((key) => {
       this.eventBus[key].apply(this, [event]);
@@ -176,15 +179,6 @@ class MusicRoom {
     });
   }
 
-  refresh() {
-    const users = Object.keys(this.users);
-    User.find({
-      '_id': { $in: users }
-    }).then((users) => {
-      this.socket.emit('userlist', users);
-    });
-  }
-
   sendMessage(message) {
     const enrichedMessage = Object.assign({}, message, {
       room: this._id
@@ -207,10 +201,10 @@ class MusicRoom {
   skipOneAndPlay() {
     this.playlist = this.playlist.slice(1, this.playlist.length);
     this.rtvVotes = [];
-    this.startPlaying({ type: START_PLAYING });
+    this.notify({ type: START_PLAYING });
   }
 
-  startPlaying(event = {}, socket) {
+  startPlaying(event = {}) {
     if (event.type !== START_PLAYING) {
       return;
     }
@@ -220,14 +214,14 @@ class MusicRoom {
       return;
     }
       
-    if (socket && this.isPlaying) {
+    if (event.socket && this.isPlaying) {
       const currentLink = Object.assign(
         {}, 
         this.latestLink._doc, 
         { startAt: event.startAt }
       );
 
-      socket.emit('play', currentLink);
+      event.socket.emit('play', currentLink);
       return;
     }
 
@@ -260,7 +254,7 @@ class MusicRoom {
   }
 
   // Events
-  onJoin(event) {
+  onJoin(event = {}) {
     if (event.type !== JOIN) {
       return;
     }
@@ -276,7 +270,7 @@ class MusicRoom {
     });
   }
 
-  onDisconnect(event) {
+  onDisconnect(event = {}) {
     if (event.type !== DISCONNECT) {
       return;
     }
@@ -296,8 +290,7 @@ class MusicRoom {
     Object.assign(this.eventBus, {
       DISCONNECT: this.onDisconnect,
       JOIN: this.onJoin,
-      START_PLAYING: this.startPlaying,
-      REFRESH: this.refresh
+      START_PLAYING: this.startPlaying
     });
   }
 }
