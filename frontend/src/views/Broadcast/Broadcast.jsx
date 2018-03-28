@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createConnection } from '../../services';
-import { Chatroom } from '../../components';
+import { Chatroom, RoomSidebar } from '../../components';
 import Youtube from 'react-youtube';
 import moment from 'moment';
 import './style.scss';
@@ -145,14 +145,16 @@ export default class Broadcast extends Component {
             opts={ playerOpts }>
           </Youtube>
         </div>
-        <Chatroom
-          user = { this.props.auth.user }
-          users = { this.state.users }
-          messages={ messagesToDisplay }
-          connect={ this.connect }
-          sendMessage={ this.sendMessage }
-          emitEvent={ this.emitEvent }>
-        </Chatroom>
+        <RoomSidebar>
+          <Chatroom
+            user = { this.props.auth.user }
+            users = { this.state.users }
+            messages={ messagesToDisplay }
+            connect={ this.connect }
+            sendMessage={ this.sendMessage }
+            emitEvent={ this.emitEvent }>
+          </Chatroom>
+        </RoomSidebar>
       </div>
     );
   }
