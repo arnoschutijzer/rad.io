@@ -29,7 +29,6 @@ export default class RoomSidebar extends Component {
   render() {
     const activeComponent = this.getComponent(this.state.activeTab);
     const children = this.state.availableTabs;
-    const hasMultipleTabs = tabs.length > 1;
     const tabs = children.map((child) => {
       return (
         <div className="tab" key={ child } onClick={() => { this.setActiveTab(child); }}>
@@ -37,6 +36,7 @@ export default class RoomSidebar extends Component {
         </div>
       );
     });
+    const hasMultipleTabs = tabs.length > 1;
 
     if (!hasMultipleTabs) {
       return (
