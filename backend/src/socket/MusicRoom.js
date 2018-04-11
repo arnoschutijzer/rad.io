@@ -5,10 +5,11 @@ const notificationTypes = require('../models/constants').notifications;
 const youtube = require('./youtube');
 const moment = require('moment');
 
-const JOIN = 'JOIN';
-const DISCONNECT = 'DISCONNECT';
-const ADD = 'ADD';
-const START_PLAYING = 'START_PLAYING';
+const JOIN = 'join';
+const DISCONNECT = 'disconnect';
+const ADD = 'add';
+const START_PLAYING = 'start_playing';
+const REFRESH = 'refresh';
 
 module.exports.JOIN = JOIN;
 module.exports.DISCONNECT = DISCONNECT;
@@ -198,6 +199,10 @@ class MusicRoom {
     socket.emit('notification', notification);
   }
 
+  sendEvent(event = {}) {
+    this.socket.emit(event.type, event);
+  }
+
   skipOneAndPlay() {
     this.playlist = this.playlist.slice(1, this.playlist.length);
     this.rtvVotes = [];
@@ -286,11 +291,33 @@ class MusicRoom {
     });
   }
 
+  async onRefresh(event = {}) {
+    if (event.type !== JOIN && event.type !== DISCONNECT) {
+      return;
+    }
+    
+    const userIds = Object.keys(this.users);
+
+    const users = await User.find({
+      _id: {
+        $in: userIds
+      }
+    }).then(users =>  users.map(user => user.toJSON()));
+
+    this.sendEvent({
+      type: REFRESH,
+      payload: {
+        users
+      }
+    });
+  }
+
   ___initializeEventbus() {
     Object.assign(this.eventBus, {
       DISCONNECT: this.onDisconnect,
       JOIN: this.onJoin,
-      START_PLAYING: this.startPlaying
+      START_PLAYING: this.startPlaying,
+      REFRESH: this.onRefresh
     });
   }
 }

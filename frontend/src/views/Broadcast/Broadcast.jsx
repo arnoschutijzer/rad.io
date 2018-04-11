@@ -21,7 +21,7 @@ export default class Broadcast extends Component {
     this.onPlay = this.onPlay.bind(this);
     this.onStop = this.onStop.bind(this);
     this.onNotification = this.onNotification.bind(this);
-    this.onUserlist = this.onUserlist.bind(this);
+    this.onRefresh = this.onRefresh.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
   }
 
@@ -103,9 +103,9 @@ export default class Broadcast extends Component {
     });
   }
 
-  onUserlist(users) {
+  onRefresh(event) {
     this.setState({
-      users: users
+      users: event.payload.users
     });
   }
 

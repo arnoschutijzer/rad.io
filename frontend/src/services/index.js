@@ -27,7 +27,7 @@ export const createConnection = (handler, token, roomId) => {
   socket.on('play', handler.onPlay || noop);
   socket.on('notification', handler.onNotification || noop);
   socket.on('stop', handler.onStop || noop);
-  socket.on('userlist', handler.onUserlist || noop);
+  socket.on('refresh', handler.onRefresh || noop);
 
   return socket;
 };
