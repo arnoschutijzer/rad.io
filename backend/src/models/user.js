@@ -42,6 +42,15 @@ schema.set('toJSON', {
     // Don't return the salt & password
     delete ret.password;
     delete ret.salt;
+    delete ret.connections;
+    return ret;
+  }
+});
+
+schema.set('toPrivateJSON', {
+  transform: (doc, ret) => {
+    delete ret.password;
+    delete ret.salt;
     return ret;
   }
 });
