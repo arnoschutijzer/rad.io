@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createConnection } from '../../services';
-import { Chatroom, RoomSidebar } from '../../components';
+import { Chatroom, RoomSidebar, UserList } from '../../components';
 import Youtube from 'react-youtube';
 import moment from 'moment';
 import './style.scss';
@@ -137,6 +137,8 @@ export default class Broadcast extends Component {
       }
     };
 
+    const childrenMap = { 'chat': Chatroom.name, 'users': UserList.name };
+
     return (
       <div className='view'>
         <div className='playerContainer'>
@@ -145,15 +147,18 @@ export default class Broadcast extends Component {
             opts={ playerOpts }>
           </Youtube>
         </div>
-        <RoomSidebar>
+        <RoomSidebar childrenMap={ childrenMap }>
           <Chatroom
-            user = { this.props.auth.user }
-            users = { this.state.users }
+            user={ this.props.auth.user }
+            users={ this.state.users }
             messages={ messagesToDisplay }
             connect={ this.connect }
             sendMessage={ this.sendMessage }
             emitEvent={ this.emitEvent }>
           </Chatroom>
+          <UserList
+            users={ this.state.users }>
+          </UserList>
         </RoomSidebar>
       </div>
     );

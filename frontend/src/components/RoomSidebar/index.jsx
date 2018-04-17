@@ -7,11 +7,15 @@ export default class RoomSidebar extends Component {
   constructor(props) {
     super(props);
 
-    const children = React.Children.toArray(props.children).map(item => item.type.name);
+    const children = React.Children.toArray(props.children);
+    if (Object.keys(props.childrenMap).length === 0 && children.length !== 0) {
+      throw new Error('ChildrenMap is invalid');
+    }
+    const defaultTab = Object.keys(props.childrenMap).length > 0 ? Object.keys(props.childrenMap)[0] : null;
 
     this.state = {
-      activeTab: props.activeTab || children[0],
-      availableTabs: children
+      activeTab: props.activeTab || defaultTab,
+      availableTabs: props.childrenMap
     };
 
     this.setActiveTab.bind(this);
@@ -22,17 +26,23 @@ export default class RoomSidebar extends Component {
   }
 
   getComponent(name) {
-    const children = React.Children.toArray(this.props.children);
-    return find(children, child => child.type.name === name);
+    return find(React.Children.toArray(this.props.children), (child) => {
+      return child.type.name === this.state.availableTabs[name];
+    });
   }
 
   render() {
     const activeComponent = this.getComponent(this.state.activeTab);
-    const children = this.state.availableTabs;
+    const children = Object.keys(this.state.availableTabs).map((key) => {
+      return {
+        label: key,
+        type: this.state.availableTabs[key]
+      };
+    });
     const tabs = children.map((child) => {
       return (
-        <div className="tab" key={ child } onClick={() => { this.setActiveTab(child); }}>
-          { child }
+        <div className="tab" key={ child.label } onClick={() => { this.setActiveTab(child.label); }}>
+          { child.label }
         </div>
       );
     });

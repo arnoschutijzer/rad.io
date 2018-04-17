@@ -2,10 +2,19 @@
   height: 100%;
 
   .tabs {
-    height: 5%
+    max-height: 6%;
+    padding-bottom: 5px;
+
+    display: flex;
+    justify-content: space-around;
+
+    .tab {
+      cursor: pointer;
+      padding: 10px;
+    }
   };
   
   .content {
-    height: 95%;
+    height: 93%;
   }
 }
