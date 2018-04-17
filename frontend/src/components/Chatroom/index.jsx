@@ -44,8 +44,16 @@ export default class Chatroom extends Component {
     }
   }
 
-  componentDidUpdate() {
+  scrollToBottom () {
     this.chatroom.scrollTop = this.chatroom.scrollHeight;
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom();
+  }
+
+  componentDidMount() {
+    this.scrollToBottom();
   }
 
   shouldComponentUpdate(nextProps) {
