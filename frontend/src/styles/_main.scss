@@ -58,23 +58,22 @@ h5 {
   font-size: 0.9em;
 }
 
-input, button {
-  font-size: 1.2em;
-  border: none;
-}
-
 input {
   padding-bottom: 15px;
+  border: none;
+  font-size: $font-size-highlight;
   border-bottom: solid 1px $accent-color;
   background-color: rgba(0, 0, 0, 0);
   color: $primary-color;
 }
 
-button {
-  color: $accent-color;
+button, .button {
   background-color: rgba(0, 0, 0, 0);
-  transition: ease all 0.3s;
+  border: none;
+  color: $accent-color;
   cursor: pointer;
+  font-size: $font-size-highlight;
+  transition: ease all 0.3s;
 }
 
 input {

@@ -9,7 +9,7 @@ export default class Home extends Component {
           <h1 className='title'>rad.io</h1>
           <p>synchronised music sharing</p>
           <div className='actions'>
-            <a href='#/auth'>Enter</a>
+            <a className="button" href='#/auth'>Enter</a>
           </div>
         </div>
       </div>
