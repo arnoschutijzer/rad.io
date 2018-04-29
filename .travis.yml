@@ -4,6 +4,6 @@ node_js:
 script:
   - cd frontend
   - npm run lint
-  - npm run dist
+  - npm run prod
   - cd ../backend
   - npm run lint

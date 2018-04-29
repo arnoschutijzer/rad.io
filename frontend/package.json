@@ -5,9 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint src --ext .jsx .js",
-    "dev": "npm run clean:dist && webpack-dev-server --mode development",
-    "prod": "npm run clean:dist && npm run dist",
-    "dist": "webpack --mode development --progress",
+    "dev": "npm run clean:dist && starter serve",
+    "prod": "npm run clean:dist && starter build",
     "clean:dist": "rm -rf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -40,27 +39,10 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",
-    "@babel/polyfill": "^7.0.0-beta.46",
-    "@babel/preset-env": "^7.0.0-beta.46",
     "@babel/preset-react": "^7.0.0-beta.46",
-    "babel-loader": "^8.0.0-beta.2",
-    "babel-polyfill": "^6.26.0",
-    "browser-sync": "^2.23.6",
-    "browser-sync-webpack-plugin": "^2.0.1",
-    "css-loader": "^0.28.10",
+    "@vleesbrood/webpack-starter-cli": "^3.0.0",
     "eslint": "^4.18.1",
-    "eslint-plugin-react": "^7.7.0",
-    "file-loader": "^1.1.10",
-    "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0",
-    "image-webpack-loader": "^3.6.0",
-    "node-sass": "^4.7.2",
-    "sass-loader": "^6.0.6",
-    "style-loader": "^0.20.2",
-    "url-loader": "^0.6.2",
-    "webpack": "^4.0.1",
-    "webpack-cli": "^2.0.9",
-    "webpack-dev-server": "^3.0.0"
+    "eslint-plugin-react": "^7.7.0"
   },
   "engines": {
     "node": ">=8.9.0"
