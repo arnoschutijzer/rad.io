@@ -1,5 +1,4 @@
 $primary-background-color: #212121;
-// $primary-background-color: #355C7D;
 $primary-color: #FFEB3B;
 $accent-color: #FFEB3B;
 $accent-color-dark: #FDD835;
@@ -13,3 +12,23 @@ $error-color: rgb(229, 115, 115);
 $error-color-opac: rgba(229, 115, 115, 0.5);
 
 $font-size-highlight: 1.2em;
+
+
+:export {
+  primaryBackgroundColor: $primary-background-color;
+  primaryColor: $primary-color;
+
+  accentColor: $accent-color;
+  accentColorDark: $accent-color-dark;
+
+  primaryTextColor: $primary-text-color;
+
+  dividerColor: $divider-color;
+  
+  infoColor: $info-color;
+  infoColorOpac: $info-color-opac;
+  errorColor: $error-color;
+  errorColorOpac: $error-color-opac;
+
+  fontSizeHighlight: $font-size-highlight;
+}
