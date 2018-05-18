@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './style.scss';
+import styled from 'styled-components';
+
 export default class Chatroom extends Component {
   constructor() {
     super();
@@ -64,41 +65,74 @@ export default class Chatroom extends Component {
     const Messages = [];
     let messagesToDisplay = this.props.messages;
 
+    const Message = styled.div`
+      display: flex;
+      padding: 5px;
+    `;
+
+    const User = styled.div`
+      margin-right: 20px;
+    `;
+
+    const MessageContent = styled.div`
+      word-break: break-word;
+    `;
+
     for (let message of messagesToDisplay) {
       Messages.push(
-        <div className='message' key={ message._id }>
-          <div className='user'>
+        <Message key={ message._id }>
+          <User>
             { '<' }{ message.author.username }{ '>' }
-          </div>
-          <div className='messageContent'>
+          </User>
+          <MessageContent className='messageContent'>
             { message.message }
-          </div>
-        </div>
+          </MessageContent>
+        </Message>
       );
     }
 
+    const Chatroom = styled.div`
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+      height: 100%;
+    `;
+
+    const History = styled.div`
+      height: 90%;
+      overflow-y: scroll;
+    `;
+
+    const MessageBox = styled.div`
+      display: flex;
+      justify-content: space-around;
+    `;
+
+    const InputField = styled.input`
+      width: 90%;
+    `;
+
     return (
-      <div className='chatroom'>
+      <Chatroom>
         <h1>Chat</h1>
-        <div className='history' ref={ (chatroom) => { this.chatroom = chatroom; } }>
+        <History innerRef={ (chatroom) => { this.chatroom = chatroom; } }>
           { Messages }
-        </div>
-        <div className='messageBox'>
-          <input
-            className='inputField'
+        </History>
+        <MessageBox>
+          <InputField
             type='text'
-            ref={ (input) => { this.inputField = input; } }
+            innerRef={ (input) => { this.inputField = input; } }
             onKeyPress={ this.handleKeyPress }
             onChange={ (event) => {
               this.setState({ message: event.target.value });
             } }>
-          </input>
+          </InputField>
           
           <button onClick= { this.handleMessage }>
             Send
           </button>
-        </div>
-      </div>
+        </MessageBox>
+      </Chatroom>
     );
   }
 }
