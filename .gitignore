@@ -38,3 +38,7 @@ jspm_packages
 
 # Build folder
 dist
+
+# lock files
+*.lock
+package-lock.json
