@@ -3,7 +3,9 @@ const SRC = './src';
 
 module.exports = () => {
   const webpack = {
-    entry: path.resolve(__dirname, SRC, 'index.jsx'),
+    entry: [
+      path.resolve(__dirname, SRC, 'index.jsx')
+    ],
 
     resolve: {
       alias: {
