@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { keys } from 'underscore';
-import './style.scss';
+import style from '../../styles/_vars.scss';
+import styled from 'styled-components';
 
 export default class Notifications extends Component {
   constructor(props) {
@@ -15,11 +16,17 @@ export default class Notifications extends Component {
 
   render() {
     const Notifications = this.buildNotifications();
+    const NotificationsContainer = styled.div`
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1;
+    `;
 
     return (
-      <div className='notifications'>
+      <NotificationsContainer>
         { Notifications }
-      </div>
+      </NotificationsContainer>
     );
   }
 
@@ -29,13 +36,21 @@ export default class Notifications extends Component {
 
     for (let key of _keys) {
       const notification = this.props.notifications[key];
-      const styling = 'notification ' + notification.type;
+
+      let color = notification.type === 'info' ? style.infoColorOpac : style.errorColorOpac;
+      const NotificationContainer = styled.div`
+        cursor: pointer;
+        margin-top: 5px;
+        padding: 20px;
+        background-color: ${color};
+      `;
+
       const Notification = (
-        <div key= { key }
-          onClick={ () => { this.dismissNotification(key); } }
-          className={ styling }>
+        <NotificationContainer
+          key= { key }
+          onClick={ () => { this.dismissNotification(key); } }>
           { notification.response.message }
-        </div>
+        </NotificationContainer>
       );
       Notifications.push(Notification);
     }
