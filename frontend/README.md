@@ -1,19 +1,16 @@
 # rad.io
 
 ## get started
+
 ```bash
-> yarn
+# install dependencies
+$ yarn
 
-> yarn dev
+# run dev server with hot-reloading
+$ yarn dev
 
-
-# other commands
-> yarn dist          # just create the bundle
-
-> yarn prod            # run production bundle
-
-> yarn clean:dist      # clean dist folder
-
+# create a production bundle
+$ yarn prod
 ```
 
 (if you don't use yarn, swap out `yarn` for `npm run` in commands above)
