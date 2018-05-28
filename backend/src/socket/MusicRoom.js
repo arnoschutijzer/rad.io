@@ -81,7 +81,7 @@ class MusicRoom {
           }
         });
       }).catch((err) => {
-        console.log(`ERROR FETCHING METADATA: ${JSON.stringify(err)}`);
+        console.error(`ERROR FETCHING METADATA: ${JSON.stringify(err)}`);
         this.sendNotification(userId, {
           type: notificationTypes.error,
           message: 'Failed to add video'
@@ -136,7 +136,6 @@ class MusicRoom {
   notify(event) {
     if (!event) return;
 
-    console.log(`NOTIFICATION FIRED: ${event.type}`);
     const keys = Object.keys(this.eventBus);
     keys.forEach((key) => {
       this.eventBus[key].apply(this, [event]);
