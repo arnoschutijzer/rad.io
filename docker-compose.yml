@@ -1,0 +1,30 @@
+version: "3"
+services:
+  api:
+    container_name: rad_api
+    restart: always
+    build: ./backend
+    links:
+      - mongo
+    ports:
+      - "8080:8080"
+  
+  frontend:
+    container_name: rad_frontend
+    restart: always
+    build: ./frontend
+    ports:
+      - "9000:80"
+
+
+  mongo:
+    container_name: mongodb
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./data:/data/db
+    ports:
+      - "27017:27017"

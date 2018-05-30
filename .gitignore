@@ -41,3 +41,6 @@ dist
 
 # lock files
 package-lock.json
+
+# docker volumes
+data

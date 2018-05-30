@@ -37,7 +37,9 @@ mongoose.connect(settings.DATABASE)
   })
   .catch((error) => {
     if (error) {
-      console.info(`> Failed connecting to the database on ${settings.DATABASE}`);
+      console.error(`> Failed connecting to the database on ${settings.DATABASE}`);
+      console.error(error);
+      process.exit(1);
     }
   });
 
