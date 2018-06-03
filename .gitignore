@@ -40,5 +40,4 @@ jspm_packages
 dist
 
 # lock files
-*.lock
 package-lock.json
