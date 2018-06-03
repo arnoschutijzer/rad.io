@@ -2,7 +2,8 @@ module.exports = {
   'env': {
     'browser': true,
     'es6': true,
-    'node': true
+    'node': true,
+    'jest/globals': true
   },
   'extends': 'eslint:recommended',
   'parserOptions': {
@@ -13,7 +14,8 @@ module.exports = {
     'sourceType': 'module'
   },
   'plugins': [
-    'react'
+    'react',
+    'jest'
   ],
   'rules': {
     'react/jsx-uses-react': 'error',

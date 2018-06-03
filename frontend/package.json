@@ -8,7 +8,7 @@
     "dev": "npm run clean:dist && starter serve",
     "prod": "npm run clean:dist && starter build",
     "clean:dist": "rm -rf dist",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -40,10 +40,17 @@
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.46",
+    "@babel/preset-env": "^7.0.0-beta.49",
     "@babel/preset-react": "^7.0.0-beta.46",
     "@vleesbrood/webpack-starter-cli": "^3.2.0",
+    "babel-core": "^7.0.0-0",
+    "babel-jest": "^23.0.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
     "eslint": "^4.18.1",
-    "eslint-plugin-react": "^7.7.0"
+    "eslint-plugin-jest": "^21.17.0",
+    "eslint-plugin-react": "^7.7.0",
+    "jest": "^23.1.0"
   },
   "engines": {
     "node": ">=8.9.0"
