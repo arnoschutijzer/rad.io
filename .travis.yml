@@ -3,7 +3,8 @@ node_js:
   - "8"
 script:
   - cd frontend
-  - npm run lint
-  - npm run prod
+  - npm run lint || travis_terminate 1
+  - npm run test || travis_terminate 1
+  - npm run prod || travis_terminate 1
   - cd ../backend
-  - npm run lint
+  - npm run lint || travis_terminate 1
