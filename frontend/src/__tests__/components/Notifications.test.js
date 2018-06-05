@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { keys } from 'underscore';
-import Notifications from './Notifications';
+import Notifications from '../../components/Notifications/Notifications';
 
 const singleNotificationMock = {
   'notification1': {
