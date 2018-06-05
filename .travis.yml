@@ -2,9 +2,10 @@ language: node_js
 node_js:
   - "8"
 script:
+  - set -o errexit
   - cd frontend
-  - npm run lint || travis_terminate 1
-  - npm run test || travis_terminate 1
-  - npm run prod || travis_terminate 1
+  - npm run lint
+  - npm run coveralls
+  - npm run prod
   - cd ../backend
-  - npm run lint || travis_terminate 1
+  - npm run lint

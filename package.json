@@ -2,7 +2,8 @@
   "name": "rad.io",
   "scripts": {
     "preinstall": "echo && echo && echo && echo '> Trying to install in root folder...' && echo && echo && echo",
-    "install": "echo && echo && echo && echo '> Installing child dependencies' && echo && echo && echo && cd frontend && yarn && cd ../backend && yarn"
+    "install": "echo && echo && echo && echo '> Installing child dependencies' && echo && echo && echo && cd frontend && yarn && cd ../backend && yarn",
+    "test": "cd frontend && npm run test && cd ../backend npm run test"
   },
   "repository": {
     "type": "git",
