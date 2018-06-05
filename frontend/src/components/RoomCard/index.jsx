@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { HashRouter, Link } from 'react-router-dom';
 import './style.scss';
 
 export const RoomCard = (props) => {
@@ -14,16 +14,18 @@ export const RoomCard = (props) => {
   }
 
   return (
-    <Link key={ props.room._id } to={ link } className="room" style={ style }>
-      <h2 className="room-title title">
-        { props.room.name }
-      </h2>
-      <div>
-        <p className="description">{ props.room.topic }</p>
-        <p>
+    <HashRouter>
+      <Link key={ props.room._id } to={ link } className="room" style={ style }>
+        <h2 className="room-title title">
+          { props.room.name }
+        </h2>
+        <div>
+          <p className="description">{ props.room.topic }</p>
+          <p>
           created by { props.room.creator.username }
-        </p>
-      </div>
-    </Link>
+          </p>
+        </div>
+      </Link>
+    </HashRouter>
   );
 };
