@@ -1,4 +1,4 @@
-# rad.io
+# rad.io [![Coverage Status](https://coveralls.io/repos/github/arnoschutijzer/rad.io/badge.svg)](https://coveralls.io/github/arnoschutijzer/rad.io)
 
 ## get started
 
