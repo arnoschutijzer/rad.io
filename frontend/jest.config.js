@@ -10,10 +10,10 @@ module.exports = {
     '^components(.*)$': '<rootDir>/src/components$1',
   },
   'testPathIgnorePatterns': [
-    '<rootDir>/src/__tests__/setup'
+    '<rootDir>/__tests__/setup'
   ],
   'setupFiles': [
-    './src/__tests__/setup/enzyme.setup.js',
-    './src/__tests__/setup/browser.setup.js'
+    './__tests__/setup/enzyme.setup.js',
+    './__tests__/setup/browser.setup.js'
   ]
 };

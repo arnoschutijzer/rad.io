@@ -1,4 +1,4 @@
-import '../../../state/selectors/auth';
+import 'state/selectors/messages';
 
 test('placeholder', () => {
   expect(true).toEqual(true);

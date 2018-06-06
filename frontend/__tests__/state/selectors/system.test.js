@@ -1,4 +1,4 @@
-import '../../../state/selectors/rooms';
+import 'state/selectors/system';
 
 test('placeholder', () => {
   expect(true).toEqual(true);

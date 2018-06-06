@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { RoomCard } from '../../components/RoomCard';
+import { RoomCard } from 'components/RoomCard';
 
 const roomMock = {
   _id: 1,

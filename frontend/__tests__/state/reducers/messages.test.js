@@ -1,4 +1,4 @@
-import '../../../state/selectors/messages';
+import 'state/reducers/messages';
 
 test('placeholder', () => {
   expect(true).toEqual(true);

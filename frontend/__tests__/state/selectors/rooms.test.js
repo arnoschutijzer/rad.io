@@ -1,4 +1,4 @@
-import '../../../state/reducers/auth';
+import 'state/selectors/rooms';
 
 test('placeholder', () => {
   expect(true).toEqual(true);
