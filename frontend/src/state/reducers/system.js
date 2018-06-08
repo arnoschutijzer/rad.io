@@ -4,7 +4,9 @@ import {
   FETCH_SYSTEM_STATUS_ERROR
 } from 'state/actions/system';
 
-const initialState = {};
+const initialState = {
+  loading: false
+};
 
 export default (state = initialState, action) => {
   if (action.type === FETCH_SYSTEM_STATUS_REQUEST) {

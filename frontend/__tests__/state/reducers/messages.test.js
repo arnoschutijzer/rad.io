@@ -8,7 +8,7 @@ import {
   LOGOUT
 } from 'state/actions/auth';
 
-describe.only('reducers/messages', () => {
+describe('reducers/messages', () => {
   test('should return initial state', () => {
     const state = reduceMsg(undefined, {});
     expect(state).toEqual([]);
