@@ -9,7 +9,7 @@ export default class extends Component {
             Sorry!
           </h1>
           <p>
-            We're offline for maintenance. Check back again later or ping <a href="https://twitter.com/vleesbrood">me</a>.
+            We're offline for maintenance. Check back again later or ping <a href="https://twitter.com/arnoschutijzer">me</a>.
           </p>
         </div>
       </div>
