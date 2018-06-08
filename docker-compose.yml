@@ -4,17 +4,21 @@ services:
     container_name: rad_api
     restart: always
     build: ./backend
+    env_file:
+      - ./backend/.env
     links:
       - mongo
     ports:
       - "8080:8080"
+    environment:
+      - RADIO_API_KEY=${RADIO_API_KEY}
   
   frontend:
     container_name: rad_frontend
     restart: always
     build: ./frontend
     ports:
-      - "9000:80"
+      - "80:80"
 
 
   mongo:
