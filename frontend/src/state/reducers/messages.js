@@ -17,10 +17,7 @@ export default (state = [], action) => {
   }
 
   if (action.type === RECEIVE_CHATLOG) {
-    return action.payload.map((msg) => {
-      msg.isOld = true;
-      return msg;
-    });
+    return action.payload;
   }
 
   return state;
