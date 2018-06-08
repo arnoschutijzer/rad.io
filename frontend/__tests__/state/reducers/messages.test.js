@@ -86,6 +86,6 @@ describe('reducers/messages', () => {
       payload: messages
     });
 
-    expect(actualState).toEqual([ ...messages ]);
+    expect(actualState).toEqual(messages);
   });
 });
