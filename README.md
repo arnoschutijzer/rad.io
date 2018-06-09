@@ -15,7 +15,7 @@ A React webapp using websockets, jsx, ES6 and Redux communicating with a Node we
 - Follow the steps in `backend/readme.md` and `frontend/readme.md` to get the app running locally first.
 - Create a mongodb server somewhere (MongoDB Atlas, mLabs, ...).
 - Grab the mongodb url and set it as the `DATABASE` property `backend/src/config/settings.js`.
-- Run `now` inside `backend` or deploy backend to wherever.
+- Run `now` inside `backend` or deploy backend to wherever. (you can set environment variables with the `-e` option)
 - Run `now alias <id> <name>` so it's deployed under the right name.
 - Set the `BASE` variable to this value in `frontend/src/config/config.js` if it isn't already.
 - Build the frontend and deploy the `dist`-folder somewhere.

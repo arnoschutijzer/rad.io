@@ -1,16 +1,23 @@
 # rad.io
 
-## important notice
-The backend requires a config file to be filled in, by default the application won't run unless you specify the correct settings in
-a `src/config/settings.js`-file.
-
-A valid [API key for Google](https://console.developers.google.com/apis/dashboard), a JWT secret and a valid MongoDB database address are required. The port on which the server will run is `8080` by default.
-
-There's an example already present. (`backend/config/settings.example.js`)
-
 ## get started
-```
-> yarn
 
-> yarn start:local
+```bash
+# install dependencies
+$ yarn
+
+# start the backend
+$ yarn start:local
 ```
+
+## configuration
+
+A valid [API key for Google](https://console.developers.google.com/apis/dashboard), the server port, a JWT secret and a valid MongoDB database address are required to run the backend.
+These can all be set with environment variables or they will default to their default values:
+
+|        key       |  value                            |
+|------------------|-----------------------------------|
+| `RADIO_PORT`     | `8080`                            |
+| `RADIO_API_KEY`  | n/a                               |
+| `RADIO_DATABASE` | `mongodb://localhost:27017/rad-io`|
+| `RADIO_SECRET`   | `radiossecret`                    |
