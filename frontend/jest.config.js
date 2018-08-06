@@ -9,11 +9,13 @@ module.exports = {
     '^views(.*)$': '<rootDir>/src/views$1',
     '^components(.*)$': '<rootDir>/src/components$1',
   },
-  'testPathIgnorePatterns': [
-    '<rootDir>/__tests__/setup'
-  ],
   'setupFiles': [
     './__tests__/setup/enzyme.setup.js',
     './__tests__/setup/browser.setup.js'
-  ]
+  ],
+  'testPathIgnorePatterns': [
+    '<rootDir>/__tests__/setup'
+  ],
+  // cfr. https://github.com/facebook/jest/issues/6769
+  'testURL': "http://localhost/"
 };
