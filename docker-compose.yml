@@ -6,8 +6,8 @@ services:
     build: ./backend
     env_file:
       - ./backend/.env
-    links:
-      - mongo
+    networks:
+      - rad-net
     ports:
       - "8080:8080"
     environment:
@@ -17,14 +17,17 @@ services:
     container_name: rad_frontend
     restart: always
     build: ./frontend
+    networks:
+      - rad-net
     ports:
       - "80:80"
-
 
   mongo:
     container_name: mongodb
     image: mongo
     restart: always
+    networks:
+      - rad-net
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
@@ -32,3 +35,6 @@ services:
       - ./data:/data/db
     ports:
       - "27017:27017"
+
+networks:
+  rad-net:

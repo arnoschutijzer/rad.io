@@ -1,6 +1,6 @@
 const getConfiguration = () => {
   const RADIO_PORT = process.env.RADIO_PORT || 8080;
-  const RADIO_DATABASE = process.env.RADIO_DATABASE || 'mongodb://localhost:27017/rad-io';
+  const RADIO_DATABASE = process.env.RADIO_DATABASE || 'mongodb://mongodb:27017/rad-io';
   const RADIO_SECRET = process.env.RADIO_SECRET || 'radiossecret';
   const RADIO_API_KEY = process.env.RADIO_API_KEY || '';
   
