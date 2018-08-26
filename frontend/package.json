@@ -4,7 +4,7 @@
   "description": "websockets + react radio",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src --ext .jsx .js",
+    "lint": "eslint src --ext .jsx --ext .js",
     "dev": "npm run clean:dist && starter serve",
     "prod": "npm run clean:dist && starter build",
     "clean:dist": "rm -rf dist",
