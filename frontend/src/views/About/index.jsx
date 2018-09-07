@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { FullHeader, Image, Wrapper } from 'components';
 import roomsImage from './images/rooms.png';
-import roomImage from './images/room.png'
+import roomImage from './images/room.png';
 import playingImage from './images/playing.png';
 
 const WrapperWithPadding = styled(Wrapper)`
@@ -56,17 +56,17 @@ export default class Account extends Component {
             </thead>
             <tbody>
               <tr>
-                <td>{ "/add <url>"}</td>
+                <td>{ '/add <url>' }</td>
                 <td>
                   Adds a url to the playlist. The currently only accepted source is Youtube.
                 </td>
               </tr>
               <tr>
-                <td>{ "/rtv" }</td>
+                <td>{ '/rtv' }</td>
                 <td>Tell the server you want to skip the song, if at least 50% of the people in the current room also rtv, the video is skipped.</td>
               </tr>
               <tr>
-                <td>{ "/connect" }</td>
+                <td>{ '/connect' }</td>
                 <td>Try and reconnect to the server. Use this if you get the 'disconnected' notification.</td>
               </tr>
             </tbody>
