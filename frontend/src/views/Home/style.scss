@@ -2,16 +2,13 @@
 
 .home-header {
   background-image: url('~assets/mic.jpg');
-  background-size: cover;
-
-  height: 100%;
-  width: 100%;
   background-position: center;
 }
 
 .home-header-center {
+  height: 80%;
   padding-top: 20%;
-  margin-left: 20%;
+  margin-left: 10%;
   color: $primary-text-color;
 
   h1 {
