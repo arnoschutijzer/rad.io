@@ -141,25 +141,27 @@ export default class Broadcast extends Component {
 
     return (
       <div className='view'>
-        <div className='playerContainer'>
-          <Youtube
-            videoId={ this.state.currentVideoId }
-            opts={ playerOpts }>
-          </Youtube>
+        <div className="broadcast-container">
+          <div className='playerContainer'>
+            <Youtube
+              videoId={ this.state.currentVideoId }
+              opts={ playerOpts }>
+            </Youtube>
+          </div>
+          <RoomSidebar childrenMap={ childrenMap }>
+            <Chatroom
+              user={ this.props.auth.user }
+              users={ this.state.users }
+              messages={ messagesToDisplay }
+              connect={ this.connect }
+              sendMessage={ this.sendMessage }
+              emitEvent={ this.emitEvent }>
+            </Chatroom>
+            <UserList
+              users={ this.state.users }>
+            </UserList>
+          </RoomSidebar>
         </div>
-        <RoomSidebar childrenMap={ childrenMap }>
-          <Chatroom
-            user={ this.props.auth.user }
-            users={ this.state.users }
-            messages={ messagesToDisplay }
-            connect={ this.connect }
-            sendMessage={ this.sendMessage }
-            emitEvent={ this.emitEvent }>
-          </Chatroom>
-          <UserList
-            users={ this.state.users }>
-          </UserList>
-        </RoomSidebar>
       </div>
     );
   }

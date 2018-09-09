@@ -101,7 +101,6 @@ export default class Chatroom extends Component {
     const Chatroom = styled.div`
       display: flex;
       flex-direction: column;
-      width: 20%;
       height: 100%;
     `;
 
@@ -113,10 +112,19 @@ export default class Chatroom extends Component {
     const MessageBox = styled.div`
       display: flex;
       justify-content: space-around;
+
+      @media (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+      }
     `;
 
     const InputField = styled.input`
       width: 90%;
+
+      @media (max-width: 1000px) {
+        width: auto;
+      }
     `;
 
     return (

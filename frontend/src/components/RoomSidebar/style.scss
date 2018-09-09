@@ -1,5 +1,6 @@
 .room-sidebar {
   height: 100%;
+  width: 30%;
 
   .tabs {
     max-height: 6%;
@@ -16,5 +17,9 @@
   
   .content {
     height: 93%;
+  }
+
+  @media (max-width: 1000px) {
+    width: auto;
   }
 }
