@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 export default class Chatroom extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       message: ''
@@ -37,6 +37,7 @@ export default class Chatroom extends Component {
     }
 
     this.props.sendMessage(this.state.message);
+    this.focusInputField();
   }
 
   handleKeyPress(event) {
@@ -45,16 +46,22 @@ export default class Chatroom extends Component {
     }
   }
 
+  focusInputField () {
+    this.inputField.focus();
+  }
+
   scrollToBottom () {
     this.chatroom.scrollTop = this.chatroom.scrollHeight;
   }
 
   componentDidUpdate() {
     this.scrollToBottom();
+    this.focusInputField();
   }
 
   componentDidMount() {
     this.scrollToBottom();
+    this.focusInputField();
   }
 
   shouldComponentUpdate(nextProps) {
