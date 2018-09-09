@@ -5,7 +5,7 @@
   "main": "./src/server.js",
   "scripts": {
     "lint": "eslint src --ext .js",
-    "start": "node ./src/server.js",
+    "start": "cross-env RADIO_DATABASE=mongodb://localhost:27017/rad-io node ./src/server.js",
     "start:local": "npm run start:db & npm run start",
     "start:db": "mongod",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -37,6 +37,7 @@
     "verbal-expressions": "^0.3.0"
   },
   "devDependencies": {
+    "cross-env": "^5.2.0",
     "eslint": "^5.4.0"
   },
   "engines": {
