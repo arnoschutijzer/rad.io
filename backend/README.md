@@ -6,6 +6,9 @@
 # install dependencies
 $ yarn
 
+# start the database (this will just start the mongod service)
+$ yarn start:db
+
 # start the backend
 $ yarn start:local
 ```
@@ -19,5 +22,5 @@ These can all be set with environment variables or they will default to their de
 |------------------|-----------------------------------|
 | `RADIO_PORT`     | `8080`                            |
 | `RADIO_API_KEY`  | n/a                               |
-| `RADIO_DATABASE` | `mongodb://localhost:27017/rad-io`|
+| `RADIO_DATABASE` | `mongodb://mongodb:27017/rad-io`  |
 | `RADIO_SECRET`   | `radiossecret`                    |
