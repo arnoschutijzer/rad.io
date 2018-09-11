@@ -6,6 +6,8 @@ export default class RoomSidebar extends Component {
   constructor(props) {
     super(props);
     
+    if (!props.children) throw new Error('no children to render!');
+
     const defaultTab = props.children.length > 0 ? props.children[0] : null;
     this.state = {
       activeTab: props.activeTab || defaultTab

@@ -2,11 +2,10 @@ import React from 'react';
 import { mount } from 'enzyme';
 import RoomSidebar from 'components/RoomSidebar';
 
-test('<RoomSidebar /> should mount correctly', () => {
-  const childrenMap = { 'chat': 'Chatroom', 'users': 'users' };
+test('<RoomSidebar /> should throw an error when there are no children', () => {
+  function fn() {
+    mount(<RoomSidebar />);
+  }
 
-  mount(
-    <RoomSidebar childrenMap={ childrenMap }>
-    </RoomSidebar>
-  );
+  expect(fn).toThrow();
 });
