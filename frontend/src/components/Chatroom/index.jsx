@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+const ComponentName = 'Chatroom';
 export default class Chatroom extends Component {
   constructor(props) {
     super(props);
@@ -151,3 +152,4 @@ export default class Chatroom extends Component {
     );
   }
 }
+Chatroom.ComponentName = ComponentName;

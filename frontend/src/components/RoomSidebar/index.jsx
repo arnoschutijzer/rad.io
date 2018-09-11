@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { find } from 'underscore';
+import { find, uniq } from 'underscore';
 
 import './style.scss';
 
@@ -8,7 +8,11 @@ export default class RoomSidebar extends Component {
     super(props);
 
     const children = React.Children.toArray(props.children);
-    if (Object.keys(props.childrenMap).length === 0 && children.length !== 0) {
+    if (
+      !props.childrenMap ||
+      Object.keys(props.childrenMap).length === 0 && children.length !== 0 ||
+      uniq(Object.keys(props.childrenMap)).length !== Object.keys(props.childrenMap).length
+    ) {
       throw new Error('ChildrenMap is invalid');
     }
     const defaultTab = Object.keys(props.childrenMap).length > 0 ? Object.keys(props.childrenMap)[0] : null;
@@ -27,7 +31,7 @@ export default class RoomSidebar extends Component {
 
   getComponent(name) {
     return find(React.Children.toArray(this.props.children), (child) => {
-      return child.type.name === this.state.availableTabs[name];
+      return child.type.ComponentName === this.state.availableTabs[name];
     });
   }
 

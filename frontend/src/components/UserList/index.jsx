@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+const ComponentName = 'UserList';
 export default class UserList extends Component {
   render() {
     const users = this.props.users || [];
@@ -15,3 +16,4 @@ export default class UserList extends Component {
     );
   }
 }
+UserList.ComponentName = ComponentName;

@@ -137,7 +137,7 @@ export default class Broadcast extends Component {
       }
     };
 
-    const childrenMap = { 'chat': Chatroom.name, 'users': UserList.name };
+    const childrenMap = { 'chat': Chatroom.ComponentName, 'users': UserList.ComponentName };
 
     return (
       <div className='view'>
