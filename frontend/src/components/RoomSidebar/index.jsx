@@ -1,72 +1,61 @@
 import React, { Component } from 'react';
-import { find, uniq } from 'underscore';
+import { find } from 'underscore';
 
 import './style.scss';
-
 export default class RoomSidebar extends Component {
   constructor(props) {
     super(props);
-
-    const children = React.Children.toArray(props.children);
-    if (
-      !props.childrenMap ||
-      Object.keys(props.childrenMap).length === 0 && children.length !== 0 ||
-      uniq(Object.keys(props.childrenMap)).length !== Object.keys(props.childrenMap).length
-    ) {
-      throw new Error('ChildrenMap is invalid');
-    }
-    const defaultTab = Object.keys(props.childrenMap).length > 0 ? Object.keys(props.childrenMap)[0] : null;
-
+    
+    const defaultTab = props.children.length > 0 ? props.children[0] : null;
     this.state = {
-      activeTab: props.activeTab || defaultTab,
-      availableTabs: props.childrenMap
+      activeTab: props.activeTab || defaultTab
     };
 
-    this.setActiveTab.bind(this);
-  }
-
-  setActiveTab(name) {
-    this.setState({ activeTab: name });
+    this.setActiveTab = this.setActiveTab.bind(this);
   }
 
   getComponent(name) {
-    return find(React.Children.toArray(this.props.children), (child) => {
-      return child.type.ComponentName === this.state.availableTabs[name];
+    return find(this.props.children, child => {
+      return this.getComponentName(child) === name;
+    });
+  }
+
+  getComponentName(component) {
+    if (!component) return null;
+    return component.type.ComponentName;
+  }
+
+  setActiveTab(component) {
+    this.setState({
+      activeTab: component
     });
   }
 
   render() {
-    const activeComponent = this.getComponent(this.state.activeTab);
-    const children = Object.keys(this.state.availableTabs).map((key) => {
+    const activeTabName = this.getComponentName(this.state.activeTab);
+    const activeTab = this.getComponent(activeTabName);
+
+    const tabs = this.props.children.map(component => {
       return {
-        label: key,
-        type: this.state.availableTabs[key]
+        name: this.getComponentName(component),
+        component: component
       };
-    });
-    const tabs = children.map((child) => {
+    }).map(component => {
       return (
-        <div className="tab" key={ child.label } onClick={() => { this.setActiveTab(child.label); }}>
-          { child.label }
+        <div className="tab" key={ component.name } onClick={ () => this.setActiveTab(component.component) }>
+          { component.name }
         </div>
       );
     });
-    const hasMultipleTabs = tabs.length > 1;
-
-    if (!hasMultipleTabs) {
-      return (
-        <div className="room-sidebar">
-          { activeComponent }
-        </div>
-      );
-    }
-
+    
     return (
       <div className="room-sidebar">
         <div className="tabs">
           { tabs }
         </div>
+
         <div className="content">
-          { activeComponent }
+          { activeTab }
         </div>
       </div>
     );
