@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js",
     "start": "node ./src/server.js",
-    "start:local": "cross-env RADIO_DATABASE=mongodb://localhost:27017 npm run start",
+    "start:local": "cross-env RADIO_DATABASE=mongodb://root:example@localhost:27017 npm run start",
     "start:db": "mongod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
