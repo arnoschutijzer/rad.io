@@ -21,7 +21,6 @@ server.use(cors({
 }));
 server.use(routes.auth);
 server.use(routes.chat);
-server.use(routes.docs);
 server.use(routes.rooms);
 server.use(routes.util);
 
