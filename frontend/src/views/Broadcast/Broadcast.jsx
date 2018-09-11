@@ -137,8 +137,6 @@ export default class Broadcast extends Component {
       }
     };
 
-    const childrenMap = { 'chat': Chatroom.ComponentName, 'users': UserList.ComponentName };
-
     return (
       <div className='view'>
         <div className="broadcast-container">
@@ -148,7 +146,7 @@ export default class Broadcast extends Component {
               opts={ playerOpts }>
             </Youtube>
           </div>
-          <RoomSidebar childrenMap={ childrenMap }>
+          <RoomSidebar>
             <Chatroom
               user={ this.props.auth.user }
               users={ this.state.users }
