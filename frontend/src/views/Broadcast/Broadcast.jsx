@@ -142,7 +142,7 @@ export default class Broadcast extends Component {
     return (
       <div className='view'>
         <div className="broadcast-container">
-          <div className='playerContainer'>
+          <div className='player-container'>
             <Youtube
               videoId={ this.state.currentVideoId }
               opts={ playerOpts }>
