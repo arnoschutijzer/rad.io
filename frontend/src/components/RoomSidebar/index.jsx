@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
-import { find } from 'underscore';
+import { find, isEmpty, some } from 'underscore';
 
 import './style.scss';
 export default class RoomSidebar extends Component {
   constructor(props) {
     super(props);
     
-    if (!props.children) throw new Error('no children to render!');
+    const children = this.getChildren();
+    if (isEmpty(children)) throw new Error('no children to render!');
+    if (some(children, child => !this.getComponentName(child))) {
+      throw new Error('one or more children have no ComponentName');
+    }
 
-    const defaultTab = props.children.length > 0 ? props.children[0] : null;
+    const defaultTab = children.length > 0 ? children[0] : null;
     this.state = {
       activeTab: props.activeTab || defaultTab
     };
@@ -16,8 +20,12 @@ export default class RoomSidebar extends Component {
     this.setActiveTab = this.setActiveTab.bind(this);
   }
 
+  getChildren() {
+    return React.Children.toArray(this.props.children);
+  }
+
   getComponent(name) {
-    return find(this.props.children, child => {
+    return find(this.getChildren(), child => {
       return this.getComponentName(child) === name;
     });
   }
@@ -37,7 +45,7 @@ export default class RoomSidebar extends Component {
     const activeTabName = this.getComponentName(this.state.activeTab);
     const activeTab = this.getComponent(activeTabName);
 
-    const tabs = this.props.children.map(component => {
+    const tabs = this.getChildren().map(component => {
       return {
         name: this.getComponentName(component),
         component: component
