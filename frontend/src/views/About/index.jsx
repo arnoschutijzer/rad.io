@@ -34,7 +34,7 @@ export default class Account extends Component {
             How does it work?
           </h1>
           <p>
-            Remember <a href="https://en.wikipedia.org/wiki/Turntable.fm">turntables.fm</a>? It's kinda like that, but different.
+            Remember <a href="https://en.wikipedia.org/wiki/Turntable.fm">turntable.fm</a>? It's kinda like that, but different.
           </p>
           <p>
             There's rooms:
