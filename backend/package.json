@@ -15,7 +15,7 @@
     "url": "git+https://github.com/arnoschutijzer/rad.io.git"
   },
   "author": "Arno Schutijzer",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/arnoschutijzer/rad.io/issues"
   },
