@@ -11,17 +11,12 @@ export const fetchChatlog = (roomId) => {
   if (!roomId) {
     throw new Error('no roomId specified');
   }
-  return (dispatch, getState) => {
-    return dispatch({
-      type: FETCH_CHATLOG,
-      api: {
-        url: BASE + '/chatlog/' + roomId,
-        method: 'GET',
-        headers: {
-          Authorization: getState().auth.token
-        }
-      }
-    });
+  return {
+    type: FETCH_CHATLOG,
+    api: {
+      url: BASE + '/chatlog/' + roomId,
+      method: 'GET'
+    }
   };
 };
 

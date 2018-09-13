@@ -3,10 +3,21 @@ import { isObject } from 'underscore';
 import request from 'axios';
 import { UNAUTHORIZED } from '../actions/auth';
 import { createNotification } from '../actionCreators/notifications';
+import { selectAuth } from '../selectors/auth';
 
 const apiMiddleware = store => next => action => {
   if (!isObject(action.api)) {
     return next(action);
+  }
+
+  // add token to Authorization header by default
+  const { token } = selectAuth(store.getState());
+  if (token) {
+    action.api = Object.assign({}, action.api, { 
+      headers: {
+        Authorization: token
+      }
+    });
   }
 
   dispatch('REQUEST', { request: action.api });
