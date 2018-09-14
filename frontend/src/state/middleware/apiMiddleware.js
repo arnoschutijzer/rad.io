@@ -4,6 +4,7 @@ import request from 'axios';
 import { UNAUTHORIZED } from '../actions/auth';
 import { createNotification } from '../actionCreators/notifications';
 import { selectAuth } from '../selectors/auth';
+import { ERROR, RESPONSE, REQUEST } from '../utils';
 
 const apiMiddleware = store => next => action => {
   if (!isObject(action.api)) {
@@ -20,10 +21,10 @@ const apiMiddleware = store => next => action => {
     });
   }
 
-  dispatch('REQUEST', { request: action.api });
+  dispatch(REQUEST, { request: action.api });
   return request(action.api)
     .then(response => {
-      dispatch('RESPONSE', { payload: response.data });
+      dispatch(RESPONSE, { payload: response.data });
     }).catch(error => {
       let response = {
         message: 'An error occurred.'
@@ -32,7 +33,7 @@ const apiMiddleware = store => next => action => {
         response = error.response.data;
       }
 
-      dispatch('ERROR', response);
+      dispatch(ERROR, response);
 
       if (error.response && error.response.status === 401) {
         dispatchUnauthorized(response);

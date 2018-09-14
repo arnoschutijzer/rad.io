@@ -1,6 +1,6 @@
 import reduceMsg from 'state/reducers/messages';
 import {
-  RECEIVE_CHATLOG,
+  FETCH_CHATLOG_RESPONSE,
   RECEIVE_CHAT_MESSAGE,
   SEND_CHAT_MESSAGE
 } from 'state/actions/messages';
@@ -11,7 +11,7 @@ import {
 describe('reducers/messages', () => {
   test('should return initial state', () => {
     const state = reduceMsg(undefined, {});
-    expect(state).toEqual([]);
+    expect(state).toEqual({loading: false, messages: []});
   });
 
   test('should append new message to state', () => {
@@ -25,7 +25,7 @@ describe('reducers/messages', () => {
       type: SEND_CHAT_MESSAGE,
       content: message
     });
-    expect(firstState).toEqual([ message ]);
+    expect(firstState).toEqual({ loading: false, messages: [ message ] });
 
     const secondMessage = {
       text: 'hello world',
@@ -37,7 +37,7 @@ describe('reducers/messages', () => {
       type: RECEIVE_CHAT_MESSAGE,
       content: secondMessage
     });
-    expect(secondState).toEqual([ message, secondMessage ]);
+    expect(secondState).toEqual({loading: false, messages: [ message, secondMessage ] });
   });
 
   test('should return initial state when logging out', () => {
@@ -51,12 +51,12 @@ describe('reducers/messages', () => {
       type: RECEIVE_CHAT_MESSAGE,
       content: message
     });
-    expect(state).toEqual([ message ]);
+    expect(state).toEqual({ loading: false, messages: [ message ] });
 
     const actualState = reduceMsg(state, {
       type: LOGOUT
     });
-    expect(actualState).toEqual([]);
+    expect(actualState).toEqual({ loading: false, messages: [] });
   });
 
   test('should replace chatlog in state', () => {
@@ -82,10 +82,10 @@ describe('reducers/messages', () => {
       }
     } ];
     const actualState = reduceMsg(initialState, {
-      type: RECEIVE_CHATLOG,
+      type: FETCH_CHATLOG_RESPONSE,
       payload: messages
     });
 
-    expect(actualState).toEqual(messages);
+    expect(actualState).toEqual({ loading: false, messages: messages });
   });
 });

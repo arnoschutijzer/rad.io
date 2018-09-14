@@ -1,23 +1,29 @@
 import {
   RECEIVE_CHAT_MESSAGE,
   SEND_CHAT_MESSAGE,
-  RECEIVE_CHATLOG
+  FETCH_CHATLOG_RESPONSE
 } from '../actions/messages';
 import { LOGOUT } from '../actions/auth';
 
-export default (state = [], action) => {
+const initialState = {
+  loading: false,
+  messages: []
+};
+
+export default (state = initialState, action) => {
   if (action.type === RECEIVE_CHAT_MESSAGE ||
       action.type === SEND_CHAT_MESSAGE) {
     let newMessage = [ action.content ];
-    return state.concat(newMessage);
+    const newMessages = state.messages.concat(newMessage);
+    return Object.assign({}, state, { messages: newMessages });
   }
 
   if (action.type === LOGOUT) {
-    return [];
+    return initialState;
   }
 
-  if (action.type === RECEIVE_CHATLOG) {
-    return action.payload;
+  if (action.type === FETCH_CHATLOG_RESPONSE) {
+    return Object.assign({}, initialState, { messages: action.payload });
   }
 
   return state;
