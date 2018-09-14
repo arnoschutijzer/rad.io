@@ -6,7 +6,7 @@ import reduceRooms from 'state/reducers/rooms';
 describe('reducers/rooms', () => {
   test('should return initial state', () => {
     const state = reduceRooms(undefined, {});
-    expect(state).toEqual({});
+    expect(state).toEqual({ loading: false, rooms: {} });
   });
 
   test('should map rooms by id', () => {
@@ -24,8 +24,11 @@ describe('reducers/rooms', () => {
       payload: rooms
     });
     expect(state).toEqual({
-      [ firstRoom._id ]: firstRoom,
-      [ secondRoom._id ]: secondRoom
+      loading: false,
+      rooms: {
+        [ firstRoom._id ]: firstRoom,
+        [ secondRoom._id ]: secondRoom
+      }
     });
   });
 });
