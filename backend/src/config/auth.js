@@ -16,11 +16,7 @@ module.exports = (passport) => {
         return done(err, false);
       }
 
-      if (user) {
-        return done(null, user);
-      } else {
-        return done(null, false);
-      }
+      return done(null, user || false);
     });
   }));
 };
