@@ -34,15 +34,14 @@ mongoose.connect(settings.DATABASE, {
   user: 'root',
   pass: 'example'  
 }).then(() => {
-    console.info('> Successfully connected to database');
-  })
-  .catch((error) => {
-    if (error) {
-      console.error(`> Failed connecting to the database on ${settings.DATABASE}`);
-      console.error(error);
-      process.exit(1);
-    }
-  });
+  console.info('> Successfully connected to database');
+}).catch((error) => {
+  if (error) {
+    console.error(`> Failed connecting to the database on ${settings.DATABASE}`);
+    console.error(error);
+    process.exit(1);
+  }
+});
 
 httpServer.listen(settings.PORT, () => {
   console.info('> Started rad.io-backend on port ' + settings.PORT);
