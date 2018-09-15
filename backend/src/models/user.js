@@ -19,13 +19,10 @@ const schema = mongoose.Schema({
 schema.pre('save', function(next) {
   if (this.isModified('password') || this.isNew) {
     this.salt = crypto.randomBytes(10).toString('hex');
-
     this.password = crypto.pbkdf2Sync(this.password, this.salt, 1000, 64, 'sha1')
       .toString('hex');
-    return next();
-  } else {
-    return next();
   }
+  return next();
 });
 
 schema.methods.comparePassword = function(password) {
