@@ -29,8 +29,8 @@ services:
     networks:
       - rad-net
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=example
     volumes:
       - ./data:/data/db
     ports:
