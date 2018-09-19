@@ -17,7 +17,7 @@ const schema = mongoose.Schema({
       type: String
     }
   },
-  creator: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
+  creator: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });
 
 const model = mongoose.model('Room', schema);

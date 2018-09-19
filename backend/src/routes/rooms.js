@@ -3,7 +3,7 @@ const roomsRouter = require('express').Router();
 const Room = require('../models/room');
 const getRandomGradient = require('../helpers/randomGradient');
 
-roomsRouter.post('/room', passport.authenticate('jwt', {session: false}), (req, res) => {
+roomsRouter.post('/room', passport.authenticate('jwt', { session: false }), (req, res) => {
   const room = new Room({
     name: req.body.name,
     topic: req.body.topic,

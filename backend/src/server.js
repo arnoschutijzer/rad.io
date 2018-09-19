@@ -12,7 +12,7 @@ const initializeSocketServer = require('./socket/server.js');
 initializeSocketServer(httpServer);
 
 server.use(bodyparser.json());
-server.use(bodyparser.urlencoded({extended: false}));
+server.use(bodyparser.urlencoded({ extended: false }));
 server.use(cors({
   // Reflect the request origin
   origin: true,

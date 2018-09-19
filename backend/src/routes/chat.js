@@ -2,7 +2,7 @@ const passport = require('passport');
 const messageRouter = require('express').Router();
 const Message = require('../models/message');
 
-messageRouter.get('/chatlog/:roomId', passport.authenticate('jwt', {session: false}),
+messageRouter.get('/chatlog/:roomId', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     if (!req.params.roomId) {
       res.sendStatus(400);

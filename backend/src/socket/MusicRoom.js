@@ -138,7 +138,7 @@ class MusicRoom {
 
     const keys = Object.keys(this.eventBus);
     keys.forEach((key) => {
-      this.eventBus[key].apply(this, [event]);
+      this.eventBus[key].apply(this, [ event ]);
     });
   }
 

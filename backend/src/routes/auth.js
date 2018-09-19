@@ -6,7 +6,7 @@ const settings = require('../config/settings');
 
 authRouter.post('/register', (req, res) => {
   if (!req.body.username || !req.body.password) {
-    res.status(409).json({success: false, message: 'No credentials'});
+    res.status(409).json({ success: false, message: 'No credentials' });
   } else {
     const user = new User({
       username: req.body.username,
@@ -47,7 +47,7 @@ authRouter.post('/login', (req, res) => {
   });
 });
 
-authRouter.get('/profile', passport.authenticate('jwt', {session: false}),
+authRouter.get('/profile', passport.authenticate('jwt', { session: false }),
   (req, res) => {
     User.findOne({
       _id: req.user._id

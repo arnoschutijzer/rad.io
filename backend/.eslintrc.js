@@ -24,6 +24,14 @@ module.exports = {
     'semi': [
       'error',
       'always'
+    ],
+    'object-curly-spacing': [
+      'error',
+      'always'
+    ],
+    'array-bracket-spacing': [
+      'error',
+      'always'
     ]
   }
 };
