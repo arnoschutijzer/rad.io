@@ -20,9 +20,6 @@ module.exports = {
   'rules': {
     'react/jsx-uses-react': 'error',
     'react/jsx-uses-vars': 'error',
-    'object-curly-spacing': [ 2, 'always' ],
-    'array-bracket-spacing': [ 2, 'always' ],
-
     'indent': [
       'error',
       2
@@ -36,6 +33,14 @@ module.exports = {
       'single'
     ],
     'semi': [
+      'error',
+      'always'
+    ],
+    'object-curly-spacing': [
+      'error',
+      'always'
+    ],
+    'array-bracket-spacing': [
       'error',
       'always'
     ]
