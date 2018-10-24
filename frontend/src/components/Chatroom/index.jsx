@@ -13,12 +13,14 @@ export default class Chatroom extends Component {
       message: ''
     };
 
+    this.chatroom = React.createRef();
+    this.inputField = React.createRef();
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
   }
 
   handleMessage() {
-    this.inputField.value = '';
+    this.inputField.current.value = '';
 
     if (this.state.message === '/connect') {
       this.props.connect();
@@ -51,11 +53,11 @@ export default class Chatroom extends Component {
   }
 
   focusInputField () {
-    this.inputField.focus();
+    this.inputField.current.focus();
   }
 
   scrollToBottom () {
-    this.chatroom.scrollTop = this.chatroom.scrollHeight;
+    this.chatroom.current.scrollTop = this.chatroom.current.scrollHeight;
   }
 
   componentDidUpdate() {
@@ -134,13 +136,13 @@ export default class Chatroom extends Component {
     return (
       <Chatroom>
         <h1>Chat</h1>
-        <History innerRef={ (chatroom) => { this.chatroom = chatroom; } }>
+        <History ref={ this.chatroom }>
           { Messages }
         </History>
         <MessageBox>
           <InputField
             type='text'
-            innerRef={ (input) => { this.inputField = input; } }
+            ref={ this.inputField }
             onKeyPress={ this.handleKeyPress }
             onChange={ (event) => {
               this.setState({ message: event.target.value });
