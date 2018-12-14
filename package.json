@@ -4,8 +4,8 @@
     "preinstall": "echo && echo && echo && echo '> Trying to install in root folder...' && echo && echo && echo",
     "install": "echo && echo && echo && echo '> Installing child dependencies' && echo && echo && echo && cd frontend && npm install && cd ../backend && npm install",
     "compile": "cd frontend && npm run prod",
-    "d": "docker-compose build",
-    "up": "docker-compose up -d",
+    "d": "docker-compose -f ./docker/docker-compose.yml build",
+    "up": "cd docker && docker-compose -f ./docker/docker-compose.yml up -d",
     "d:up": "npm run compile && npm run d && npm run up",
     "test": "cd frontend && npm run test && cd ../backend npm run test"
   },
