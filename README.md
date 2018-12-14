@@ -6,8 +6,8 @@
 
 ## pre-requisites
 
-- yarn (`npm install -g yarn`)
-- mongo database
+- node & npm
+- docker
 - google API key
 
 ## deploy
