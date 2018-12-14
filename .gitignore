@@ -41,6 +41,7 @@ dist
 
 # lock files
 package-lock.json
+yarn.lock
 
 # docker volumes
 data
