@@ -2,7 +2,7 @@
   "name": "rad.io",
   "scripts": {
     "preinstall": "echo && echo && echo && echo '> Trying to install in root folder...' && echo && echo && echo",
-    "install": "echo && echo && echo && echo '> Installing child dependencies' && echo && echo && echo && cd frontend && yarn && cd ../backend && yarn",
+    "install": "echo && echo && echo && echo '> Installing child dependencies' && echo && echo && echo && cd frontend && npm install && cd ../backend && npm install",
     "compile": "cd frontend && npm run prod",
     "d": "docker-compose build",
     "up": "docker-compose up -d",

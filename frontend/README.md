@@ -4,13 +4,11 @@
 
 ```bash
 # install dependencies
-$ yarn
+$ npm install
 
 # run dev server with hot-reloading
-$ yarn dev
+$ npm run dev
 
 # create a production bundle
-$ yarn prod
+$ npm run prod
 ```
-
-(if you don't use yarn, swap out `yarn` for `npm run` in commands above)

@@ -4,13 +4,13 @@
 
 ```bash
 # install dependencies
-$ yarn
+$ npm install
 
 # start the database (this will just start the mongod service)
-$ yarn start:db
+$ npm run start:db
 
 # start the backend
-$ yarn start:local
+$ npm run start:local
 ```
 
 ## configuration
