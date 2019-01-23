@@ -24,21 +24,21 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "googleapis": "^34.0.0",
+    "googleapis": "^36.0.0",
     "jsonwebtoken": "^8.2.0",
-    "moment": "^2.21.0",
-    "mongoose": "^5.0.7",
+    "moment": "^2.24.0",
+    "mongoose": "^5.4.6",
     "nodemon": "^1.17.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "socket.io": "^2.0.4",
     "socketio-jwt": "^4.5.0",
     "underscore": "^1.8.3",
-    "verbal-expressions": "^0.3.0"
+    "verbal-expressions": "^1.0.0"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
-    "eslint": "^5.4.0"
+    "eslint": "^5.12.1"
   },
   "engines": {
     "node": ">=8.9.0"
