@@ -30,7 +30,11 @@ auth(passport);
 // we plug in the ES6 Promise instead
 mongoose.Promise = global.Promise;
 
-mongoose.connect(settings.DATABASE).then(() => {
+mongoose.connect(settings.DATABASE, {
+  useNewUrlParser: true,
+  user: settings.DATABASE_USER,
+  pass: settings.DATABASE_PASSWORD
+}).then(() => {
   console.info('> Successfully connected to database');
 }).catch((error) => {
   if (error) {
