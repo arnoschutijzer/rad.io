@@ -45,7 +45,7 @@
     "@babel/preset-react": "^7.0.0-beta.46",
     "@vleesbrood/webpack-starter-cli": "^4.3.0",
     "babel-eslint": "^10.0.1",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.1.0",
     "coveralls": "^3.0.1",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
@@ -53,7 +53,7 @@
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-react": "^7.11.1",
     "identity-obj-proxy": "^3.0.0",
-    "jest": "^23.6.0"
+    "jest": "^24.1.0"
   },
   "engines": {
     "node": ">=8.9.0"
