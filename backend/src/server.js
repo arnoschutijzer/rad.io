@@ -33,7 +33,8 @@ mongoose.Promise = global.Promise;
 mongoose.connect(settings.DATABASE, {
   useNewUrlParser: true,
   user: settings.DATABASE_USER,
-  pass: settings.DATABASE_PASSWORD
+  pass: settings.DATABASE_PASSWORD,
+  auth: { authdb: 'admin' }
 }).then(() => {
   console.info('> Successfully connected to database');
 }).catch((error) => {
