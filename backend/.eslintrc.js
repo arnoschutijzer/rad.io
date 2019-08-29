@@ -8,6 +8,7 @@ module.exports = {
   },
   'extends': 'eslint:recommended',
   'rules': {
+    'no-prototype-builtins': [0],
     'no-console': [0],
     'indent': [
       'error',
