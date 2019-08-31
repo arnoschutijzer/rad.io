@@ -10,7 +10,6 @@ services:
       - "8080:8080"
     environment:
       - RADIO_API_KEY=${RADIO_API_KEY}
-      - RADIO_DATABASE=mongodb://root:example@mongodb:27017/admin
 
   frontend:
     container_name: rad_frontend
