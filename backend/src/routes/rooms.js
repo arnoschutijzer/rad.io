@@ -12,7 +12,9 @@ roomsRouter.post('/room', passport.authenticate('jwt', { session: false }), (req
   });
 
   room.save().then(() => {
-    res.status(200).json(room);
+    return room.populate('creator').execPopulate().then((room) => {
+      res.status(200).json(room);
+    });
   }).catch((err) => {
     res.status(500).json({ err });
   });
