@@ -14,8 +14,8 @@ export default (state = initialState, action) => {
     return Object.assign({}, state, { rooms });
   }
   if (action.type === CREATE_ROOM_RESPONSE) {
-    const rooms = mapRoomsToObject([ action.payload ]);
-    return Object.assign({}, state, { rooms });
+    const mergedRooms = Object.assign({}, state.rooms, mapRoomsToObject([ action.payload ]));
+    return Object.assign({}, state, { rooms: mergedRooms });
   }
 
   return state;
