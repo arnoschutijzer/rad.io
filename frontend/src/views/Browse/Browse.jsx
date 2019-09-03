@@ -10,13 +10,15 @@ export default class Browse extends Component {
       name: '',
       topic: ''
     };
-  }
 
-  componentWillMount() {
     this.props.fetchRooms();
   }
 
   createRoom(name, topic) {
+    if (!name || !topic) {
+      return this.props.createNotification('error', { message: 'Please enter a name and topic' });
+    }
+
     this.props.createRoom(name, topic);
     this.setState({
       name: '',

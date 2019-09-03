@@ -3,6 +3,7 @@ import {
   createRoom,
   fetchRooms
 } from 'state/actionCreators/rooms';
+import { createNotification } from 'state/actionCreators/notifications';
 import { selectRooms } from 'state/selectors/rooms';
 import Browse from './Browse';
 
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  createRoom, fetchRooms
+  createRoom, fetchRooms, createNotification
 };
 
 export default connect(
