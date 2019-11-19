@@ -2,12 +2,12 @@
 
 > A React webapp using websockets, jsx, ES6 and Redux communicating with a Node webserver using mongodb.
 
-![Alt text](.github/screenshot.png?raw=true "Title")
+![Alt text](.github/screenshot.png?raw=true "screenshot of rad.io application")
 
 ## pre-requisites
 
 - node & npm
-- docker
+- docker & docker-compose
 - google API key
 
 ## deploy

@@ -6,11 +6,12 @@
 # install dependencies
 $ npm install
 
-# start the database (this will just start the mongod service)
-$ npm run start:db
+# start the database
+$ cd docker
+$ docker-compose -f docker-compose-db.yml up -d
 
 # start the backend
-$ npm run start:local
+$ npm run dev
 ```
 
 ## configuration

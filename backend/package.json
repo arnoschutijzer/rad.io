@@ -6,8 +6,7 @@
   "scripts": {
     "lint": "eslint src --ext .js",
     "start": "node ./src/server.js",
-    "start:local": "cross-env RADIO_DATABASE=mongodb://localhost:27017/radio?authSource=admin nodemon ./src/server.js",
-    "start:db": "mongod",
+    "dev": "cross-env RADIO_DATABASE=mongodb://localhost:27017/radio?authSource=admin nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
