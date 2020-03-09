@@ -7,7 +7,9 @@
     "lint": "eslint src --ext .js",
     "start": "node ./src/server.js",
     "dev": "cross-env RADIO_DATABASE=mongodb://localhost:27017/radio?authSource=admin nodemon ./src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -33,7 +35,8 @@
     "socket.io": "^2.3.0",
     "socketio-jwt": "^4.5.0",
     "underscore": "^1.8.3",
-    "verbal-expressions": "^1.0.0"
+    "verbal-expressions": "^1.0.0",
+    "snyk": "^1.298.1"
   },
   "devDependencies": {
     "cross-env": "^7.0.0",
@@ -41,5 +44,6 @@
   },
   "engines": {
     "node": ">=12.14.1"
-  }
+  },
+  "snyk": true
 }
