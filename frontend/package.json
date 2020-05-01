@@ -9,7 +9,9 @@
     "prod": "npm run clean:dist && starter build",
     "clean:dist": "rm -rf dist",
     "test": "jest --coverage",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -37,7 +39,8 @@
     "socket.io": "^2.3.0",
     "styled-components": "^5.0.1",
     "underscore": "^1.8.3",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
@@ -57,5 +60,6 @@
   },
   "engines": {
     "node": ">=12.14.1"
-  }
+  },
+  "snyk": true
 }
