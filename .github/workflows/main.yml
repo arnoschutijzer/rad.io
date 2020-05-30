@@ -46,9 +46,6 @@ jobs:
       with:
           node-version: ${{ matrix.node }}
 
-    - name: pre_install
-      run: cd frontend
-
     - name: install
       run: npm install
 
