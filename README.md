@@ -1,4 +1,4 @@
-# rad.io [![Build Status](https://travis-ci.org/arnoschutijzer/rad.io.svg?branch=master)](https://travis-ci.org/arnoschutijzer/rad.io) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Farnoschutijzer%2Frad.io.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Farnoschutijzer%2Frad.io?ref=badge_shield) 
+# rad.io ![CI](https://github.com/arnoschutijzer/rad.io/workflows/CI/badge.svg) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Farnoschutijzer%2Frad.io.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Farnoschutijzer%2Frad.io?ref=badge_shield) 
 
 > A React webapp using websockets, jsx, ES6 and Redux communicating with a Node webserver using mongodb.
 
