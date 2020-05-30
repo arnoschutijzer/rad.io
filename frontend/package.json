@@ -9,7 +9,7 @@
     "prod": "npm run clean:dist && starter build",
     "clean:dist": "rm -rf dist",
     "test": "jest --coverage",
-    "coveralls": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "coveralls": "jest --coverage",
     "snyk-protect": "snyk protect",
     "prepublish": "npm run snyk-protect"
   },
