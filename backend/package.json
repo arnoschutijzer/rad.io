@@ -23,7 +23,7 @@
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.2",
-    "googleapis": "^47.0.0",
+    "googleapis": "^49.0.0",
     "jsonwebtoken": "^8.2.0",
     "moment": "^2.24.0",
     "mongoose": "^5.7.1",
