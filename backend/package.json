@@ -30,7 +30,7 @@
     "nodemon": "^2.0.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^3.0.0",
     "socketio-jwt": "^4.5.0",
     "underscore": "^1.8.3",
     "verbal-expressions": "^1.0.0"
